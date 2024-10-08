@@ -18,8 +18,8 @@
 
                     <!-- NIK Address -->
                     <div class="mb-3" style="margin-bottom: 20px;">
-                        <input id="email" class="form-control text-center" type="text" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="Masukkan Username Anda" style="border-radius: 30px; width: 100%;" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        <input id="nik" class="form-control text-center" type="text" name="nik" :value="old('nik')" required autofocus autocomplete="username" placeholder="Masukkan NIK Anda" style="border-radius: 30px; width: 100%;" />
+                        <x-input-error :messages="$errors->get('nik')" class="mt-2" /> <!-- Ganti referensi kesalahan -->
                     </div>
                     
                     <!-- Password -->

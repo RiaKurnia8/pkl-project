@@ -19,11 +19,11 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+         <!-- nik Address -->
+         <div class="mt-4">
+            <x-input-label for="nik" :value="__('NIK')" /> <!-- Ganti 'Email' dengan 'NIK' -->
+            <x-text-input id="nik" class="block mt-1 w-full" type="text" name="nik" :value="old('nik')" required autocomplete="username" /> <!-- Ganti 'email' dengan 'nik' -->
+            <x-input-error :messages="$errors->get('nik')" class="mt-2" /> <!-- Ganti referensi kesalahan -->
         </div>
 
         <!-- Password -->
