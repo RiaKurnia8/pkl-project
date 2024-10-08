@@ -19,14 +19,17 @@
             </a>
             <div class="collapse" id="collapseMasters" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="{{ url('admin/data barang') }}">
+                    <a class="nav-link" href="{{ url('admin/databarang') }}">
                         <i class="fas fa-folder-plus" style="margin-right: 10px;"></i> Data Barang</a>
-                    <a class="nav-link" href="#">
+
+                    <a class="nav-link" href="{{ url('admin/useradmin') }}">
                         <i class="fas fa-user-plus" style="margin-right: 10px;"></i>User</a>
-                    <a class="nav-link" href="#">
+
+                    <a class="nav-link" href="{{ url('admin/datadisposal') }}">
                         <i class="fas fa-recycle" style="margin-right: 10px;"></i>Data Disposal</a>
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-layer-group" style="margin-right: 10px;"></i>Category</a>
+
+                    <a class="nav-link" href="{{ url('admin/kategori') }}">
+                        <i class="fas fa-layer-group" style="margin-right: 10px;"></i>Kategory</a>
                 </nav>
             </div>
 
@@ -39,26 +42,35 @@
                 List
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
             </a>
+
             <div class="collapse" id="collapseLists" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="#">
+
+                    <a class="nav-link" href="{{ url('admin/peminjaman') }}">
                         <i class="fas fa-pen-to-square" style="margin-right: 10px;"></i>Peminjaman</a>
-                    <a class="nav-link" href="#">
+
+                    <a class="nav-link" href="{{ url('admin/pengembalian') }}">
                         <i class="fas fa-box" style="margin-right: 10px;"></i>Pengembalian</a>
+
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+
                         <i class="fas fa-info-circle" style="margin-right: 8px;"></i> <!-- Ikon Status -->
                         Status
                         <div class="sb-sidenav-collapse-arrow">
                             <i class="fas fa-angle-down"></i> <!-- Ikon Dropdown -->
                         </div>
                     </a>
+
                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">
+
+                            <a class="nav-link" href="{{ url('admin/statuspeminjaman') }}">
                                 <i class="fas fa-pen-to-square" style="margin-right: 10px;"></i>Peminjaman</a>
-                            <a class="nav-link" href="#">
+
+                            <a class="nav-link" href="{{ url('admin/statuspengembalian') }}">
                                 <i class="fas fa-box" style="margin-right: 10px;"></i>Pengembalian</a>
 
                         </nav>
