@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2024 at 03:10 AM
+-- Generation Time: Oct 09, 2024 at 02:39 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -149,8 +149,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('cd43mC05TnmnUPAhaYpXByRRyaBtdCClgRcdCdJf', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiak1XYW5ZcWdVNDFoUEl5eDF6TFZHb0VkR3o4eWkxTmF3WU85VEtURyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1728311935),
-('dun31PoCF9FsxfvRyPg2kGBK83Sgp1RyTlyRsel9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoid0kyc3NoVFYzeFhSbVF3cjJjVmJYVzdUNUpHMlFFY09vZXFjMVozMCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1728348607);
+('cL92jLRsU9vRsXBAJGPgmSBVAOlFvnW5rfYS3AKv', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQk9ENjgwamtPamx3ZjI3ZTNKSXNmZkowa2lsTjlpOXBlaFpZRzVLbSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1728395813);
 
 -- --------------------------------------------------------
 
@@ -161,7 +160,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `nik` varchar(5) NOT NULL,
   `usertype` varchar(255) NOT NULL DEFAULT 'user',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -174,9 +173,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `usertype`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin', NULL, '$2y$12$2./Q4pqs72ImRN.EXUJTHOPgyuSuWZ5ZbkpW7gzNlD1DKsVSpxcuy', NULL, '2024-10-06 20:42:55', '2024-10-06 20:42:55'),
-(2, 'user', 'user@gmail.com', 'user', NULL, '$2y$12$j3CC.4PEdQu2hFt6U3Iffu6I07tu4vcVZhr/ZrJQkU8xXDMpgcI9C', NULL, '2024-10-06 20:43:22', '2024-10-06 20:43:22');
+INSERT INTO `users` (`id`, `name`, `nik`, `usertype`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '08048', 'admin', NULL, '$2y$12$T7068QLXkucZvbRzbhTMLuGW9wrQxS01ttaGddgbAZFUaRM/98.dK', NULL, '2024-10-08 06:53:16', '2024-10-08 06:53:16'),
+(2, 'user', '08049', 'user', NULL, '$2y$12$Tk6FwqgIFRX4s7ZFlXkq6e04EsRldkFrZSWzGeDLtOZc5icnl/Z4y', NULL, '2024-10-08 06:53:48', '2024-10-08 06:53:48');
 
 --
 -- Indexes for dumped tables
@@ -239,7 +238,7 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_nik_unique` (`nik`);
 
 --
 -- AUTO_INCREMENT for dumped tables
