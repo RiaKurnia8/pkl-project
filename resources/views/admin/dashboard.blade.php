@@ -1,6 +1,8 @@
- @extends('layouts.admin')
+@extends('layouts.admin')
 
- @section('content')
+@section('title','Dashboard')
+
+@section('content') 
 
 <h1 class="mt-4">Dashboard</h1>
  <ol class="breadcrumb mb-4">
@@ -28,8 +30,8 @@
 
 <!-- Form Pilih Bulan dan Filter dalam satu baris -->
 <div class="d-flex align-items-center mb-4">
-    <label for="bulan" class="mr-3" style="margin-right: 20px;">Pilih Bulan:</label> <!-- Menambah jarak antara label dan dropdown -->
-    <select class="form-control form-control-sm" id="bulan" style="width: 200px; margin-right: 20px;"> <!-- Jarak antara dropdown dan tombol -->
+    <label for="bulan" class="mr-3" style="margin-right: 8px;">Pilih Bulan:</label> <!-- Menambah jarak antara label dan dropdown -->
+    <select class="form-control-sm mr-2" id="bulan" style="width: 120px; margin-right: 8px;"> <!-- Jarak antara dropdown dan tombol -->
         <option value="semua">Semua Bulan</option>
         <option value="januari">Januari</option>
         <option value="februari">Februari</option>
@@ -50,7 +52,7 @@
 
 <!-- Tombol Ekspor PDF dan Excel -->
 <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-danger btn-sm mr-2">
+    <button class="btn btn-danger btn-sm mr-2" style="margin-right: 5px;">
         <i class="fas fa-file-pdf"></i> PDF
     </button>
     <button class="btn btn-success btn-sm">
@@ -58,9 +60,11 @@
     </button>
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
+<!-- Tabel Data Peminjaman -->
+<div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
+    <table class="table table-striped">
+        <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+            <tr>
             <th>No</th>
             <th>Username</th>
             <th>Barang</th>
