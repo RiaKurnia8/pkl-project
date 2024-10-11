@@ -46,7 +46,7 @@ Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'index'])->name('u
 Route::get('/user/hpengembalian',[HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
 
 Route::get('/user/upeminjaman',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
-Route::get('/user/upengembalian',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
+Route::get('/user/upengembalian',[UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
 
 
 
