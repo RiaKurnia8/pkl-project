@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatusPeminjamanController;
 use App\Http\Controllers\StatusPengembalianController;
 use App\Http\Controllers\UpeminjamanController;
+use App\Http\Controllers\UpengembalianController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,7 @@ Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'index'])->name('u
 Route::get('/user/hpengembalian',[HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
 
 Route::get('/user/upeminjaman',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
-Route::get('/user/upengembalian',[UpeminjamanController::class, 'index'])->name('user.upengembalian.index');
+Route::get('/user/upengembalian',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
 
 
 

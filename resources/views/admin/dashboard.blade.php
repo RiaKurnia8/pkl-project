@@ -5,25 +5,25 @@
 @section('content') 
 
 <h1 class="mt-4">Dashboard</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Dashboard</li>
-</ol>
+ <ol class="breadcrumb mb-4">
+     <li class="breadcrumb-item active">Dashboard</li>
+ </ol>
 
-<div class="row">
+ <div class="row">
     <!-- Jumlah Data Barang -->
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-danger text-white mb-4">
+     <div class="col-xl-3 col-md-6">
+         <div class="card bg-danger text-white mb-4">
             <div class="card-body">
                 <h2 class="mb-2">133</h2>
                 <p>Jumlah Data Barang</p>
             </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
+             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">Baca Selengkapnya</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
+                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+             </div>
+         </div>
+     </div>
+ </div>
 
 <!-- Data Peminjam -->
 <h4>Data Peminjam</h4>
@@ -97,5 +97,5 @@
     </tbody>
 </table>
 
-@endsection
+ @endsection
 
