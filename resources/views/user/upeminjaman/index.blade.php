@@ -1,6 +1,6 @@
 @extends('userlay.user')
 
-@section('title','Pengembalian')
+@section('title','Peminjaman')
 
 
 @section('content')
