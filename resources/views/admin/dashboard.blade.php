@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title','Dashboard')
+
 @section('content')
 
 <h1 class="mt-4">Dashboard</h1>
@@ -58,9 +60,11 @@
     </button>
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
+<!-- Tabel Data Peminjaman -->
+<div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
+    <table class="table table-striped">
+        <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+            <tr>
             <th>No</th>
             <th>Username</th>
             <th>Barang</th>
