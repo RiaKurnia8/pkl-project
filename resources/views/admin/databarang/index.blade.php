@@ -26,9 +26,10 @@
 </div>
 
 <!-- Tabel Data Barang -->
-<table id="dataBarangTable" class="table table-striped">
-    <thead>
-        <tr>
+<div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
+    <table class="table table-striped">
+        <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+            <tr>
             <th>No</th>
             <th>Lokasi</th>
             <th>Barang</th>
@@ -79,7 +80,8 @@
 
 <!-- Tombol Add Data di bagian bawah -->
 <div class="d-flex justify-content-between mt-3">
-    <button class="btn btn-primary">Add Data</button>
+    <button class="btn btn-primary" style="font-size: 16px; padding: 3px 10px;">Add Data</button>
+
     <!-- Pagination dengan nomor halaman di tengah -->
     <nav aria-label="Page navigation">
         <ul class="pagination">

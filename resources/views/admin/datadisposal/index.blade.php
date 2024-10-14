@@ -27,9 +27,10 @@
 
 
 <!-- Tabel Data Disposal -->
-<table id="dataDisposalTable" class="table table-striped">
-    <thead>
-        <tr>
+<div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
+    <table class="table table-striped">
+        <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+            <tr>
             <th>No</th>
             <th>Lokasi</th>
             <th>Barang</th>
