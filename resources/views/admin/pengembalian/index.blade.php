@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>Pengembalian</h1>
+<h1>Data Pengembalian</h1>
 
 <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
 <div class="d-flex justify-content-end mb-3">
