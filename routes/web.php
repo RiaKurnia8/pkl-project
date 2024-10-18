@@ -55,7 +55,19 @@ Route::get('admin/dashboard', [HomeController::class,'index'])->
 middleware(['auth', 'admin']);
 
 //dashboard admin
+//data barang
 Route::get('/admin/databarang', [DataBarangController::class, 'index'])->name('admin.databarang.index');
+Route::get('/admin/databarang/cari', [DataBarangController::class, 'search'])->name('admin.databarang.search');
+Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
+
+Route::get('/admin/databarang/add', [DataBarangController::class, 'create'])->name('admin.databarang.create');
+Route::post('/admin/databarang/add', [DataBarangController::class, 'store'])->name('admin.databarang.store');
+Route::get('/admin/databarang/exportpdf', [DataBarangController::class, 'exportPdf'])->name('admin.databarang.exportPdf');
+
+Route::get('/admin/databarang/{id}', [DataBarangController::class, 'edit'])->name('admin.databarang.edit');
+Route::post('/admin/databarang/{id}', [DataBarangController::class, 'update'])->name('admin.databarang.update');
+Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy'])->name('admin.databarang.destroy');
+
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
@@ -63,6 +75,11 @@ Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('a
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
 Route::get('/admin/statuspeminjaman', [StatusPeminjamanController::class, 'index'])->name('admin.statuspeminjaman.index');
 Route::get('/admin/statuspengembalian', [StatusPengembalianController::class, 'index'])->name('admin.statuspengembalian.index');
+
+// Route::get('/admin/databarang', [DataBarangController::class, 'search'])->name('admin.databarang.search');
+// Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
+
+
 
 
 
