@@ -92,7 +92,18 @@
                         <td>{{ $data->sn }}</td>
                         <td>{{ $data->kelayakan }}</td>
                         {{-- foto --}}
-                        <td><img src="{{ asset('img/'.$data->foto) }}?{{ time() }}" width="40"></td>
+                        {{-- <td><img src="{{ asset('img/'.$data->foto) }}?{{ time() }}" width="40"></td> --}}
+                        {{-- <td>
+                            <img src="{{ asset('img/'.$data->foto) }}" width="100">
+                        </td> --}}
+                        <td>
+                            @if($data->foto)
+                                <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100">
+                            @else
+                                <span>Tidak ada foto</span>
+                            @endif
+                        </td>
+                        
                         <td>{{ $data->status }}</td>
                         <td>
                             {{-- <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning">Edit</a>

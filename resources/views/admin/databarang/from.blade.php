@@ -15,7 +15,7 @@
     </div>
         
     @endif --}}
-        <form action="{{ route('admin.databarang.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.databarang.store') }}" method="POST" enctype="multipart/form-data" >
             @csrf
             <div class="container">
                 <div class="row">
@@ -123,11 +123,29 @@
                             @enderror
                         </div>
 
+                        {{-- <div class="mb-3">
+                            <label for="fotos" class="form-label">Foto</label>
+                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos"
+                                id="fotos">
+                            @error('fotos')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
+                        </div> --}}
                         <div class="mb-3">
-                            <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto"
-                                id="foto">
-                            @error('foto')
+                            <label for="fotos" class="form-label">Foto</label>
+                        
+                            <!-- Tampilkan gambar yang ada -->
+                            @if(isset($databarang->foto) && $databarang->foto)
+                                <div class="mb-2">
+                                    <img src="{{ asset('img/' . $databarang->foto) }}" alt="Foto Barang" width="150" height="150">
+                                </div>
+                            @endif
+                        
+                            <!-- Opsi untuk mengunggah gambar baru -->
+                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos">
+                        
+                            <!-- Pesan error jika ada masalah pada input foto -->
+                            @error('fotos')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>

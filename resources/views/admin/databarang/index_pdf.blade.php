@@ -80,7 +80,9 @@
                         <td>{{ $data->sn }}</td>
                         <td>{{ $data->kelayakan }}</td>
                         {{-- foto --}}
-                        <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="40"></td>
+                        <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100" height="100"></td> 
+                        {{-- <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100"> --}}
+
                         <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach

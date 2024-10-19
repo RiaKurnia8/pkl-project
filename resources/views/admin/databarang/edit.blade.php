@@ -81,6 +81,14 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label for="tipe" class="form-label">Tipe</label>
+                            <input type="text" class="form-control @error('tipe') is-invalid @enderror" name="tipe"
+                                id="tipe" value="{{ $databarang->tipe }}">
+                            @error('tipe')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
+                        </div>
 
 
                         <!-- Tombol Back -->
@@ -92,14 +100,7 @@
                     <!-- Kolom Kedua -->
                     <div class="col-md-6">
 
-                        <div class="mb-3">
-                            <label for="tipe" class="form-label">Tipe</label>
-                            <input type="text" class="form-control @error('tipe') is-invalid @enderror" name="tipe"
-                                id="tipe" value="{{ $databarang->tipe }}">
-                            @error('tipe')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        
 
                         <div class="mb-3">
                             <label for="sn" class="form-label">SN</label>
@@ -123,14 +124,33 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto"
-                                id="foto" value="{{ $databarang->foto }}">
-                            @error('foto')
+                        {{-- <div class="mb-3">
+                            <label for="fotos" class="form-label">Foto</label>
+                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos"
+                                id="fotos">
+                            @error('fotos')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="fotos" class="form-label">Foto</label>
+                        
+                            <!-- Tampilkan gambar yang ada -->
+                            @if(isset($databarang->foto) && $databarang->foto)
+                                <div class="mb-2">
+                                    <img src="{{ asset('img/' . $databarang->foto) }}" alt="Foto Barang" width="150" height="150">
+                                </div>
+                            @endif
+                        
+                            <!-- Opsi untuk mengunggah gambar baru -->
+                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos">
+                        
+                            <!-- Pesan error jika ada masalah pada input foto -->
+                            {{-- @error('fotos')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror --}}
                         </div>
+                        
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>

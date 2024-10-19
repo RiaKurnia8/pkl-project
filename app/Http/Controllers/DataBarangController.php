@@ -7,7 +7,8 @@ use App\Models\DataBarang;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use File;
+// use File;
+use Illuminate\Support\Facades\File;
 
 class DataBarangController extends Controller
 {
@@ -36,7 +37,7 @@ class DataBarangController extends Controller
             'tipe' => 'required',
             'sn' => 'required',
             'kelayakan' => ['required', 'in:layak,tidaklayak'],
-            'foto' => 'required',
+            'fotos' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'status' => ['required', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
@@ -48,20 +49,25 @@ class DataBarangController extends Controller
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
             'kelayakan.required' => 'Kelayakan wajib diisi!!',
-            'foto.required' => 'Foto wajib diisi!!',
+            // 'fotos.required' => 'Foto wajib diisi!!',
             'status.required' => 'Status wajib diisi!!',
         ]);
 
         //foto
-        if ($request->file('foto')) {
-            $file = $request->foto;
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('img'), $filename);
-        }
+        $filename = null;
 
-        $request->merge([
-            'foto' => $filename,
-        ]);
+    // Proses upload foto
+    if ($request->hasFile('fotos')) {
+        $file = $request->file('fotos');
+        $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
+        $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
+    }
+
+    // Merge nama file ke dalam request agar bisa disimpan ke database
+    $request->merge([
+        'foto' => $filename,
+    ]);
+        
 
         //end
 
@@ -99,7 +105,7 @@ class DataBarangController extends Controller
             'tipe' => 'required',
             'sn' => 'required',
             'kelayakan' => ['required', 'in:layak,tidaklayak'],
-            'foto' => 'required',
+            'fotos' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'status' => ['required', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
@@ -111,34 +117,75 @@ class DataBarangController extends Controller
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
             'kelayakan.required' => 'Kelayakan wajib diisi!!',
-            'foto.required' => 'Foto wajib diisi!!',
+            // 'fotos.required' => 'Foto wajib diisi!!',
             'status.required' => 'Status wajib diisi!!',
         ]);
 
-        // update foto
-        //     $databarang = DataBarang::find($id);
+        $databarang = DataBarang::find($id);
 
-        //    if ($request->foto != null && $request->foto != "") {
+        // if ($request->fotos !=null && $request->fotos !="") {
         //     $imagepath = public_path('img/'.$databarang->foto);
-        //     if (File::exists($imagepath)) {
+        //     if(File::exists($imagepath)) {
         //         File::delete($imagepath);
         //     }
 
-        //         $file = $request->foto;
-        //         $filename = time() . '_' . $file->getClientOriginalName();
-        //         $file->move(public_path('img'), $filename);
+        //     $file = $request->file('fotos');
+        //     $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
+        //     $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
 
-        //         $request->merge([
-        //             'foto' => $filename,
-        //         ]);
+        //     $request->merge([
+        //         'foto' => $filename,
+        //     ]);
 
-        //         $databarang->update($request->except('_token', 'foto'));
-        //    }
-        //end
+        //     $databarang->update($request->except('_token', 'fotos'));
+                
+        // }
+         // Cek jika ada file foto yang diupload
+         //baru
+    // if ($request->hasFile('fotos')) {
+    //     // Hapus gambar lama jika ada
+    //     $imagepath = public_path('img/' . $databarang->foto);
+    //     if (File::exists($imagepath)) {
+    //         File::delete($imagepath);
+    //     }
+
+    //     // Upload gambar baru
+    //     $file = $request->file('fotos');
+    //     $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
+    //     $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
+
+    //     // Update nama foto ke dalam request untuk disimpan ke database
+    //     $request->merge(['foto' => $filename]);
+    // }
+
+    // // Update data kecuali token dan file foto asli
+    // $databarang->update($request->except('_token', 'fotos'));
+    
+    //baru lagi
+    // Cek jika ada file foto yang diupload
+    if ($request->hasFile('fotos')) {
+        // Hapus gambar lama jika ada
+        $imagepath = public_path('img/' . $databarang->foto);
+        if (File::exists($imagepath)) {
+            File::delete($imagepath);
+        }
+
+        // Upload gambar baru
+        $file = $request->file('fotos');
+        $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
+        $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
+
+        // Update nama foto ke dalam request untuk disimpan ke database
+        $request->merge(['foto' => $filename]);
+    } else {
+        // Jika tidak ada file foto yang diupload, gunakan foto lama
+        $request->merge(['foto' => $databarang->foto]);
+    }
+
+    // Update data kecuali token dan file foto asli
+    $databarang->update($request->except('_token', 'fotos'));
 
 
-
-        $databarang = DataBarang::find($id);
         $databarang->lokasi = $request->lokasi;
         $databarang->barang = $request->barang;
         $databarang->no_asset = $request->no_asset;
