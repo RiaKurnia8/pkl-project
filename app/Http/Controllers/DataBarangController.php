@@ -82,7 +82,7 @@ class DataBarangController extends Controller
             return redirect()->route('admin.databarang.index')->with('failed', 'Data Barang Gagal dibuat');
         }
 
-        //return redirect()->route('admin.databarang.index')->with('success', 'Data Barang Berhasil dibuat');
+       
     }
 
     //edit
@@ -123,45 +123,6 @@ class DataBarangController extends Controller
 
         $databarang = DataBarang::find($id);
 
-        // if ($request->fotos !=null && $request->fotos !="") {
-        //     $imagepath = public_path('img/'.$databarang->foto);
-        //     if(File::exists($imagepath)) {
-        //         File::delete($imagepath);
-        //     }
-
-        //     $file = $request->file('fotos');
-        //     $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
-        //     $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
-
-        //     $request->merge([
-        //         'foto' => $filename,
-        //     ]);
-
-        //     $databarang->update($request->except('_token', 'fotos'));
-                
-        // }
-         // Cek jika ada file foto yang diupload
-         //baru
-    // if ($request->hasFile('fotos')) {
-    //     // Hapus gambar lama jika ada
-    //     $imagepath = public_path('img/' . $databarang->foto);
-    //     if (File::exists($imagepath)) {
-    //         File::delete($imagepath);
-    //     }
-
-    //     // Upload gambar baru
-    //     $file = $request->file('fotos');
-    //     $filename = time() . '_' . $file->getClientOriginalName(); // Membuat nama file yang unik
-    //     $file->move(public_path('img'), $filename); // Simpan di folder 'public/img'
-
-    //     // Update nama foto ke dalam request untuk disimpan ke database
-    //     $request->merge(['foto' => $filename]);
-    // }
-
-    // // Update data kecuali token dan file foto asli
-    // $databarang->update($request->except('_token', 'fotos'));
-    
-    //baru lagi
     // Cek jika ada file foto yang diupload
     if ($request->hasFile('fotos')) {
         // Hapus gambar lama jika ada

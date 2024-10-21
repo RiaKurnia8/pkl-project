@@ -79,6 +79,16 @@ Route::get('/admin/statuspengembalian', [StatusPengembalianController::class, 'i
 // Route::get('/admin/databarang', [DataBarangController::class, 'search'])->name('admin.databarang.search');
 // Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
 
+//useradmin
+Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
+Route::get('/admin/useradmin/cari', [UserAdminController::class, 'search'])->name('admin.useradmin.search');
+Route::get('/admin/useradmin/create', [UserAdminController::class, 'create'])->name('admin.useradmin.create');
+Route::post('/admin/useradmin/store', [UserAdminController::class, 'store'])->name('admin.useradmin.store');
+Route::get('/admin/useradmin/{id}', [UserAdminController::class, 'edit'])->name('admin.useradmin.edit');
+Route::put('/admin/useradmin/{id}', [UserAdminController::class, 'update'])->name('admin.useradmin.update');
+Route::delete('/admin/useradmin/{id}', [UserAdminController::class, 'destroy'])->name('admin.useradmin.destroy');
+
+
 
 
 
