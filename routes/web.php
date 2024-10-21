@@ -69,7 +69,12 @@ Route::post('/admin/databarang/{id}', [DataBarangController::class, 'update'])->
 Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy'])->name('admin.databarang.destroy');
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
+
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
+Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search'])->name('admin.datadisposal.search');
+Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');
+Route::get('/admin/datadisposal/exportpdf', [DataDisposalController::class, 'exportPdf'])->name('admin.datadisposal.exportPdf');
+
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
 Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman.index');
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');

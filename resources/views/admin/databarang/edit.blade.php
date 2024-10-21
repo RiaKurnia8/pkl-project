@@ -113,25 +113,16 @@
 
                         <div class="mb-3">
                             <label for="kelayakan" class="form-label">Kelayakan</label>
-                            <select class="form-control @error('kelayakan') is-invalid @enderror" name="kelayakan"
-                                id="kelayakan" value="{{ $databarang->kelayakan }}">
+                            <select class="form-control @error('kelayakan') is-invalid @enderror" name="kelayakan" id="kelayakan">
                                 <option value="">-- Pilih Kelayakan --</option>
-                                <option value="layak">Layak</option>
-                                <option value="tidaklayak">Tidak Layak</option>
+                                <option value="layak" {{ $databarang->kelayakan == 'layak' ? 'selected' : '' }}>Layak</option>
+                                <option value="tidaklayak" {{ $databarang->kelayakan == 'tidaklayak' ? 'selected' : '' }}>Tidak Layak</option>
                             </select>
                             @error('kelayakan')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        {{-- <div class="mb-3">
-                            <label for="fotos" class="form-label">Foto</label>
-                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos"
-                                id="fotos">
-                            @error('fotos')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
                         <div class="mb-3">
                             <label for="fotos" class="form-label">Foto</label>
                         
@@ -145,21 +136,16 @@
                             <!-- Opsi untuk mengunggah gambar baru -->
                             <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos">
                         
-                            <!-- Pesan error jika ada masalah pada input foto -->
-                            {{-- @error('fotos')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror --}}
                         </div>
-                        
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
-                            <select class="form-control @error('status') is-invalid @enderror" name="status"
-                                id="status" value="{{ $databarang->status }}">
-                                <option value="">-- Pilih status --</option>
-                                <option value="dipinjam">dipinjam</option>
-                                <option value="kembali">kembali</option>
-                                <option value="dikantor">dikantor</option>
+                            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status">
+                                <option value="">-- Pilih Status --</option>
+                                <option value="dipinjam" {{ $databarang->status == 'dipinjam' ? 'selected' : '' }}>dipinjam</option>
+                                <option value="kembali" {{ $databarang->status == 'kembali' ? 'selected' : '' }}>kembali</option>
+                                <option value="dipinjam" {{ $databarang->status == 'dikantor' ? 'selected' : '' }}>dikantor</option>
+                                
                             </select>
                             @error('status')
                                 <p style="color: red">{{ $message }}</p>
