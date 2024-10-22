@@ -71,6 +71,16 @@ Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy']
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
 
+Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+
+
+
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
 Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search'])->name('admin.datadisposal.search');
 Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');

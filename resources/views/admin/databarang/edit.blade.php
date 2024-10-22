@@ -58,19 +58,19 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="kategori" class="form-label">Kategori</label>
-                            <select class="form-control @error('kategori') is-invalid @enderror" name="kategori"
-                                id="kategori" value="{{ $databarang->kategori }}">
-                                <option value="">-- Pilih Kategori --</option>
-                                <option value="peripheral">Peripheral</option>
-                                <option value="sparepart">Sparepart</option>
-                                <option value="networkpart">Networkpart</option>
-                                <option value="surveilance">Surveilance</option>
-                            </select>
-                            @error('kategori')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        <label for="kategori_id" class="form-label">Kategori</label>
+    <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+        <option value="">-- Pilih Kategori --</option>
+        @foreach($kategoris as $kategori_id)
+            <option value="{{ $kategori_id->id }}" {{ old('kategori_id') == $kategori_id->id ? 'selected' : '' }}>
+                {{ $kategori_id->nama_kategori }}
+            </option>
+        @endforeach
+    </select>
+    @error('kategori_id')
+        <p style="color: red">{{ $message }}</p>
+    @enderror
+</div>
 
                         <div class="mb-3">
                             <label for="merk" class="form-label">Merk</label>
