@@ -41,7 +41,9 @@
 </head>
 
 <body>
-    <h1>Data Barang</h1>
+    
+    <h1 style="display: inline-block;">Data Barang</h1>
+    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
     <!-- Tabel Data Barang -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">

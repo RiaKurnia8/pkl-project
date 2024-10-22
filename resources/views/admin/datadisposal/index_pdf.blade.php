@@ -7,41 +7,65 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        table, td, th {
-          border: 1px solid;
+        table,
+        td,
+        th {
+            border: 1px solid;
         }
-        
+
         table {
-          width: 100%;
-          border-collapse: collapse;
-          table-layout: auto;
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
         }
 
         img {
-          max-width: 100%;
-          height: auto;
+            max-width: 100%;
+            height: auto;
         }
 
         @media print {
             table {
                 page-break-inside: auto;
             }
+
             tr {
                 page-break-inside: avoid;
                 page-break-after: auto;
             }
+
             thead {
                 display: table-header-group;
             }
+
             tfoot {
                 display: table-footer-group;
             }
+
+            /* Show the logo next to Data Disposal title when printing */
+            #logo-print {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 20px;
+            }
+
+            #data-disposal-title {
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
+        /* Hide logo by default on screen */
+        /* #logo-print {
+            display: none;
+        } */
+        
     </style>
 </head>
 
 <body>
-    <h1>Data Disposal</h1>
+
+    <h1 style="display: inline-block;">Data Disposal</h1>
+    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
     <!-- Tabel Data Barang -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
@@ -58,7 +82,7 @@
                     <th>Tipe</th>
                     <th>SN</th>
                     <th>Foto</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +100,8 @@
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>
-                        <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100" height="100"></td> 
+                        <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100"
+                                height="100"></td>
                     </tr>
                 @endforeach
             </tbody>

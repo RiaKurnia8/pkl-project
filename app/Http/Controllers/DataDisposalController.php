@@ -20,14 +20,19 @@ class DataDisposalController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('cari');
-        $datadisposal = DataBarang::where('barang', 'like', "%" . $keyword . "%")
-            ->orWhere('lokasi', 'like', "%" . $keyword . "%")
-            ->orWhere('no_asset', 'like', "%" . $keyword . "%")
-            ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
-            ->orWhere('kategori', 'like', "%" . $keyword . "%")
-            ->orWhere('merk', 'like', "%" . $keyword . "%")
-            ->orWhere('tipe', 'like', "%" . $keyword . "%")
-            ->orWhere('sn', 'like', "%" . $keyword . "%")
+        
+        // Hanya mencari di data dengan kelayakan 'tidak layak'
+        $datadisposal = DataBarang::where('kelayakan', 'tidaklayak')
+            ->where(function($query) use ($keyword) {
+                $query->where('barang', 'like', "%" . $keyword . "%")
+                    ->orWhere('lokasi', 'like', "%" . $keyword . "%")
+                    ->orWhere('no_asset', 'like', "%" . $keyword . "%")
+                    ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
+                    ->orWhere('kategori', 'like', "%" . $keyword . "%")
+                    ->orWhere('merk', 'like', "%" . $keyword . "%")
+                    ->orWhere('tipe', 'like', "%" . $keyword . "%")
+                    ->orWhere('sn', 'like', "%" . $keyword . "%");
+            })
             ->paginate(10);
 
         return view('admin.datadisposal.index', compact('datadisposal'));
@@ -35,7 +40,7 @@ class DataDisposalController extends Controller
 
     public function export()
     {
-        return Excel::download(new DataDisposalExport, 'laporan-data-barang.xlsx');
+        return Excel::download(new DataDisposalExport, 'laporan-data-disposal.xlsx');
     }
 
     public function exportPdf()
@@ -46,6 +51,10 @@ class DataDisposalController extends Controller
 
          // Atur ukuran kertas dan orientasi menjadi landscape
     $pdf->setPaper('A4', 'landscape');
-        return $pdf->download('laporan-data-barang.pdf');
+        return $pdf->download('laporan-data-disposal.pdf');
     }
+
+    
+
+    
 }

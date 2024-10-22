@@ -39,18 +39,12 @@
     </ul> --}}
 
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            
-            <!-- Ikon User -->
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <!-- Ikon User dan Nama Pengguna -->
+            <a class="nav-link" href="#">
                 <i class="fas fa-circle-user"></i>
+                <span>{{ auth()->user()->name }}</span> <!-- Menampilkan nama pengguna -->
             </a>
-            <!-- Dropdown Menu -->
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="#!">Reset Password</a></li>
-                <li><hr class="dropdown-divider" /></li>
-            </ul>
         </li>
         <!-- Tombol Log Out -->
         <li class="nav-item">

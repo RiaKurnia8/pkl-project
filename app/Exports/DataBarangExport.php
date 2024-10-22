@@ -1,5 +1,78 @@
 <?php
 
+// namespace App\Exports;
+
+// use App\Models\DataBarang;
+// use Maatwebsite\Excel\Concerns\FromCollection;
+// use Maatwebsite\Excel\Concerns\WithHeadings;
+// use Maatwebsite\Excel\Concerns\WithMapping;
+// use Maatwebsite\Excel\Concerns\WithStyles;
+// use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+// use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+// use Maatwebsite\Excel\Events\AfterSheet;
+
+// class DataBarangExport implements FromCollection, WithHeadings, WithMapping, WithStyles
+// {
+//     /**
+//     * @return \Illuminate\Support\Collection
+//     */
+
+//     private $nomor = 0;
+
+
+//     public function collection()
+//     {
+//         return DataBarang::all();
+//     }
+
+//     public function headings(): array
+//     {
+//         return [
+//             'No',
+//             'Lokasi',
+//             'Barang',
+//             'No.Asset',
+//             'No.Equipment',
+//             'Kategori',
+//             'Merk',
+//             'Tipe',
+//             'Sn',
+//             'Kelayakan',
+//             'Foto',
+//             'Status',
+//         ];
+//     }
+
+//     //mapping
+//     public function map($databarangs): array
+//     {
+//         return [
+//             ++$this->nomor,
+//             $databarangs->lokasi,
+//             $databarangs->barang,
+//             $databarangs->no_asset,
+//             $databarangs->no_equipment,
+//             $databarangs->kategori,
+//             $databarangs->merk,
+//             $databarangs->tipe,
+//             $databarangs->sn,
+//             $databarangs->kelayakan,
+//             '', // Kosongkan foto dari pemetaan
+//             $databarangs->status,
+//         ];
+//     }
+
+//     public function styles(Worksheet $sheet)
+//     {
+//         return[
+//             1 => ['font' => ['bold' => true], ],
+
+//         ];
+//     }
+  
+// }
+
+
 namespace App\Exports;
 
 use App\Models\DataBarang;
@@ -7,24 +80,14 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
-
-use Maatwebsite\Excel\Concerns\WithEvents; // Tambahkan ini
-use Maatwebsite\Excel\Events\BeforeExport; // Tambahkan ini
-use Maatwebsite\Excel\Events\AfterExport;
-use Maatwebsite\Excel\Events\AfterWriting;
-
+use Maatwebsite\Excel\Concerns\WithEvents;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class DataBarangExport implements FromCollection, WithHeadings, WithMapping, WithStyles
+class DataBarangExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-
     private $nomor = 0;
-
 
     public function collection()
     {
@@ -49,7 +112,7 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
         ];
     }
 
-    //mapping
+    // Pemetaan
     public function map($databarangs): array
     {
         return [
@@ -63,50 +126,52 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $databarangs->tipe,
             $databarangs->sn,
             $databarangs->kelayakan,
-            $databarangs->foto,
+            '', // Kosongkan foto dari pemetaan
             $databarangs->status,
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        return[
+        return [
             1 => ['font' => ['bold' => true], ],
-
         ];
     }
 
-  // Menambahkan gambar ke dalam worksheet
-  public function setImages(Worksheet $sheet)
-  {
-      $row = 2; // Baris awal untuk data (sesuaikan dengan baris header)
-      foreach ($this->collection() as $dataBarang) {
-          if ($dataBarang->foto) {
-              // Mendapatkan path file gambar
-              $path = public_path('img/' . $dataBarang->foto);
-              
-              if (file_exists($path)) {
-                  $drawing = new WorksheetDrawing;
-                  $drawing->setName('Foto ' . $dataBarang->barang);
-                  $drawing->setDescription('Foto ' . $dataBarang->barang);
-                  $drawing->setPath($path); // Path ke file gambar
-                  $drawing->setHeight(80); // Tinggi gambar dalam pixels
-                  $drawing->setCoordinates('K' . $row); // Kolom untuk menyimpan gambar
-                  $drawing->setWorksheet($sheet); // Menambahkan gambar ke worksheet
-              }
-          }
-          $row++;
-      }
-  }
+    public function registerEvents(): array
+    {
+        return [
+            // Tambahkan pendengar acara untuk menyematkan gambar
+            AfterSheet::class => function (AfterSheet $event) {
+                $dataBarangs = $this->collection();
+                $row = 2; // Mulai dari baris kedua (baris pertama adalah heading)
 
-  public function registerEvents(): array
-  {
-      return [
-          BeforeExport::class => function(BeforeExport $event) {
-              $sheet = $event->getWriter()->getDelegate()->getActiveSheet();
-              $this->setImages($sheet); // Panggil setImages pada objek worksheet
-          },
-      ];
-  }
+                foreach ($dataBarangs as $dataBarang) {
+                    if ($dataBarang->foto) {
+                        $drawing = new Drawing();
+                        $drawing->setName('Foto');
+                        $drawing->setDescription('Foto');
+                        $drawing->setPath(public_path('img/' . $dataBarang->foto)); // Atur path ke gambar
+                        $drawing->setWidth(100);
+                        $drawing->setHeight(100); // Atur tinggi (sesuaikan jika perlu)
+                        $drawing->setCoordinates('K' . $row); // Kolom K untuk foto
+                        $drawing->setOffsetX(5);
+                        $drawing->setOffsetY(5);
 
+                        $drawing->setWorksheet($event->sheet->getDelegate());
+
+                        // Mengatur lebar kolom K untuk foto
+                        $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(30); // Sesuaikan lebar kolom
+                        $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight(100); // Mengatur tinggi baris
+                    }
+                    $row++;
+                }
+
+                // Mengatur gaya untuk memusatkan teks
+                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            },
+        ];
+    }
 }
+

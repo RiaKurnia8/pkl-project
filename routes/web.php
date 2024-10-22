@@ -8,6 +8,7 @@ use App\Http\Controllers\HpengembalianController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\ProfilAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatusPeminjamanController;
 use App\Http\Controllers\StatusPengembalianController;
@@ -80,6 +81,7 @@ Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('a
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
 Route::get('/admin/statuspeminjaman', [StatusPeminjamanController::class, 'index'])->name('admin.statuspeminjaman.index');
 Route::get('/admin/statuspengembalian', [StatusPengembalianController::class, 'index'])->name('admin.statuspengembalian.index');
+Route::get('/admin/profiladmin', [ProfilAdminController::class, 'index'])->name('admin.profiladmin.index');
 
 // Route::get('/admin/databarang', [DataBarangController::class, 'search'])->name('admin.databarang.search');
 // Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
