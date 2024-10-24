@@ -31,28 +31,8 @@
              <a href="{{ route('admin.databarang.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
              <a href="{{ route('admin.databarang.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 
-             {{-- import 
-             <form action="">
-                <input type="file" class="form-control @error('filexls') is-invalid @enderror" name="filexls" >
-                @error('filexls')
-                    <p style="color: red;">{{ $message }}</p>
-                @enderror
-                <button class="btn btn-info" type="submit">imp xls</button>
-             </form> --}}
         </div>
     </div>
-    
-    <!-- Tombol Ekspor PDF dan Excel di bawah Search -->
-    {{-- <div class="d-flex justify-content-end">
-        <div class="btn-group">
-            <button class="btn btn-danger btn-sm mr-2">
-                <i class="fas fa-file-pdf"></i> PDF
-            </button>
-            <button class="btn btn-success btn-sm">
-                <i class="fas fa-file-excel"></i> XLS
-            </button>
-        </div>
-    </div> --}}
     
 
     <!-- Tabel Data Barang -->
@@ -116,15 +96,53 @@
 
                             </form>
                         </td>
+                        {{-- <td>
+                <!-- Dropdown Aksi -->
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="aksiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aksi
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="aksiDropdown">
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">Status</a>
+                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                    </div>
+                </div>
+            </td> --}}
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
         <!-- Tombol Add Data di bagian bawah -->
+        {{-- <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary" style="font-size: 16px; padding: 3px 10px;">Add Data</button> --}}
         <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
         {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
 
+        <!-- Pagination dengan nomor halaman di tengah -->
+        {{-- <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <!-- Tombol Previous -->
+                <li class="page-item">
+                    <button class="btn btn-light" aria-label="Previous">
+                        Previous
+                    </button>
+                </li>
+
+                <!-- Nomor Halaman -->
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                <!-- Tombol Next -->
+                <li class="page-item">
+                    <button class="btn btn-light" aria-label="Next">
+                        Next
+                    </button>
+                </li>
+            </ul>
+        </nav> --}}
     </div>
 
 @endsection

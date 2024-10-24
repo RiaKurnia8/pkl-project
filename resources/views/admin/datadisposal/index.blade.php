@@ -7,23 +7,23 @@
 <h1>Data Disposal</h1>
 
 <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-<div class="d-flex justify-content-end mb-3">
-    <div class="d-flex flex-column">
-        <!-- Form Pencarian -->
-        <div class="mb-2">
-            <input type="text" class="form-control-sm" placeholder="Search...">
-        </div>
-        <!-- Tombol Ekspor PDF dan Excel -->
-        <div>
-            <button class="btn btn-danger btn-sm mr-2">
-                <i class="fas fa-file-pdf"></i> PDF
-            </button>
-            <button class="btn btn-success btn-sm">
-                <i class="fas fa-file-excel"></i> XLS
-            </button>
+    <div class="d-flex justify-content-end mb-3">
+        <!-- Bagian Search -->
+        <div class="col-auto">
+            <form action="{{ route('admin.datadisposal.search') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            
+            </form>
+             <a href="{{ route('admin.datadisposal.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
+             <a href="{{ route('admin.datadisposal.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
+
         </div>
     </div>
-</div>
 
 
 <!-- Tabel Data Disposal -->
@@ -41,62 +41,82 @@
             <th>Tipe</th>
             <th>S/N</th>
             <th>Foto</th>
-            <th>Aksi</th>
+            {{-- <th>Aksi</th> --}}
         </tr>
     </thead>
     <tbody>
         <!-- Contoh data disposal (ini akan diganti dengan data dari database) -->
+        @foreach ($datadisposal as $i => $data)
         <tr>
-            <td>1</td>
-            <td>IT Lantai 1</td>
-            <td>Switch</td>
-            <td>300000456-0</td>
-            <td>1200-ICT-0001420</td>
-            <td>Network Part</td>
-            <td>3COM</td>
-            <td>-</td>
-            <td>AA/932FC YR9883E</td>
-            <td><img src="/path/to/image.jpg" alt="Foto" width="50"></td>
+            <th scope="row">{{ $i + 1 + ($datadisposal->currentPage() - 1) * $datadisposal->perPage() }}</th>
+            <td>{{ $data->lokasi }}</td>
+            <td>{{ $data->barang }}</td>
+            <td>{{ $data->no_asset }}</td>
+            <td>{{ $data->no_equipment }}</td>
+            <td>{{ $data->kategori }}</td>
+            <td>{{ $data->merk }}</td>
+            <td>{{ $data->tipe }}</td>
+            <td>{{ $data->sn }}</td>
             <td>
-                <!-- Dropdown Aksi -->
-                <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="aksiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Aksi
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="aksiDropdown">
-                        <a class="dropdown-item" href="#">Edit</a>
-                        <a class="dropdown-item" href="#">Status</a>
-                        <a class="dropdown-item text-danger" href="#">Hapus</a>
-                    </div>
-                </div>
+                @if($data->foto)
+                    <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100">
+                @else
+                    <span>Tidak ada foto</span>
+                @endif
             </td>
+
+            {{-- <td>
+                
+                <form action="{{ route('admin.datadisposal.destroy', $data->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    
+                
+                <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
+
+                </form>
+            </td> --}}
+
         </tr>
-        <!-- Tambahkan baris data lainnya di sini -->
+        @endforeach
     </tbody>
 </table>
-
-<!-- Pagination (tanpa tombol Add) -->
-<div class="d-flex justify-content-end mt-3">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item">
-                <button class="btn btn-light" aria-label="Previous">
-                    Previous
-                </button>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <button class="btn btn-light" aria-label="Next">
-                    Next
-                </button>
-            </li>
-        </ul>
-    </nav>
+{!! $datadisposal->withQueryString()->links('pagination::bootstrap-5') !!}
 </div>
 
 @endsection
+
+<!-- CDN Bootstrap dan jQuery -->
+@section('scripts')
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+
+
+@endsection
+
+@push('css')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/css/toastr.css" rel="stylesheet">
+@endpush
+
+@push('js')
+    <script src="https://code.jquery.com/jquery-3.7.2.min.js"
+        integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
+    {{-- <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 5000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif (Session::has('success'))
+                toastr.success('{{ Session::get('success') }}');
+            @endif
+        });
+    </script> --}}
+@endpush
+

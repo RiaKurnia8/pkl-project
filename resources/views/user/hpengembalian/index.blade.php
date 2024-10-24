@@ -1,18 +1,18 @@
 @extends('userlay.user')
 
-@section('title','Home Pengembalian')
+@section('title','Home pengembalian')
 
 @section('content')
 
-<h1 class="mt-4">Pengembalian Barang</h1>
+<h1 class="mt-4">pengembalian Barang</h1>
 
 <!-- Form Pencarian -->
 <div class="d-flex justify-content-end mb-3">
-    <div class="input-group" style="max-width: 200px;"> <!-- Membatasi lebar input menjadi lebih pendek -->
-        <input type="text" class="form-control" placeholder="Search:" id="searchInput" style="border-radius: 25px 0 0 25px; height: 38px;"> <!-- Mengatur sudut oval dan tinggi input -->
+    <div class="input-group" style="max-width: 200px;">
+        <input type="text" class="form-control" placeholder="Search:" id="searchInput" style="border-radius: 25px 0 0 25px; height: 38px;">
         <div class="input-group-append">
-            <span class="input-group-text" id="search-addon" style="border-radius: 0 25px 25px 0; background-color: #e9ecef; height: 38px;"> <!-- Penyesuaian tinggi -->
-                <i class="fas fa-search" style="font-size: 16px;"></i> <!-- Ukuran ikon pencarian -->
+            <span class="input-group-text" id="search-addon" style="border-radius: 0 25px 25px 0; background-color: #e9ecef; height: 38px;">
+                <i class="fas fa-search" style="font-size: 16px;"></i>
             </span>
         </div>
     </div>
@@ -28,56 +28,37 @@
     </button>
 </div>
 
-<!-- Show Entries -->
-<div class="d-flex justify-content-between align-items-center mb-3"> <!-- Menempatkan Show Entries di atas tabel -->
-    <div>
-        <label for="entries">Show</label>
-        <select id="entries" class="form-control form-control-sm d-inline-block" style="width: auto; margin-left: 5px;">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="-1">All</option>
-        </select>
-        <span class="ml-2">entries</span>
-    </div>
-</div>
-
-<!-- Tabel Data Peminjaman -->
-<div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
+<!-- Tabel Data pengembalian -->
+<div style="padding: 20px; border-radius: 10px;">
     <table class="table table-striped">
-        <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+        <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>
                 <th>NIK</th>
+                <th>Plant</th>
                 <th>Barang</th>
-                <th>Tanggal Kembali</th>
+                <th>Tanggal Pengembalian</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>08072</td>
-                <td>Printer</td>
-                <td>30-05-2024</td>
-                <td>Diterima</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>08090</td>
-                <td>Hard Disk</td>
-                <td>28-05-2024</td>
-                <td>Diterima</td>
-            </tr>
-            <!-- Tambahkan data lainnya sesuai kebutuhan -->
+            @foreach($pengembalians as $index => $pengembalian)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $pengembalian->nik }}</td>
+                    <td>{{ $pengembalian->plant }}</td>
+                    <td>{{ $pengembalian->barang_dipinjam  }}</td>
+                    <td>{{ $pengembalian->tanggal_pengembalian }}</td>
+                    <td>{{ $pengembalian->status }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 
 <!-- Teks Showing Entries -->
-<div class="mb-3 text-right"> <!-- Menempatkan teks showing entries di bawah tabel dan merapikan posisi -->
-    <span>Showing 1 to 2 of 2 entries</span> <!-- Teks showing entries -->
+<div class="mb-3 text-right">
+    <span>Showing {{ $pengembalians->count() }} of {{ $pengembalians->count() }} entries</span>
 </div>
 
 @endsection

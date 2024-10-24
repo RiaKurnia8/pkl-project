@@ -69,7 +69,12 @@ Route::post('/admin/databarang/{id}', [DataBarangController::class, 'update'])->
 Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy'])->name('admin.databarang.destroy');
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
+
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
+Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search'])->name('admin.datadisposal.search');
+Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');
+Route::get('/admin/datadisposal/exportpdf', [DataDisposalController::class, 'exportPdf'])->name('admin.datadisposal.exportPdf');
+
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
 Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman.index');
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
@@ -88,8 +93,30 @@ Route::get('/admin/useradmin/{id}', [UserAdminController::class, 'edit'])->name(
 Route::put('/admin/useradmin/{id}', [UserAdminController::class, 'update'])->name('admin.useradmin.update');
 Route::delete('/admin/useradmin/{id}', [UserAdminController::class, 'destroy'])->name('admin.useradmin.destroy');
 
+//gabungan peminjaman admin user
+Route::get('/admin/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('admin.peminjaman.edit');
+Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
+Route::delete('/admin/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('admin.peminjaman.destroy');
+Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 
+Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form
+Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store'); 
+Route::get('/admin/hpeminjaman', [PeminjamanController::class, 'index'])->name('user.hpeminjaman');
 
+Route::get('/admin/peminjaman/cari', [PeminjamanController::class, 'search'])->name('admin.peminjaman.search');
+Route::get('admin/peminjaman/export/', [PeminjamanController::class, 'export'])->name('admin.peminjaman.xls');
+Route::get('/admin/peminjaman/exportpdf', [PeminjamanController::class, 'exportPdf'])->name('admin.peminjaman.exportPdf');
 
+//gabungan pengembalian admin user
+Route::get('/admin/pengembalian/{id}/edit', [PengembalianController::class, 'edit'])->name('admin.pengembalian.edit');
+Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update'])->name('admin.pengembalian.update');
+Route::delete('/admin/pengembalian/{id}', [PengembalianController::class, 'destroy'])->name('admin.pengembalian.destroy');
+Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update'])->name('admin.pengembalian.update');
 
+Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('pengembalian.index'); // Menampilkan form
+Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store'); 
+Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
 
+Route::get('/admin/pengembalian/cari', [PengembalianController::class, 'search'])->name('admin.pengembalian.search');
+Route::get('admin/pengembalian/export/', [PengembalianController::class, 'export'])->name('admin.pengembalian.xls');
+Route::get('/admin/pengembalian/exportpdf', [PengembalianController::class, 'exportPdf'])->name('admin.pengembalian.exportPdf');

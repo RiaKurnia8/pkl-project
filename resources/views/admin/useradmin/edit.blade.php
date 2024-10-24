@@ -1,26 +1,18 @@
 @extends('layouts.admin')
 @section('title')
-    Tambah User
+    Edit User
+@endsection
 
 @section('content')
     <div>
         <h2 style="text-align: center;">Edit User</h2>
-        {{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-        
-    @endif --}}
+
         <form action="{{ route('admin.useradmin.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="container">
                 <div class="row">
-                    <!-- Kolom Pertama -->
+                    <!-- Kolom Pertama (Nama, NIK, Username, No HP) -->
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
@@ -31,7 +23,6 @@
                             @enderror
                         </div>
 
-                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik"
@@ -52,13 +43,21 @@
 
                         <div class="mb-3">
                             <label for="nomor_hp" class="form-label">No. Hp</label>
-                            <input type="text" class="form-control @error('nomor_hp') is-invalid @enderror"
-                                name="nomor_hp" id="nomor_hp" value="{{ $user->nomor_hp }}">
+                            <input type="text" class="form-control @error('nomor_hp') is-invalid @enderror" name="nomor_hp"
+                                id="nomor_hp" value="{{ $user->nomor_hp }}">
                             @error('nomor_hp')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
 
+                        <!-- Tombol Back berada di bawah inputan No HP -->
+                        <div class="mb-3">
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kedua (Plant, Jenis Kelamin, Password) -->
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="plant" class="form-label">Plant</label>
                             <input type="text" class="form-control @error('plant') is-invalid @enderror"
@@ -71,10 +70,10 @@
                         <div class="mb-3">
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
-                                id="jenis_kelamin" value="{{ $user->jenis_kelamin }}">
+                                id="jenis_kelamin">
                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                <option value="laki-laki">Laki-Laki</option>
-                                <option value="perempuan">Perempuan</option>
+                                <option value="laki-laki" {{ $user->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                <option value="perempuan" {{ $user->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @error('jenis_kelamin')
                                 <p style="color: red">{{ $message }}</p>
@@ -90,16 +89,8 @@
                             @enderror
                         </div>
 
-                        <!-- Tombol Back -->
-                        <div class="mb-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div>
-                    </div>
-
-                        </br>
-                        </br> </br> </br>
-                        <!-- Tombol Submit -->
-                        <div class="mb-3">
+                        <!-- Tombol Submit sejajar dengan tombol Back -->
+                        <div class="mb-12 d-flex justify-content-end" style="margin-top: 95px;">
                             <button type="submit" class="btn btn-danger">Submit</button>
                         </div>
                     </div>
@@ -107,18 +98,10 @@
             </div>
         </form>
     </div>
-
-
 @endsection
 
-
 @section('scripts')
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
-
 @endsection

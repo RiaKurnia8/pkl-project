@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
-            $table->string('nik'); // Kolom NIK user yang mengembalikan
+            $table->string('nik'); // Kolom NIK user yang meminjam
             $table->string('plant'); // Kolom plant
             $table->string('barang_dipinjam'); // Barang yang dipinjam
             $table->date('tanggal_pengembalian'); // Tanggal pengembalian
+            $table->string('status'); 
             $table->timestamps();
         });
     }

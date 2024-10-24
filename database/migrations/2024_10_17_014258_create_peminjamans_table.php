@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('plant'); // Kolom plant
             $table->string('barang_dipinjam'); // Barang yang dipinjam
             $table->date('tanggal_pinjam'); // Tanggal peminjaman
+            $table->string('status'); 
             $table->timestamps();
         });
     }

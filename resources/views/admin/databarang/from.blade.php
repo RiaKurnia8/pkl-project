@@ -136,10 +136,7 @@
                             <!-- Opsi untuk mengunggah gambar baru -->
                             <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos">
                         
-                            <!-- Pesan error jika ada masalah pada input foto -->
-                            @error('fotos')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
+
                         </div>
 
                         <div class="mb-3">

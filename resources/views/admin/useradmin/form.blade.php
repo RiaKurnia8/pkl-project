@@ -23,15 +23,15 @@
             <div class="container">
                 <div class="row">
                     <!-- Kolom Pertama -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nama</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
-                        @error('name')
-                            <p style="color: red">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                            @error('name')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik" value="{{ old('nik') }}">
@@ -55,7 +55,10 @@
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
+                    </div>
 
+                    <!-- Kolom Kedua -->
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="plant" class="form-label">Plant</label>
                             <input type="text" class="form-control @error('plant') is-invalid @enderror" name="plant" id="plant" value="{{ old('plant') }}">
@@ -83,17 +86,17 @@
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <!-- Tombol Back -->
-                        <div class="mb-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div>
                     </div>
                 </div>
-
-                <!-- Tombol Submit -->
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                
+                <!-- Tombol Submit dan Back -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
                 </div>
             </div>
         </form>

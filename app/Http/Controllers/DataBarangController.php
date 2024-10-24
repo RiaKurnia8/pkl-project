@@ -36,9 +36,9 @@ class DataBarangController extends Controller
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
-            'kelayakan' => ['required', 'in:layak,tidaklayak'],
+            'kelayakan' => ['nullable', 'in:layak,tidaklayak'],
             'fotos' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'status' => ['required', 'in:dipinjam,kembali,dikantor'],
+            'status' => ['nullable', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
             'barang.required' => 'Barang wajib diisi!!',
@@ -49,7 +49,7 @@ class DataBarangController extends Controller
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
             'kelayakan.required' => 'Kelayakan wajib diisi!!',
-            // 'fotos.required' => 'Foto wajib diisi!!',
+            'fotos.required' => 'Foto wajib diisi!!',
             'status.required' => 'Status wajib diisi!!',
         ]);
 
@@ -104,9 +104,10 @@ class DataBarangController extends Controller
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
-            'kelayakan' => ['required', 'in:layak,tidaklayak'],
+            // 'kelayakan' => ['required', 'in:layak,tidaklayak'],
+            'kelayakan' => ['nullable', 'in:layak,tidaklayak'],
             'fotos' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'status' => ['required', 'in:dipinjam,kembali,dikantor'],
+            'status' => ['nullable', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
             'barang.required' => 'Barang wajib diisi!!',
@@ -116,9 +117,9 @@ class DataBarangController extends Controller
             'merk.required' => 'Merk wajib diisi!!',
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
-            'kelayakan.required' => 'Kelayakan wajib diisi!!',
+            // 'kelayakan.required' => 'Kelayakan wajib diisi!!',
             // 'fotos.required' => 'Foto wajib diisi!!',
-            'status.required' => 'Status wajib diisi!!',
+            // 'status.required' => 'Status wajib diisi!!',
         ]);
 
         $databarang = DataBarang::find($id);
@@ -143,8 +144,13 @@ class DataBarangController extends Controller
         $request->merge(['foto' => $databarang->foto]);
     }
 
+    // Cek jika kelayakan kosong, ambil nilai lama dari database
+    $kelayakan = $request->input('kelayakan') ?? $databarang->kelayakan;
+
+    //status
+    $status= $request->input('status') ?? $databarang->status;
     // Update data kecuali token dan file foto asli
-    $databarang->update($request->except('_token', 'fotos'));
+    $databarang->update($request->except('_token', 'fotos', 'kelayakan', 'status'));
 
 
         $databarang->lokasi = $request->lokasi;

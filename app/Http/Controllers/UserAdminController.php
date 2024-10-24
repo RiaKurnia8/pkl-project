@@ -102,12 +102,14 @@ class UserAdminController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if ($user) {
-            $user->delete();
-            return redirect()->route('admin.useradmin.index')->with('success', 'User Berhasil dihapus');
+
+        if (!$user ) {
+            return redirect()->route('admin.useradmin.index')->with('error', 'Data user tidak ditemukan.');
         }
 
-        return redirect()->route('admin.useradmin.index')->with('error', 'User Gagal dihapus');
+        $user->delete();
+
+        return redirect()->route('admin.useradmin.index')->with('success', 'Data user berhasil dihapus.');
     }
 
     // Pencarian user
