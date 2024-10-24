@@ -39,7 +39,7 @@
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
             <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
-                <tr>
+                <tr class="text-center">
                     <th>No</th>
                     <th>Lokasi</th>
                     <th>Barang</th>
@@ -52,6 +52,8 @@
                     <th>Kelayakan</th>
                     <th>Foto</th>
                     <th>Status</th>
+                    <th>Tanggal Tambah</th>
+                    <th>Tanggal Edit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -59,23 +61,24 @@
 
                 @foreach ($databarang as $i => $data)
                     <!-- Contoh data barang (ini akan diganti dengan data dari database) -->
-                    <tr>
+                    <tr class="text-center">
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 + ($databarang->currentPage() - 1) * $databarang->perPage() }}</th>
                         <td>{{ $data->lokasi }}</td>
                         <td>{{ $data->barang }}</td>
                         <td>{{ $data->no_asset }}</td>
                         <td>{{ $data->no_equipment }}</td>
-                        <td>{{ $data->kategori_id }}</td>
+                        <td>
+                            @if($data->kategori)
+                                {{ $data->kategori->nama_kategori }}
+                            @else
+                                Kategori tidak ada
+                            @endif
+                        </td>
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>
                         <td>{{ $data->kelayakan }}</td>
-                        {{-- foto --}}
-                        {{-- <td><img src="{{ asset('img/'.$data->foto) }}?{{ time() }}" width="40"></td> --}}
-                        {{-- <td>
-                            <img src="{{ asset('img/'.$data->foto) }}" width="100">
-                        </td> --}}
                         <td>
                             @if($data->foto)
                                 <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100">
@@ -85,6 +88,8 @@
                         </td>
                         
                         <td>{{ $data->status }}</td>
+                        <td>{{ $data->created_at->format('d-m-Y ') }}</td> <!-- Tanggal Tambah -->
+                        <td>{{ $data->updated_at->format('d-m-Y ') }}</td> <!-- Tanggal Edit -->
                         <td>
                             <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
                                 @csrf
@@ -96,20 +101,13 @@
 
                             </form>
                         </td>
-
                     </tr>
                 @endforeach
-
-
-                <!-- Tambahkan baris data lainnya di sini -->
             </tbody>
         </table>
 
-        <!-- Tombol Add Data di bagian bawah -->
-
         <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
         {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
-
 
     </div>
 
@@ -146,5 +144,5 @@
                 toastr.success('{{ Session::get('success') }}');
             @endif
         });
-    </script> --}}
+    </script> --}}
 @endpush

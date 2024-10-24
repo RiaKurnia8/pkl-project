@@ -28,10 +28,13 @@ class DataDisposalController extends Controller
                     ->orWhere('lokasi', 'like', "%" . $keyword . "%")
                     ->orWhere('no_asset', 'like', "%" . $keyword . "%")
                     ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
-                    ->orWhere('kategori', 'like', "%" . $keyword . "%")
+                    //->orWhere('kategori', 'like', "%" . $keyword . "%")
                     ->orWhere('merk', 'like', "%" . $keyword . "%")
                     ->orWhere('tipe', 'like', "%" . $keyword . "%")
-                    ->orWhere('sn', 'like', "%" . $keyword . "%");
+                    ->orWhere('sn', 'like', "%" . $keyword . "%")
+                    ->orWhereHas('kategori', function ($query) use ($keyword) {
+                        $query->where('nama_kategori', 'like', "%" . $keyword . "%");
+                    });
             })
             ->paginate(10);
 

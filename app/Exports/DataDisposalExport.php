@@ -33,7 +33,9 @@ class DataDisposalExport implements FromCollection, WithHeadings, WithMapping, W
             'Merk',
             'Tipe',
             'Sn',
+            'Tanggal Disposal',
             'Foto',
+            
         ];
     }
 
@@ -46,11 +48,12 @@ class DataDisposalExport implements FromCollection, WithHeadings, WithMapping, W
             $databarangs->barang,
             $databarangs->no_asset,
             $databarangs->no_equipment,
-            $databarangs->kategori,
+            $databarangs->kategori->nama_kategori ?? 'Kategori tidak tersedia', // Mengambil nama kategori
             $databarangs->merk,
             $databarangs->tipe,
             $databarangs->sn,
             // Hapus $databarangs->foto dari sini
+            $databarangs->updated_at->format('d-m-Y'),
         ];
     }
 
@@ -77,22 +80,23 @@ class DataDisposalExport implements FromCollection, WithHeadings, WithMapping, W
                         $drawing->setPath(public_path('img/' . $dataBarang->foto)); // Atur path ke gambar
                         $drawing->setWidth(100);
                         $drawing->setHeight(100); // Atur tinggi (sesuaikan jika perlu)
-                        $drawing->setCoordinates('J' . $row); // Kolom J untuk foto
-                        $drawing->setOffsetX(5);
-                        $drawing->setOffsetY(5);
+                        $drawing->setCoordinates('K' . $row); // Kolom J untuk foto
+                        $drawing->setOffsetX(15);
+                        $drawing->setOffsetY(15);
 
                         $drawing->setWorksheet($event->sheet->getDelegate());
 
+                        
                         // Mengatur lebar kolom J untuk foto
-                        $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(30); // Sesuaikan lebar kolom
+                        $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(30); // Sesuaikan lebar kolom
                         $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight(100); // Mengatur tinggi baris
                     }
                     $row++;
                 }
 
                 // Mengatur gaya untuk memusatkan teks
-                $event->sheet->getDelegate()->getStyle('A1:J' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $event->sheet->getDelegate()->getStyle('A1:J' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:K' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:K' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }

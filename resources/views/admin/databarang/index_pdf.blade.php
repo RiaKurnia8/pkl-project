@@ -9,6 +9,8 @@
     <style>
         table, td, th {
           border: 1px solid;
+          text-align: center; /* Pusatkan teks secara horizontal */
+          vertical-align: middle; /* Pusatkan teks secara vertikal */
         }
         
         table {
@@ -76,7 +78,7 @@
                         <td>{{ $data->barang }}</td>
                         <td>{{ $data->no_asset }}</td>
                         <td>{{ $data->no_equipment }}</td>
-                        <td>{{ $data->kategori }}</td>
+                        <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak tersedia' }}</td> <!-- Ambil nama kategori -->
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>

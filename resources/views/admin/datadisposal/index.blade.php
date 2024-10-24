@@ -30,7 +30,7 @@
 <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
     <table class="table table-striped">
         <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
-            <tr>
+            <tr class="text-center">
             <th>No</th>
             <th>Lokasi</th>
             <th>Barang</th>
@@ -41,19 +41,20 @@
             <th>Tipe</th>
             <th>S/N</th>
             <th>Foto</th>
+            <th>Tanggal Disposal</th>
             {{-- <th>Aksi</th> --}}
         </tr>
     </thead>
     <tbody>
         <!-- Contoh data disposal (ini akan diganti dengan data dari database) -->
         @foreach ($datadisposal as $i => $data)
-        <tr>
+        <tr class="text-center">
             <th scope="row">{{ $i + 1 + ($datadisposal->currentPage() - 1) * $datadisposal->perPage() }}</th>
             <td>{{ $data->lokasi }}</td>
             <td>{{ $data->barang }}</td>
             <td>{{ $data->no_asset }}</td>
             <td>{{ $data->no_equipment }}</td>
-            <td>{{ $data->kategori }}</td>
+            <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak tersedia' }}</td> <!-- Ambil nama kategori -->
             <td>{{ $data->merk }}</td>
             <td>{{ $data->tipe }}</td>
             <td>{{ $data->sn }}</td>
@@ -64,18 +65,8 @@
                     <span>Tidak ada foto</span>
                 @endif
             </td>
+            <td>{{ $data->updated_at->format('d-m-Y ') }}</td>
 
-            {{-- <td>
-                
-                <form action="{{ route('admin.datadisposal.destroy', $data->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    
-                
-                <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
-
-                </form>
-            </td> --}}
 
         </tr>
         @endforeach

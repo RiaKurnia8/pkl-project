@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_barangs', function (Blueprint $table) {
+        Schema::create('databarangs', function (Blueprint $table) {
             $table->id();
             $table->string('lokasi');
             $table->string('barang');
             $table->string('no_asset');
             $table->string('no_equipment');
-            $table->enum('kategori', ['peripheral', 'sparepart', 'networkpart', 'surveilance']);
+            $table->foreignId('kategori_id')->constrained('kategoris')->onDelete('cascade');
             $table->string('merk');
             $table->string('tipe');
             $table->string('sn');

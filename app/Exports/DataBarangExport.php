@@ -121,7 +121,7 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $databarangs->barang,
             $databarangs->no_asset,
             $databarangs->no_equipment,
-            $databarangs->kategori,
+            $databarangs->kategori->nama_kategori ?? 'Kategori tidak tersedia', // Mengambil nama kategori
             $databarangs->merk,
             $databarangs->tipe,
             $databarangs->sn,

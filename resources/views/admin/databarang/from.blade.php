@@ -5,17 +5,7 @@
 @section('content')
     <div>
         <h2 style="text-align: center;">Tambah Barang</h2>
-        {{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-        
-    @endif --}}
-        <form action="{{ route('admin.data_barang.store') }}" method="POST" enctype="multipart/form-data" >
+        <form action="{{ route('admin.databarang.store') }}" method="POST" enctype="multipart/form-data" >
             @csrf
             <div class="container">
                 <div class="row">
@@ -58,20 +48,20 @@
                         </div>
 
                         <div class="mb-3">
-    <label for="kategori_id" class="form-label">Kategori</label>
-    <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
-        <option value="">-- Pilih Kategori --</option>
-        @foreach($kategoris as $kategori_id)
-            <option value="{{ $kategori_id->id }}" {{ old('kategori_id') == $kategori_id->id ? 'selected' : '' }}>
-                {{ $kategori_id->nama_kategori }}
-            </option>
-        @endforeach
-    </select>
-    @error('kategori_id')
-        <p style="color: red">{{ $message }}</p>
-    @enderror
-</div>
-
+                            <label for="kategori_id" class="form-label">Kategori</label>
+                            <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach($kategoris as $kategori)
+                                    <option value="{{ $kategori->id }}" 
+                                        {{ old('kategori_id', isset($databarang) ? $databarang->kategori_id : '') == $kategori->id ? 'selected' : '' }}>
+                                        {{ $kategori->nama_kategori }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('kategori_id')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label for="merk" class="form-label">Merk</label>

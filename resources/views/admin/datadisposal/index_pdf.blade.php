@@ -11,6 +11,10 @@
         td,
         th {
             border: 1px solid;
+            text-align: center;
+            /* Pusatkan teks secara horizontal */
+            vertical-align: middle;
+            /* Pusatkan teks secara vertikal */
         }
 
         table {
@@ -54,24 +58,25 @@
                 vertical-align: middle;
             }
         }
+
         /* Hide logo by default on screen */
         /* #logo-print {
             display: none;
         } */
-        
     </style>
 </head>
 
 <body>
 
     <h1 style="display: inline-block;">Data Disposal</h1>
-    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
+    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo"
+        style="float: right; width: 100px; height: auto;">
     <!-- Tabel Data Barang -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
             <thead style="background-color: #dc3545; color: white;">
                 <!-- Mengatur background merah hanya untuk thead -->
-                <tr>
+                <tr class="text-center">
                     <th>No</th>
                     <th>Lokasi</th>
                     <th>Barang</th>
@@ -82,6 +87,7 @@
                     <th>Tipe</th>
                     <th>SN</th>
                     <th>Foto</th>
+                    <th>Tanggal Disposal</th>
 
                 </tr>
             </thead>
@@ -89,19 +95,21 @@
 
                 @foreach ($datadisposal as $i => $data)
                     <!-- Contoh data barang (ini akan diganti dengan data dari database) -->
-                    <tr>
+                    <tr class="text-center">
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->lokasi }}</td>
                         <td>{{ $data->barang }}</td>
                         <td>{{ $data->no_asset }}</td>
                         <td>{{ $data->no_equipment }}</td>
-                        <td>{{ $data->kategori }}</td>
+                        <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak tersedia' }}</td>
+                        <!-- Ambil nama kategori -->
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>
                         <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100"
                                 height="100"></td>
+                        <td>{{ $data->updated_at->format('d-m-Y ') }}</td>
                     </tr>
                 @endforeach
             </tbody>

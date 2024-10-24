@@ -23,7 +23,7 @@ class DataBarangController extends Controller
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('admin.databarang.from');
+        return view('admin.databarang.from', compact('kategoris'));
     }
 
     public function store(Request $request)
@@ -34,7 +34,7 @@ class DataBarangController extends Controller
             'barang' => 'required',
             'no_asset' => 'required',
             'no_equipment' => 'required',
-            'kategori_id' => 'required|exists:kategoris,id', // kategori_id harus ada di tabel kategoris,
+            'kategori_id' => 'nullable|exists:kategoris,id', // kategori_id harus ada di tabel kategoris,
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
@@ -46,7 +46,7 @@ class DataBarangController extends Controller
             'barang.required' => 'Barang wajib diisi!!',
             'no_asset.required' => 'No.Asset wajib diisi!!',
             'no_equipment.required' => 'No.Equipment wajib diisi!!',
-            'kategori.required' => 'Kategori wajib diisi!!',
+            'kategori_id.required' => 'Kategori wajib diisi!!',
             'merk.required' => 'Merk wajib diisi!!',
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
@@ -84,14 +84,15 @@ class DataBarangController extends Controller
             return redirect()->route('admin.databarang.index')->with('failed', 'Data Barang Gagal dibuat');
         }
 
-        //return redirect()->route('admin.databarang.index')->with('success', 'Data Barang Berhasil dibuat');
+       
     }
 
     //edit
     public function edit($id)
     {
         $databarang = DataBarang::find($id);
-        return view('admin.databarang.edit', compact('databarang'));
+        $kategoris = Kategori::all(); // Juga kirim kategori saat edit data
+        return view('admin.databarang.edit', compact('databarang', 'kategoris'));
     }
 
     public function update(Request $request, $id)
@@ -102,7 +103,7 @@ class DataBarangController extends Controller
             'barang' => 'required',
             'no_asset' => 'required',
             'no_equipment' => 'required',
-            'kategori_id' => $request->kategori_id, // Simpan ID kategori
+            'kategori_id' => 'nullable|exists:kategoris,id', // Simpan ID kategori
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
@@ -115,7 +116,7 @@ class DataBarangController extends Controller
             'barang.required' => 'Barang wajib diisi!!',
             'no_asset.required' => 'No.Asset wajib diisi!!',
             'no_equipment.required' => 'No.Equipment wajib diisi!!',
-            'kategori.required' => 'Kategori wajib diisi!!',
+            'kategori_id.required' => 'Kategori wajib diisi!!',
             'merk.required' => 'Merk wajib diisi!!',
             'tipe.required' => 'Tipe wajib diisi!!',
             'sn.required' => 'SN wajib diisi!!',
@@ -159,7 +160,7 @@ class DataBarangController extends Controller
         $databarang->barang = $request->barang;
         $databarang->no_asset = $request->no_asset;
         $databarang->no_equipment = $request->no_equipment;
-        $databarang->kategori = $request->kategori;
+        $databarang->kategori_id = $request->kategori_id;
         $databarang->merk = $request->merk;
         $databarang->tipe = $request->tipe;
         $databarang->sn = $request->sn;
@@ -197,12 +198,15 @@ class DataBarangController extends Controller
             ->orWhere('lokasi', 'like', "%" . $keyword . "%")
             ->orWhere('no_asset', 'like', "%" . $keyword . "%")
             ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
-            ->orWhere('kategori', 'like', "%" . $keyword . "%")
+            // ->orWhere('kategori', 'like', "%" . $keyword . "%")
             ->orWhere('merk', 'like', "%" . $keyword . "%")
             ->orWhere('tipe', 'like', "%" . $keyword . "%")
             ->orWhere('sn', 'like', "%" . $keyword . "%")
             ->orWhere('kelayakan', 'like', "%" . $keyword . "%")
             ->orWhere('status', 'like', "%" . $keyword . "%")
+            ->orWhereHas('kategori', function ($query) use ($keyword) {
+                $query->where('nama_kategori', 'like', "%" . $keyword . "%");
+            })
             ->paginate(10);
 
         return view('admin.databarang.index', compact('databarang'));
@@ -224,5 +228,5 @@ class DataBarangController extends Controller
          // Atur ukuran kertas dan orientasi menjadi landscape
     $pdf->setPaper('A4', 'landscape');
         return $pdf->download('laporan-data-barang.pdf');
-    }
+}
 }

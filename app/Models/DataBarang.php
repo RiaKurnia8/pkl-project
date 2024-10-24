@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataBarang extends Model
 {
     use HasFactory;
-
+    protected $table = 'databarangs'; 
     protected $fillable = [
         'lokasi',
         'barang',
@@ -23,9 +23,10 @@ class DataBarang extends Model
         'status',
     ];
 
-    // Definisikan relasi ke model Kategori
+    // Relasi ke model Kategori (setiap Databarang punya satu Kategori)
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
+        return $this->belongsTo(Kategori::class);
     }
+
 }
