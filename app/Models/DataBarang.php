@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class DataBarang extends Model
 {
     use HasFactory;
-    protected $table = 'data_barangs';
+
     protected $fillable = [
         'lokasi',
         'barang',
         'no_asset',
         'no_equipment',
-        'kategori',
+        'kategori_id', // pastikan kolom ini ada dalam fillable
         'merk',
         'tipe',
         'sn',
@@ -22,11 +22,10 @@ class DataBarang extends Model
         'foto',
         'status',
     ];
-    
-    protected $casts = [
-        'kategori' => 'string',
-        'kelayakan' => 'string',
-        'status' => 'string',
-    ];
-    protected $guarded = ['id'];
+
+    // Definisikan relasi ke model Kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
 }

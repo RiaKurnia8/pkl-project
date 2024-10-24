@@ -66,7 +66,7 @@
                         <td>{{ $data->barang }}</td>
                         <td>{{ $data->no_asset }}</td>
                         <td>{{ $data->no_equipment }}</td>
-                        <td>{{ $data->kategori }}</td>
+                        <td>{{ $data->kategori_id }}</td>
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>

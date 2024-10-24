@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\DataBarangExport;
 use App\Models\DataBarang;
+use App\Models\Kategori;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,6 +22,7 @@ class DataBarangController extends Controller
 
     public function create()
     {
+        $kategoris = Kategori::all();
         return view('admin.databarang.from');
     }
 
@@ -32,7 +34,7 @@ class DataBarangController extends Controller
             'barang' => 'required',
             'no_asset' => 'required',
             'no_equipment' => 'required',
-            'kategori' => ['required', 'in:peripheral,sparepart,networkpart,surveilance'],
+            'kategori_id' => 'required|exists:kategoris,id', // kategori_id harus ada di tabel kategoris,
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
@@ -100,7 +102,7 @@ class DataBarangController extends Controller
             'barang' => 'required',
             'no_asset' => 'required',
             'no_equipment' => 'required',
-            'kategori' => ['required', 'in:peripheral,sparepart,networkpart,surveilance'],
+            'kategori_id' => $request->kategori_id, // Simpan ID kategori
             'merk' => 'required',
             'tipe' => 'required',
             'sn' => 'required',
