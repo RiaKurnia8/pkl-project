@@ -71,12 +71,7 @@ Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy']
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
 
-Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
-Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
 
 
 
@@ -86,7 +81,16 @@ Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search']
 Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');
 Route::get('/admin/datadisposal/exportpdf', [DataDisposalController::class, 'exportPdf'])->name('admin.datadisposal.exportPdf');
 
+//kategori
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
+Route::delete('/admin/kategori/{id}', [KategoriController::class, 'destroy'])->name('admin.kategori.destroy');
+Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
 Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman.index');
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
 Route::get('/admin/statuspeminjaman', [StatusPeminjamanController::class, 'index'])->name('admin.statuspeminjaman.index');

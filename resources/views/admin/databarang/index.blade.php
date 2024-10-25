@@ -90,7 +90,7 @@
                         <td>{{ $data->status }}</td>
                         <td>{{ $data->created_at->format('d-m-Y ') }}</td> <!-- Tanggal Tambah -->
                         <td>{{ $data->updated_at->format('d-m-Y ') }}</td> <!-- Tanggal Edit -->
-                        <td>
+                        {{-- <td>
                             <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -100,63 +100,48 @@
                             <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
 
                             </form>
-                        </td>
-<<<<<<< HEAD
-=======
-                        {{-- <td>
-                <!-- Dropdown Aksi -->
-                <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="aksiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Aksi
+                        </td> --}}
+                         <!-- Tombol Aksi -->
+                <td>
+                    <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> 
+                    </a>
+                    <!-- Tombol Hapus dengan Modal Konfirmasi -->
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
+                        <i class="fas fa-trash"></i> 
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="aksiDropdown">
-                        <a class="dropdown-item" href="#">Edit</a>
-                        <a class="dropdown-item" href="#">Status</a>
-                        <a class="dropdown-item text-danger" href="#">Hapus</a>
+                    
+                    <!-- Modal Konfirmasi Penghapusan -->
+                    <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus data ini? <p><strong>{{ $data->barang }}</strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </td> --}}
->>>>>>> 1095dcb6ed3db5a46d7c6d289e14125b743f9e50
+                </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-<<<<<<< HEAD
         <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
         {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
 
-=======
-        <!-- Tombol Add Data di bagian bawah -->
-        {{-- <div class="d-flex justify-content-between mt-3">
-    <button class="btn btn-primary" style="font-size: 16px; padding: 3px 10px;">Add Data</button> --}}
-        <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
-        {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
-
-        <!-- Pagination dengan nomor halaman di tengah -->
-        {{-- <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <!-- Tombol Previous -->
-                <li class="page-item">
-                    <button class="btn btn-light" aria-label="Previous">
-                        Previous
-                    </button>
-                </li>
-
-                <!-- Nomor Halaman -->
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                <!-- Tombol Next -->
-                <li class="page-item">
-                    <button class="btn btn-light" aria-label="Next">
-                        Next
-                    </button>
-                </li>
-            </ul>
-        </nav> --}}
->>>>>>> 1095dcb6ed3db5a46d7c6d289e14125b743f9e50
     </div>
 
 @endsection
@@ -192,12 +177,5 @@
                 toastr.success('{{ Session::get('success') }}');
             @endif
         });
-<<<<<<< HEAD
     </script> --}}
 @endpush
-=======
-    </script> --}}
-@endpush
-
-
->>>>>>> 1095dcb6ed3db5a46d7c6d289e14125b743f9e50
