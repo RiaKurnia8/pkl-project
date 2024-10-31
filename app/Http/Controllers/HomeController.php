@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataBarang;
 use Illuminate\Http\Request;
 use App\Models\Peminjamans;
 use App\Models\Pengembalians;
-use App\Models\DataBarang;
+//use App\Models\DataBarang;
+
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    // public function index()
+    // {
+    //     return view('admin.dashboard');
+    // }
+    public function index()
     {
         // Hitung jumlah data barang
         $jumlahBarang = DataBarang::count();

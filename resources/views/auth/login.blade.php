@@ -41,9 +41,9 @@
                     <button type="submit" class="btn btn-danger w-100" style="border-radius: 30px; font-weight: bold; font-size: 20px; background-color: #d93025; color: white;">LOGIN</button>
 
                     <!-- Register Link -->
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         Belum punya akun? <a href="{{ route('register') }}" style="color: #d93025; text-decoration: none;">Daftar</a>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
         </div>

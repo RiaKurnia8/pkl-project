@@ -1,78 +1,5 @@
 <?php
 
-// namespace App\Exports;
-
-// use App\Models\DataBarang;
-// use Maatwebsite\Excel\Concerns\FromCollection;
-// use Maatwebsite\Excel\Concerns\WithHeadings;
-// use Maatwebsite\Excel\Concerns\WithMapping;
-// use Maatwebsite\Excel\Concerns\WithStyles;
-// use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-// use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-// use Maatwebsite\Excel\Events\AfterSheet;
-
-// class DataBarangExport implements FromCollection, WithHeadings, WithMapping, WithStyles
-// {
-//     /**
-//     * @return \Illuminate\Support\Collection
-//     */
-
-//     private $nomor = 0;
-
-
-//     public function collection()
-//     {
-//         return DataBarang::all();
-//     }
-
-//     public function headings(): array
-//     {
-//         return [
-//             'No',
-//             'Lokasi',
-//             'Barang',
-//             'No.Asset',
-//             'No.Equipment',
-//             'Kategori',
-//             'Merk',
-//             'Tipe',
-//             'Sn',
-//             'Kelayakan',
-//             'Foto',
-//             'Status',
-//         ];
-//     }
-
-//     //mapping
-//     public function map($databarangs): array
-//     {
-//         return [
-//             ++$this->nomor,
-//             $databarangs->lokasi,
-//             $databarangs->barang,
-//             $databarangs->no_asset,
-//             $databarangs->no_equipment,
-//             $databarangs->kategori,
-//             $databarangs->merk,
-//             $databarangs->tipe,
-//             $databarangs->sn,
-//             $databarangs->kelayakan,
-//             '', // Kosongkan foto dari pemetaan
-//             $databarangs->status,
-//         ];
-//     }
-
-//     public function styles(Worksheet $sheet)
-//     {
-//         return[
-//             1 => ['font' => ['bold' => true], ],
-
-//         ];
-//     }
-  
-// }
-
-
 namespace App\Exports;
 
 use App\Models\DataBarang;
@@ -109,6 +36,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             'Kelayakan',
             'Foto',
             'Status',
+            'Tanggal Tambah',
+            'Tanggal Edit',
         ];
     }
 
@@ -128,6 +57,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $databarangs->kelayakan,
             '', // Kosongkan foto dari pemetaan
             $databarangs->status,
+            $databarangs->created_at->format('d-m-Y'),
+            $databarangs->updated_at->format('d-m-Y'),
         ];
     }
 
@@ -168,8 +99,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
 
                 // Mengatur gaya untuk memusatkan teks
-                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:N' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:N' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }

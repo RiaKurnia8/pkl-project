@@ -64,6 +64,8 @@
                     <th>Kelayakan</th>
                     <th>Foto</th>
                     <th>Status</th>
+                    <th>Tanggal Tambah</th>
+                    <th>Tanggal Edit</th>
                     
                 </tr>
             </thead>
@@ -88,6 +90,8 @@
                         {{-- <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100"> --}}
 
                         <td>{{ $data->status }}</td>
+                        <td>{{ $data->created_at->format('d-m-Y ') }}</td>
+                        <td>{{ $data->updated_at->format('d-m-Y ') }}</td>
                     </tr>
                 @endforeach
             </tbody>

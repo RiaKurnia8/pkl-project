@@ -10,6 +10,7 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ProfilAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilUserController;
 use App\Http\Controllers\StatusPeminjamanController;
 use App\Http\Controllers\StatusPengembalianController;
 use App\Http\Controllers\UpeminjamanController;
@@ -43,12 +44,23 @@ Route::get('/user/dashboard', [UserController::class, 'index'])
     ->name('user.dashboard');
 
 Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'index'])->name('user.hpeminjaman.index');
+Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
+
 
 Route::get('/user/hpengembalian',[HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
+Route::get('/user/hpengembalian',[HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
 
 Route::get('/user/upeminjaman',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
 Route::get('/user/upengembalian',[UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
 
+//profil user
+Route::get('/user/profiluser', [ProfilUserController::class, 'index'])->name('user.profiluser.index');
+Route::get('/user/profile', [ProfilUserController::class, 'edit'])->name('user.profile.edit');
+Route::patch('/user/profile', [ProfilUserController::class, 'update'])->name('user.profile.update');
+Route::get('/user/edit-password', [ProfilUserController::class, 'updatePassword'])->name('user.profile.updatePassword');
+
+// Route to handle the form submission for updating the password
+Route::post('/user/edit-password', [ProfilUserController::class, 'postUpdatePassword'])->name('user.profile.postUpdatePassword');
 
 
 //admin
@@ -96,7 +108,21 @@ Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('a
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
 Route::get('/admin/statuspeminjaman', [StatusPeminjamanController::class, 'index'])->name('admin.statuspeminjaman.index');
 Route::get('/admin/statuspengembalian', [StatusPengembalianController::class, 'index'])->name('admin.statuspengembalian.index');
+
+
+//update profil admin
 Route::get('/admin/profiladmin', [ProfilAdminController::class, 'index'])->name('admin.profiladmin.index');
+Route::get('/admin/profile', [ProfilAdminController::class, 'edit'])->name('profile.edit');
+Route::patch('/admin/profile', [ProfilAdminController::class, 'update'])->name('profile.update');
+//update password
+//Route::get('/admin/ubah-password', [ProfilAdminController::class, 'updatePassword'])->name('profile.updatePassword');
+// Route to display the update password form
+Route::get('/admin/ubah-password', [ProfilAdminController::class, 'updatePassword'])->name('profile.updatePassword');
+
+// Route to handle the form submission for updating the password
+Route::post('/admin/ubah-password', [ProfilAdminController::class, 'postUpdatePassword'])->name('profile.postUpdatePassword');
+// Route untuk memperbarui profil admin
+//Route::patch('/admin/profiladmin', [ProfilAdminController::class, 'update'])->name('admin.profiladmin.update');
 
 // Route::get('/admin/databarang', [DataBarangController::class, 'search'])->name('admin.databarang.search');
 // Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
