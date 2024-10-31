@@ -25,31 +25,6 @@
     </div>
 </div>
 
-<!-- Data Peminjam -->
-<h4>Data Peminjam</h4>
-
-<!-- Form Pilih Bulan dan Filter dalam satu baris -->
-<div class="d-flex align-items-center mb-4">
-    <label for="bulan" class="mr-3" style="margin-right: 8px;">Pilih Bulan:</label> <!-- Menambah jarak antara label dan dropdown -->
-    <select class="form-control-sm mr-2" id="bulan" style="width: 120px; margin-right: 8px;"> <!-- Jarak antara dropdown dan tombol -->
-        <option value="semua">Semua Bulan</option>
-        <option value="januari">Januari</option>
-        <option value="februari">Februari</option>
-        <option value="maret">Maret</option>
-        <option value="april">April</option>
-        <option value="mey">Mei</option>
-        <option value="juni">Juni</option>
-        <option value="juli">Juli</option>
-        <option value="agustus">Agustus</option>
-        <option value="september">September</option>
-        <option value="oktober">Oktober</option>
-        <option value="november">November</option>
-        <option value="desember">Desember</option>
-    </select>
-    <button class="btn btn-primary btn-sm">Filter</button>
-</div>
-
-
 <!-- Tombol Ekspor PDF dan Excel -->
 <div class="d-flex justify-content-end mb-3">
     <button class="btn btn-danger btn-sm mr-2" style="margin-right: 5px;">
@@ -93,5 +68,5 @@
         @endforeach
     </tbody>
 </table>
-
- @endsection
+</div>
+@endsection

@@ -52,8 +52,9 @@ Route::get('/user/upengembalian',[UpengembalianController::class, 'index'])->nam
 
 
 //admin
-Route::get('admin/dashboard', [HomeController::class,'index'])->
-middleware(['auth', 'admin']);
+Route::get('admin/dashboard', [HomeController::class,'index'])
+->middleware(['auth', 'admin'])
+->name('admin.dashboard.index');
 
 //dashboard admin
 //data barang
