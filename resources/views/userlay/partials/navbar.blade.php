@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('profile.updatePassword') }}">
+                    <a class="dropdown-item" href="{{ route('user.profile.updatePassword') }}">
                         Ubah Password
                     </a>
                 </li>

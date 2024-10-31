@@ -36,6 +36,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             'Kelayakan',
             'Foto',
             'Status',
+            'Tanggal Tambah',
+            'Tanggal Edit',
         ];
     }
 
@@ -55,6 +57,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $databarangs->kelayakan,
             '', // Kosongkan foto dari pemetaan
             $databarangs->status,
+            $databarangs->created_at->format('d-m-Y'),
+            $databarangs->updated_at->format('d-m-Y'),
         ];
     }
 
@@ -95,8 +99,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
 
                 // Mengatur gaya untuk memusatkan teks
-                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $event->sheet->getDelegate()->getStyle('A1:L' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:N' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:N' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }

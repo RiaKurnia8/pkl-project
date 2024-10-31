@@ -90,7 +90,7 @@
                         <td>{{ $data->status }}</td>
                         <td>{{ $data->created_at->format('d-m-Y ') }}</td> <!-- Tanggal Tambah -->
                         <td>{{ $data->updated_at->format('d-m-Y ') }}</td> <!-- Tanggal Edit -->
-                        <td>
+                        {{-- <td>
                             <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -100,7 +100,40 @@
                             <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
 
                             </form>
-                        </td>
+                        </td> --}}
+                         <!-- Tombol Aksi -->
+                <td>
+                    <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> 
+                    </a>
+                    <!-- Tombol Hapus dengan Modal Konfirmasi -->
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
+                        <i class="fas fa-trash"></i> 
+                    </button>
+                    
+                    <!-- Modal Konfirmasi Penghapusan -->
+                    <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus data ini? <p><strong>{{ $data->barang }}</strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                     </tr>
                 @endforeach
             </tbody>
