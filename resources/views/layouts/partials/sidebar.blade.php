@@ -53,7 +53,7 @@
                     <a class="nav-link" href="{{ url('admin/pengembalian') }}">
                         <i class="fas fa-box" style="margin-right: 10px;"></i>Pengembalian</a>
 
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
 
                         <i class="fas fa-info-circle" style="margin-right: 8px;"></i> <!-- Ikon Status -->
@@ -61,9 +61,9 @@
                         <div class="sb-sidenav-collapse-arrow">
                             <i class="fas fa-angle-down"></i> <!-- Ikon Dropdown -->
                         </div>
-                    </a>
+                    </a> --}}
 
-                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                    {{-- <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
 
@@ -74,9 +74,18 @@
                                 <i class="fas fa-box" style="margin-right: 10px;"></i>Pengembalian</a>
 
                         </nav>
-                    </div>
+                    </div> --}}
                 </nav>
             </div>
+
+            {{-- Riwayat --}}
+            <div class="sb-sidenav-menu-heading">Riwayat Sampah</div>
+
+            <a class="nav-link" href="#">
+                <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can"></i></div>
+                Riwayat Sampah
+            </a>
+            
         </div>
     </div>
     <div class="sb-sidenav-footer">

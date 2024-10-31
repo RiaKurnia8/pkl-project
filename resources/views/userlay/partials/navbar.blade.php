@@ -39,13 +39,33 @@
     </ul> --}}
 
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item">
+        <li class="nav-item dropdown">
+            <!-- Ikon User dan Nama Pengguna -->
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-circle-user"></i>
+                <span>{{ auth()->user()->name }}</span> <!-- Menampilkan nama pengguna -->
+            </a>
+        
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                <li>
+                    <a class="dropdown-item" href="{{ url('user/profiluser') }}">
+                        Edit Profil
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('profile.updatePassword') }}">
+                        Ubah Password
+                    </a>
+                </li>
+            </ul>
+        </li>
+        {{-- <li class="nav-item">
             <!-- Ikon User dan Nama Pengguna -->
             <a class="nav-link" href="#">
                 <i class="fas fa-circle-user"></i>
                 <span>{{ auth()->user()->name }}</span> <!-- Menampilkan nama pengguna -->
             </a>
-        </li>
+        </li> --}}
         <!-- Tombol Log Out -->
         <li class="nav-item">
             <form method="POST" action="{{ route('logout') }}">

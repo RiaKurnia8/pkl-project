@@ -11,19 +11,19 @@
 
  <div class="row">
     <!-- Jumlah Data Barang -->
-     <div class="col-xl-3 col-md-6">
-         <div class="card bg-danger text-white mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
             <div class="card-body">
-                <h2 class="mb-2">133</h2>
+                <h2 class="mb-2">{{ $totalDataBarang }}</h2> <!-- Menampilkan jumlah data barang -->
                 <p>Jumlah Data Barang</p>
             </div>
-             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">Baca Selengkapnya</a>
-                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-             </div>
-         </div>
-     </div>
- </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('admin.databarang.index') }}">Baca Selengkapnya</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Data Peminjam -->
 <h4>Data Peminjam</h4>
@@ -96,6 +96,7 @@
         <!-- Tambahkan data lainnya sesuai kebutuhan -->
     </tbody>
 </table>
+</div>
 
  @endsection
 

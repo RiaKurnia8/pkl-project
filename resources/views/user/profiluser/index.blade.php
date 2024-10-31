@@ -1,7 +1,99 @@
+@extends('userlay.user')
 
-@extends('layouts.admin')
+{{-- @section('title','Profil User')
 
-@section('title', 'Profil Admin')
+@section('content')
+
+<h1>Profil User</h1>
+<section>
+
+
+    <!-- Form untuk update profile -->
+    <form method="POST" action="#" class="mt-6 space-y-6">
+        @csrf
+        @method('PATCH')
+
+        <!-- Input NIK -->
+        <div>
+            <label for="nik" class="block text-sm font-medium text-gray-700">{{ __('NIK') }}</label>
+            <input id="nik" name="nik" type="text" class="mt-1 block w-full" value="{{ old('nik', auth()->user()->nik) }}" readonly>
+            @error('nik')
+                <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Input Nama -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Nama</label>
+            <input id="name" name="name" type="text" class="mt-1 block w-full" value="{{ old('name', auth()->user()->name) }}" required>
+            @error('name')
+                <p style="color: red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Input Username -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" name="username" type="text" class="mt-1 block w-full" value="{{ old('username', auth()->user()->username) }}" required>
+            @error('username')
+                <p style="color: red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Input Nomor HP -->
+       <div class="mb-3">
+        <label for="nomor_hp" class="form-label">No. HP</label>
+            <input id="nomor_hp" name="nomor_hp" type="text" class="mt-1 block w-full" value="{{ old('nomor_hp', auth()->user()->nomor_hp) }}" required>
+            @error('nomor_hp')
+                <p style="color: red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Input Plant -->
+        <div class="mb-3">
+            <label for="plant" class="form-label">Plant</label>
+            <input id="plant" name="plant" type="text" class="mt-1 block w-full" value="{{ old('plant', auth()->user()->plant) }}" required>
+            @error('plant')
+            <p style="color: red">{{ $message }}</p>
+        @enderror
+        </div>
+
+        <!-- Input Jenis Kelamin -->
+        <div class="mb-3">
+            <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700">{{ __('Jenis Kelamin') }}</label>
+            <select id="jenis_kelamin" name="jenis_kelamin" class="mt-1 block w-full" required>
+                <option value="Laki-laki" {{ old('jenis_kelamin', auth()->user()->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                <option value="Perempuan" {{ old('jenis_kelamin', auth()->user()->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+            </select>
+            @error('jenis_kelamin')
+            <p style="color: red">{{ $message }}</p>
+            @enderror
+        </div>
+
+<!-- Tombol Simpan -->
+<div class="flex items-center gap-4">
+    <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+</div>
+
+</form>
+</section>
+
+<!-- SweetAlert popup jika profil berhasil diperbarui -->
+@if (session('status') === 'profile-updated')
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Profil berhasil diperbarui!',
+    text: 'Informasi profil Anda telah diperbarui.',
+    confirmButtonText: 'OK',
+    timer: 3000,
+});
+</script>
+@endif
+
+@endsection --}}
+@section('title', 'Profil User')
 
 @section('content')
 

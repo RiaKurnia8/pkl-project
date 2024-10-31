@@ -25,6 +25,7 @@ class UserAdminController extends Controller
         $validated = $request->validate([
             'name' => 'required',  // Validasi untuk kolom name
             'nik' => 'required',
+            'usertype' => 'required',
             'username' => 'required',
             'nomor_hp' => 'required',
             'plant' => 'required',
@@ -33,6 +34,7 @@ class UserAdminController extends Controller
         ], [
             'name.required' => 'Nama wajib diisi!!',  // Pesan untuk kolom name
             'nik.required' => 'NIK wajib diisi!!',
+            'usertype.required' => 'Usertype wajib diisi!!',
             'username.required' => 'Username wajib diisi!!',
             'nomor_hp.required' => 'No.Hp wajib diisi!!',
             'plant.required' => 'Plant wajib diisi!!',
@@ -64,6 +66,7 @@ class UserAdminController extends Controller
         $validated = $request->validate([
             'name' => 'required',  // Validasi untuk kolom name'
             'nik' => 'required',
+            'usertype' => 'required',
             'username' => 'required',
             'nomor_hp' => 'required',
             'plant' => 'required',
@@ -72,6 +75,7 @@ class UserAdminController extends Controller
         ], [
             'name.required' => 'Nama wajib diisi!!',  // Pesan untuk kolom name
             'nik.required' => 'NIK wajib diisi!!',
+            'usertype.required' => 'Usertype wajib diisi!!',
             'username.required' => 'Username wajib diisi!!',
             'nomor_hp.required' => 'No.Hp wajib diisi!!',
             'plant.required' => 'Plant wajib diisi!!',
@@ -118,6 +122,7 @@ class UserAdminController extends Controller
         $keyword = $request->input('cari');
         $users = User::where('name', 'like', "%" . $keyword . "%")
             ->orWhere('nik', 'like', "%" . $keyword . "%")
+            ->orWhere('usertype', 'like', "%" . $keyword . "%")
             ->orWhere('username', 'like', "%" . $keyword . "%")
             ->orWhere('nomor_hp', 'like', "%" . $keyword . "%")
             ->orWhere('plant', 'like', "%" . $keyword . "%")
