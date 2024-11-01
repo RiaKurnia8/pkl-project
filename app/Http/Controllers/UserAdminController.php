@@ -10,7 +10,8 @@ class UserAdminController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(10);
+        // Mengambil data user tanpa kolom password untuk tampilan index
+        $users = User::select('id', 'name', 'nik', 'username', 'nomor_hp', 'plant', 'jenis_kelamin')->paginate(10);
         return view('admin.useradmin.index', compact('users'));
     }
 
@@ -20,94 +21,85 @@ class UserAdminController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi data
-        $validated = $request->validate([
-            'name' => 'required',  // Validasi untuk kolom name
-            'nik' => 'required',
-            'usertype' => 'required',
-            'username' => 'required',
-            'nomor_hp' => 'required',
-            'plant' => 'required',
-            'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
-            'password' => 'required|min:8', // Tambahkan validasi minimal untuk password
-        ], [
-            'name.required' => 'Nama wajib diisi!!',  // Pesan untuk kolom name
-            'nik.required' => 'NIK wajib diisi!!',
-            'usertype.required' => 'Usertype wajib diisi!!',
-            'username.required' => 'Username wajib diisi!!',
-            'nomor_hp.required' => 'No.Hp wajib diisi!!',
-            'plant.required' => 'Plant wajib diisi!!',
-            'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
-            'password.required' => 'Password wajib diisi!!',
-            'password.min' => 'Password harus minimal 8 karakter!!', // Pesan untuk validasi minimal
-        ]);
-        
-        // Simpan data (password di-hash sebelum disimpan)
-        $data = $request->except('_token');
-        $data['password'] = Hash::make($request->password); // Hash password
-        User::create($data);
-
-        return redirect()->route('admin.useradmin.index')->with('success', 'User Berhasil dibuat');
+{
+    // Validasi data
+    $validated = $request->validate([
+        'name' => 'required',
+        'nik' => 'required',
+        'username' => 'required|unique:users,username',
+        'nomor_hp' => 'required',
+        'plant' => 'required',
+        'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
+        'password' => 'nullable|min:8', // Password tidak wajib diisi
+    ], [
+        'name.required' => 'Nama wajib diisi!!',
+        'nik.required' => 'NIK wajib diisi!!',
+        'username.required' => 'Username wajib diisi!!',
+        'nomor_hp.required' => 'No.Hp wajib diisi!!',
+        'plant.required' => 'Plant wajib diisi!!',
+        'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
+        'password.min' => 'Password harus minimal 8 karakter!!',
+        // Hapus validasi konfirmasi password
+    ]);
+    
+    // Simpan data dengan hashing password
+    $data = $request->except('_token', 'password_confirmation');
+    
+    // Hanya hash password jika diisi
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
     }
+    
+    User::create($data);
 
-    // Edit & Update
+    return redirect()->route('admin.useradmin.index')->with('success', 'User Berhasil dibuat');
+}
     public function edit($id)
     {
-        // $users = User::find($id);
-        // return view('admin.useradmin.edit', compact('users'));
-        $user = User::find($id); // Ganti $users menjadi $user
-        return view('admin.useradmin.edit', compact('user')); // Gunakan 'user'
+        $user = User::find($id);
+        return view('admin.useradmin.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
-    {
-        // Validasi data
-        $validated = $request->validate([
-            'name' => 'required',  // Validasi untuk kolom name'
-            'nik' => 'required',
-            'usertype' => 'required',
-            'username' => 'required',
-            'nomor_hp' => 'required',
-            'plant' => 'required',
-            'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
-            'password' => 'sometimes|min:8', // Password tidak wajib diisi saat update
-        ], [
-            'name.required' => 'Nama wajib diisi!!',  // Pesan untuk kolom name
-            'nik.required' => 'NIK wajib diisi!!',
-            'usertype.required' => 'Usertype wajib diisi!!',
-            'username.required' => 'Username wajib diisi!!',
-            'nomor_hp.required' => 'No.Hp wajib diisi!!',
-            'plant.required' => 'Plant wajib diisi!!',
-            'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
-            'password.min' => 'Password harus minimal 8 karakter!!', // Pesan untuk validasi minimal
-        ]);
+{
+    // Validasi data
+    $validated = $request->validate([
+        'name' => 'required',
+        'nik' => 'required',
+        'username' => 'required|unique:users,username,' . $id,
+        'nomor_hp' => 'required',
+        'plant' => 'required',
+        'jenis_kelamin' => ['required', 'in:Laki-laki,Perempuan'],
+        'password' => 'nullable|min:8', // Password tidak wajib diisi
+    ], [
+        'name.required' => 'Nama wajib diisi!!',
+        'nik.required' => 'NIK wajib diisi!!',
+        'username.required' => 'Username wajib diisi!!',
+        'nomor_hp.required' => 'No.Hp wajib diisi!!',
+        'plant.required' => 'Plant wajib diisi!!',
+        'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
+        'password.min' => 'Password harus minimal 8 karakter!!',
+        // Hapus validasi konfirmasi password
+    ]);
 
-        // Ambil user dari ID
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->route('admin.useradmin.index')->with('error', 'User tidak ditemukan');
-        }
+    // Temukan user berdasarkan ID
+    $user = User::findOrFail($id);
 
-        // Update data
-        $data = $request->except('_token', 'password');
-
-        // Jika password diisi, maka update, jika tidak biarkan tetap seperti yang lama
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password); // Hash password sebelum update
-        }
-
-        $user->update($data);
-        return redirect()->route('admin.useradmin.index')->with('success', 'User Berhasil diedit');
-
+    // Update data, hanya hash password jika diisi
+    $data = $request->except('_token', 'password', 'password_confirmation');
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
     }
 
-    // Hapus data
+    $user->update($data);
+    return redirect()->route('admin.useradmin.index')->with('success', 'User Berhasil diedit');
+}
+
     public function destroy($id)
     {
         $user = User::find($id);
 
-        if (!$user ) {
+        if (!$user) {
             return redirect()->route('admin.useradmin.index')->with('error', 'Data user tidak ditemukan.');
         }
 
@@ -116,7 +108,6 @@ class UserAdminController extends Controller
         return redirect()->route('admin.useradmin.index')->with('success', 'Data user berhasil dihapus.');
     }
 
-    // Pencarian user
     public function search(Request $request)
     {
         $keyword = $request->input('cari');

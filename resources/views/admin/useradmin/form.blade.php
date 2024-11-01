@@ -22,11 +22,11 @@
             @csrf
             <div class="container">
                 <div class="row">
-                    <!-- Kolom Pertama -->
+                    <!-- Kolom Pertama (Nama, NIK, Username, No HP) -->
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}">
                             @error('name')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <!-- Kolom Kedua -->
+                    <!-- Kolom Kedua (Plant, Jenis Kelamin, Password) -->
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="plant" class="form-label">Plant</label>
@@ -87,13 +87,39 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
-                            @error('password')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        <!-- Input Password Baru dengan icon toggle visibility -->
+<!-- Input Password Baru dengan icon toggle visibility -->
+<div style="position: relative; margin-bottom: 16px;">
+    <label for="password" style="font-size: 14px;">Password</label>
+    <input id="password" name="password" type="password" required
+           class="form-control @error('password') is-invalid @enderror"
+           style="padding-right: 40px; border: 1px solid #333; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px;">
+    <span onclick="togglePasswordVisibility('password')"
+          style="display: flex; align-items: center; position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
+        <i id="toggleIcon_password" class="fas fa-eye"></i>
+    </span>
+    @error('password')
+        <p style="color: red; font-size: 12px;">{{ $message }}</p>
+    @enderror
+</div>
+
+<script>
+    function togglePasswordVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = document.getElementById(`toggleIcon_${fieldId}`);
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            field.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
+
+
                     </div>
                 </div>
                 

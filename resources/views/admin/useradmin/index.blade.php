@@ -42,7 +42,7 @@
             <th>No. Hp</th>
             <th>Plant</th>
             <th>Jenis Kelamin</th>
-            <th>Password</th>
+            <!-- <th>Password</th> -->
             <th>Aksi</th>
         </tr>
     </thead>
@@ -58,7 +58,7 @@
             <td>{{ $data->nomor_hp }}</td>
             <td>{{ $data->plant }}</td>
             <td>{{ $data->jenis_kelamin }}</td>
-            <td>{{ $data->password }}</td>
+            <!-- <td>{{ $data->password }}</td> -->
                 <!-- Tombol Aksi -->
                 <td>
                     <a href="{{ route('admin.useradmin.edit', $data->id) }}" class="btn btn-warning btn-sm">

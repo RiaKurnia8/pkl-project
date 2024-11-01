@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1 class="mt-4">pengembalian Barang</h1>
+<h1 class="mt-4">Pengembalian Barang</h1>
 
 <div class="d-flex justify-content-end mb-3">
     <!-- Bagian Search -->
