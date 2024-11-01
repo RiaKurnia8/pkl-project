@@ -25,10 +25,22 @@
     </div>
 </div>
 
-<!-- Tombol Ekspor PDF dan Excel -->
-<div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-danger btn-sm mr-2" style="margin-right: 5px;">
-        <i class="fas fa-file-pdf"></i> PDF
+<!-- Bagian Search -->
+<div class="d-flex justify-content-end mb-2">
+    <form action="{{ route('admin.dashboard.search') }}" method="GET" class="form-inline" style="max-width: 200px;">
+        <div class="input-group">
+            <input type="text" id="form1" name="cari" class="form-control form-control-sm" placeholder="Search" value="{{ request('cari') }}">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    </div>
+
+    <!-- Tombol Ekspor PDF dan Excel -->
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-danger btn-sm mr-3">
+            <i class="fas fa-file-pdf"></i> PDF
     </button>
     <button class="btn btn-success btn-sm">
         <i class="fas fa-file-excel"></i> XLS
@@ -70,4 +82,5 @@
 </table>
 </div>
 
- @endsection
+@endsection
+

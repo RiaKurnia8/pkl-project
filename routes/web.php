@@ -74,6 +74,8 @@ Route::get('admin/dashboard', [HomeController::class,'index'])
 ->name('admin.dashboard.index');
 
 //dashboard admin
+Route::get('/admin/dashboard/search', [HomeController::class, 'search'])->name('admin.dashboard.search');
+
 //data barang
 Route::get('/admin/databarang', [DataBarangController::class, 'index'])->name('admin.databarang.index');
 Route::get('/admin/databarang/cari', [DataBarangController::class, 'search'])->name('admin.databarang.search');
