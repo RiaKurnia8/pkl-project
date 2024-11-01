@@ -4,28 +4,20 @@
 
 @section('content')
 
-<h1 class="mt-4">pengembalian Barang</h1>
+<h1 class="mt-4">Pengembalian Barang</h1>
 
 <!-- Form Pencarian -->
 <div class="d-flex justify-content-end mb-3">
-    <div class="input-group" style="max-width: 200px;">
-        <input type="text" class="form-control" placeholder="Search:" id="searchInput" style="border-radius: 25px 0 0 25px; height: 38px;">
-        <div class="input-group-append">
-            <span class="input-group-text" id="search-addon" style="border-radius: 0 25px 25px 0; background-color: #e9ecef; height: 38px;">
-                <i class="fas fa-search" style="font-size: 16px;"></i>
-            </span>
-        </div>
+    <!-- Bagian Search -->
+    <div class="col-auto">
+        <form action="{{ route('user.hpengembalian.search') }}" method="GET">
+            <div class="input-group">
+                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
     </div>
-</div>
-
-<!-- Tombol Ekspor PDF dan Excel -->
-<div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-danger btn-sm mr-2">
-        <i class="fas fa-file-pdf"></i> PDF
-    </button>
-    <button class="btn btn-success btn-sm">
-        <i class="fas fa-file-excel"></i> XLS
-    </button>
 </div>
 
 <!-- Tabel Data pengembalian -->

@@ -8,7 +8,7 @@
         <h2 style="text-align: center;">Edit User</h2>
 
         <form action="{{ route('admin.useradmin.update', $user->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+            @csrf  
             @method('PUT')
             <div class="container">
                 <div class="row">
@@ -67,30 +67,82 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
-                                id="jenis_kelamin">
-                                <option value="">-- Pilih Jenis Kelamin --</option>
-                                <option value="laki-laki" {{ $user->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
-                                <option value="perempuan" {{ $user->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
-                            </select>
-                            @error('jenis_kelamin')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div>
+                      <!-- Input Jenis Kelamin -->
+<div class="form-group mb-3">
+    <label for="jenis_kelamin" style="font-weight: bold; font-size: 14px;">Jenis Kelamin:</label>
+    <select id="jenis_kelamin" name="jenis_kelamin" required
+        style="border: 1px solid #d1d5db; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;">
+        <option value="Laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
+            Laki-laki
+        </option>
+        <option value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+            Perempuan
+        </option>
+    </select>
+    @error('jenis_kelamin')
+        <p style="color: red; font-size: 12px;">{{ $message }}</p>
+    @enderror
+</div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="text" class="form-control @error('password') is-invalid @enderror" name="password"
-                                id="password" value="{{ $user->password }}">
-                            @error('password')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div>
+
+
+
+                         <!-- Input Password Baru dengan icon toggle visibility -->
+<!-- Input Password Baru dengan icon toggle visibility -->
+<div style="position: relative; margin-bottom: 16px;">
+    <label for="old_password" class="form-label">Password Lama</label>
+    <input type="text" class="form-control @error('old_password') is-invalid @enderror" name="old_password"
+        id="old_password" value="{{ $user->password }}"> <!-- Ganti ini dengan password asli -->
+    <span onclick="togglePasswordVisibility('old_password')"
+          style="display: flex; align-items: center; position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
+        <i id="toggleIcon_old_password" class="fas fa-eye"></i>
+    </span>
+    @error('old_password')
+        <p style="color: red; font-size: 12px;">{{ $message }}</p>
+    @enderror
+</div>
+
+<div style="position: relative; margin-bottom: 16px;">
+    <label for="password" style="font-size: 14px;">Password Baru</label>
+    <input id="password" name="password" type="password"
+           class="form-control @error('password') is-invalid @enderror"
+           style="padding-right: 40px; border: 1px solid #333; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px;">
+    <span onclick="togglePasswordVisibility('password')"
+          style="display: flex; align-items: center; position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
+        <i id="toggleIcon_password" class="fas fa-eye"></i>
+    </span>
+    @error('password')
+        <p style="color: red; font-size: 12px;">{{ $message }}</p>
+    @enderror
+</div>
+
+<!-- Tombol Reset Password Default -->
+<div class="mb-3">
+    <button type="button" class="btn btn-warning" id="resetPasswordBtn">Reset Password Default</button>
+</div>
+
+<script>
+    document.getElementById('resetPasswordBtn').addEventListener('click', function () {
+                                // Mengubah password menjadi 'sasainti'
+                                document.getElementById('password').value = 'sasainti';
+                            });
+    function togglePasswordVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = document.getElementById(`toggleIcon_${fieldId}`);
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            field.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
 
                         <!-- Tombol Submit sejajar dengan tombol Back -->
-                        <div class="mb-12 d-flex justify-content-end" style="margin-top: 95px;">
+                        <div class="mb-12 d-flex justify-content-end" style="margin-top: 40px;">
                             <button type="submit" class="btn btn-danger">Submit</button>
                         </div>
                     </div>

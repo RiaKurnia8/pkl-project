@@ -21,5 +21,28 @@ class HpengembalianController extends Controller
         // Mengirim data pengembalian ke view
         return view('user.hpengembalian.index', compact('pengembalians'));
     }
+
+    public function search(Request $request)
+    {
+        // Mengambil nik pengguna yang sedang login
+        $nik = Auth::user()->nik;
+
+        // Mendapatkan kata kunci pencarian
+        $keyword = $request->input('cari');
+
+        // Mencari data peminjaman berdasarkan kata kunci dan nik pengguna
+        $pengembalians = Pengembalians::where('nik', $nik)
+            ->where(function ($query) use ($keyword) {
+                $query->where('username', 'like', "%" . $keyword . "%")
+                    ->orWhere('plant', 'like', "%" . $keyword . "%")
+                    ->orWhere('barang_dipinjam', 'like', "%" . $keyword . "%")
+                    ->orWhere('tanggal_pengembalian', 'like', "%" . $keyword . "%")
+                    ->orWhere('status', 'like', "%" . $keyword . "%");
+            })
+            ->paginate(10);
+
+        // Mengirim data peminjaman ke view
+        return view('user.hpengembalian.index', compact('pengembalians'));
+    }
 }
 

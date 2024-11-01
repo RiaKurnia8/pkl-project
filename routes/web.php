@@ -49,7 +49,12 @@ Route::get('/user/hpengembalian',[HpengembalianController::class, 'index'])->nam
 Route::get('/user/upeminjaman',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
 Route::get('/user/upengembalian',[UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
 
+Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form
+Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store'); 
 
+Route::get('/user/hpeminjaman/cari', [HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
+
+Route::get('/user/hpengembalian/cari', [HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
 
 //admin
 Route::get('admin/dashboard', [HomeController::class,'index'])->
@@ -115,13 +120,15 @@ Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->n
 Route::delete('/admin/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('admin.peminjaman.destroy');
 Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 
-Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form
-Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store'); 
-Route::get('/admin/hpeminjaman', [PeminjamanController::class, 'index'])->name('user.hpeminjaman');
+
+
+//Route::get('/admin/hpeminjaman', [PeminjamanController::class, 'index'])->name('user.hpeminjaman');
 
 Route::get('/admin/peminjaman/cari', [PeminjamanController::class, 'search'])->name('admin.peminjaman.search');
 Route::get('admin/peminjaman/export/', [PeminjamanController::class, 'export'])->name('admin.peminjaman.xls');
 Route::get('/admin/peminjaman/exportpdf', [PeminjamanController::class, 'exportPdf'])->name('admin.peminjaman.exportPdf');
+
+
 
 //gabungan pengembalian admin user
 Route::get('/admin/pengembalian/{id}/edit', [PengembalianController::class, 'edit'])->name('admin.pengembalian.edit');
@@ -136,3 +143,4 @@ Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->na
 Route::get('/admin/pengembalian/cari', [PengembalianController::class, 'search'])->name('admin.pengembalian.search');
 Route::get('admin/pengembalian/export/', [PengembalianController::class, 'export'])->name('admin.pengembalian.xls');
 Route::get('/admin/pengembalian/exportpdf', [PengembalianController::class, 'exportPdf'])->name('admin.pengembalian.exportPdf');
+
