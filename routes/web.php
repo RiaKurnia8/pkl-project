@@ -140,6 +140,12 @@ Route::delete('/admin/useradmin/{id}', [UserAdminController::class, 'destroy'])-
 Route::get('/admin/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('admin.peminjaman.edit');
 Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 Route::delete('/admin/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('admin.peminjaman.destroy');
+//trash
+
+//Route::get('admin/peminjaman/trash', [PeminjamanController::class, 'showTrash'])->name('admin.trash');
+//Route::post('admin/peminjaman/{id}/restore', [PeminjamanController::class, 'restore'])->name('admin.peminjaman.restore');
+
+
 Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 
 Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form

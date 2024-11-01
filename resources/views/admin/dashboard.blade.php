@@ -5,11 +5,8 @@
 @section('content') 
 
 <h1 class="mt-4">Dashboard</h1>
- <ol class="breadcrumb mb-4">
-     <li class="breadcrumb-item active">Dashboard</li>
- </ol>
 
- <div class="row">
+<div class="row">
     <!-- Jumlah Data Barang -->
     <div class="col-xl-3 col-md-6">
         <div class="card bg-danger text-white mb-4">
@@ -24,16 +21,28 @@
         </div>
     </div>
 </div>
-
-<!-- Tombol Ekspor PDF dan Excel -->
+ 
+<!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
 <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-danger btn-sm mr-2" style="margin-right: 5px;">
-        <i class="fas fa-file-pdf"></i> PDF
-    </button>
-    <button class="btn btn-success btn-sm">
-        <i class="fas fa-file-excel"></i> XLS
-    </button>
+    <!-- Bagian Search -->
+    <div class="col-auto">
+        <form action="#" method="GET">
+            <div class="input-group">
+                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        
+        </form>
+         <a href="#" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
+         <a href="#" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
+
+    </div>
 </div>
+
+
+
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
@@ -64,10 +73,12 @@
                         <i class="fas fa-trash-alt"></i> Hapus
                     </button>
                 </td>
+                
             </tr>
         @endforeach
     </tbody>
 </table>
+
 </div>
 
- @endsection
+@endsection
