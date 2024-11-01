@@ -6,7 +6,6 @@
 
 <h1 class="mt-4">Pengembalian Barang</h1>
 
-<!-- Form Pencarian -->
 <div class="d-flex justify-content-end mb-3">
     <!-- Bagian Search -->
     <div class="col-auto">
@@ -17,6 +16,8 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
+        
+        </form>
     </div>
 </div>
 
@@ -36,6 +37,19 @@
         <tbody>
             @foreach($pengembalians as $index => $pengembalian)
                 <tr>
+                    <td>{{ $pengembalians->firstItem() + $index }}</td>
+                    <td>{{ $pengembalian->nik }}</td>
+                    <td>{{ $pengembalian->plant }}</td>
+                    <td>{{ $pengembalian->barang_dipinjam }}</td>
+                    <td>{{ $pengembalian->tanggal_pengembalian }}</td>
+                    <td>{{ $pengembalian->status }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+        
+        {{-- <tbody>
+            @foreach($pengembalians as $index => $pengembalian)
+                <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $pengembalian->nik }}</td>
                     <td>{{ $pengembalian->plant }}</td>
@@ -44,13 +58,14 @@
                     <td>{{ $pengembalian->status }}</td>
                 </tr>
             @endforeach
-        </tbody>
+        </tbody> --}}
     </table>
+    {!! $pengembalians->withQueryString()->links('pagination::bootstrap-5') !!}
 </div>
 
 <!-- Teks Showing Entries -->
-<div class="mb-3 text-right">
+{{-- <div class="mb-3 text-right">
     <span>Showing {{ $pengembalians->count() }} of {{ $pengembalians->count() }} entries</span>
-</div>
+</div> --}}
 
 @endsection

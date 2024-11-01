@@ -1,14 +1,13 @@
+@extends('userlay.user')
 
-@extends('layouts.admin')
-
-@section('title', 'Profil Admin')
+@section('title', 'Profil User')
 
 @section('content')
 
 <h1 style="font-size: 30px; font-weight: bold; color: #B91C1C;">Edit Profil</h1>
 <section style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
 
-    <form method="POST" action="{{ route('profile.update') }}" class="mt-4 space-y-4">
+    <form method="POST" action="{{ route('user.profile.update') }}" class="mt-4 space-y-4">
         @csrf
         @method('PATCH')
 

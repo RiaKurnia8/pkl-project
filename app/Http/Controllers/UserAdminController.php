@@ -113,6 +113,7 @@ class UserAdminController extends Controller
         $keyword = $request->input('cari');
         $users = User::where('name', 'like', "%" . $keyword . "%")
             ->orWhere('nik', 'like', "%" . $keyword . "%")
+            ->orWhere('usertype', 'like', "%" . $keyword . "%")
             ->orWhere('username', 'like', "%" . $keyword . "%")
             ->orWhere('nomor_hp', 'like', "%" . $keyword . "%")
             ->orWhere('plant', 'like', "%" . $keyword . "%")

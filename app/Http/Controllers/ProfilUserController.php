@@ -6,19 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ProfilAdminController extends Controller
+class ProfilUserController extends Controller
 {
     public function index()
     {
-        return view('admin.profiladmin.index');
+        return view('user.profiluser.index');
     }
-
-
 
     public function edit()
     {
-        // Menampilkan form edit profil admin
-        return view('admin.profiladmin.edit');
+        // Menampilkan form edit profil user
+        return view('user.profiluser.edit');
     }
 
     public function update(Request $request)
@@ -55,7 +53,7 @@ class ProfilAdminController extends Controller
      // Show the form to update the password
     public function updatePassword()
     {
-        return view('admin.profiladmin.updateps');
+        return view('user.profiluser.updateps');
     }
 
     // Handle the password update request

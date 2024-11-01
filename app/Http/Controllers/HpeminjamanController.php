@@ -16,7 +16,8 @@ class HpeminjamanController extends Controller
         $nik = Auth::user()->nik;
 
         // Mengambil data peminjaman yang sesuai dengan nik pengguna
-        $peminjamans = Peminjamans::where('nik', $nik)->get();
+        //$peminjamans = Peminjamans::where('nik', $nik)->get();
+        $peminjamans = Peminjamans::where('nik', $nik)->paginate(10);
 
         // Mengirim data peminjaman ke view
         return view('user.hpeminjaman.index', compact('peminjamans'));

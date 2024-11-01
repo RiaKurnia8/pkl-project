@@ -37,6 +37,7 @@
             <th>No</th>
             <th>Nama</th>
             <th>NIK</th>
+            <th>Usertype</th>
             <th>Username</th>
             <th>No. Hp</th>
             <th>Plant</th>
@@ -52,6 +53,7 @@
             <th scope="row">{{ $i + 1 + ($users->currentPage() - 1) * $users->perPage() }}</th>
             <td>{{ $data->name }}</td>
             <td>{{ $data->nik }}</td>
+            <td>{{ $data->usertype }}</td>
             <td>{{ $data->username }}</td>
             <td>{{ $data->nomor_hp }}</td>
             <td>{{ $data->plant }}</td>

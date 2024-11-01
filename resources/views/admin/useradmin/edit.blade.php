@@ -33,6 +33,15 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="usertype" class="form-label">Usertype</label>
+                            <input type="text" class="form-control @error('usertype') is-invalid @enderror" name="usertype"
+                                id="usertype" value="{{ $user->usertype }}">
+                            @error('usertype')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
                                 id="username" value="{{ $user->username }}">

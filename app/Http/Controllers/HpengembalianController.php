@@ -16,7 +16,8 @@ class HpengembalianController extends Controller
         $nik = Auth::user()->nik;
 
         // Mengambil data pengembalian yang sesuai dengan nik pengguna
-        $pengembalians = Pengembalians::where('nik', $nik)->get();
+        //$pengembalians = Pengembalians::where('nik', $nik)->get();
+        $pengembalians = Pengembalians::where('nik', $nik)->paginate(10);
 
         // Mengirim data pengembalian ke view
         return view('user.hpengembalian.index', compact('pengembalians'));
@@ -30,7 +31,7 @@ class HpengembalianController extends Controller
         // Mendapatkan kata kunci pencarian
         $keyword = $request->input('cari');
 
-        // Mencari data peminjaman berdasarkan kata kunci dan nik pengguna
+        // Mencari data pengembalian berdasarkan kata kunci dan nik pengguna
         $pengembalians = Pengembalians::where('nik', $nik)
             ->where(function ($query) use ($keyword) {
                 $query->where('username', 'like', "%" . $keyword . "%")
@@ -41,8 +42,7 @@ class HpengembalianController extends Controller
             })
             ->paginate(10);
 
-        // Mengirim data peminjaman ke view
+        // Mengirim data pencarian ke view
         return view('user.hpengembalian.index', compact('pengembalians'));
     }
 }
-
