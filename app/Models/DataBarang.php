@@ -29,4 +29,21 @@ class DataBarang extends Model
         return $this->belongsTo(Kategori::class);
     }
 
+    // Event untuk mengontrol perubahan updated_at hanya ketika kelayakan berubah
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($databarang) {
+            // Mengecek apakah hanya kelayakan yang diubah
+            if ($databarang->isDirty('kelayakan')) {
+                // Biarkan updated_at berubah karena kelayakan berubah
+                $databarang->timestamps = true;
+            } else {
+                // Hentikan perubahan updated_at jika selain kelayakan yang diubah
+                $databarang->timestamps = false;
+            }
+        });
+    }
+
 }

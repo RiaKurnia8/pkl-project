@@ -11,7 +11,8 @@ class UserAdminController extends Controller
     public function index()
     {
         // Mengambil data user tanpa kolom password untuk tampilan index
-        $users = User::select('id', 'name', 'nik', 'username', 'nomor_hp', 'plant', 'jenis_kelamin')->paginate(10);
+       // $users = User::select('id', 'name', 'nik','usertype', 'username', 'nomor_hp', 'plant', 'jenis_kelamin')->paginate(10);
+       $users = User::paginate(10);
         return view('admin.useradmin.index', compact('users'));
     }
 
@@ -25,7 +26,7 @@ class UserAdminController extends Controller
     // Validasi data
     $validated = $request->validate([
         'name' => 'required',
-        'nik' => 'required',
+        'nik' => 'required|digits_between:1,5',
         'username' => 'required|unique:users,username',
         'nomor_hp' => 'required',
         'plant' => 'required',
@@ -65,7 +66,7 @@ class UserAdminController extends Controller
     // Validasi data
     $validated = $request->validate([
         'name' => 'required',
-        'nik' => 'required',
+        'nik' => 'required|digits_between:1,5',
         'username' => 'required|unique:users,username,' . $id,
         'nomor_hp' => 'required',
         'plant' => 'required',

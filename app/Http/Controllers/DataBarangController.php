@@ -191,26 +191,53 @@ class DataBarangController extends Controller
         }
     }
 
-    public function search(Request $request)
-    {
-        $keyword = $request->input('cari');
-        $databarang = DataBarang::where('barang', 'like', "%" . $keyword . "%")
-            ->orWhere('lokasi', 'like', "%" . $keyword . "%")
-            ->orWhere('no_asset', 'like', "%" . $keyword . "%")
-            ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
-            // ->orWhere('kategori', 'like', "%" . $keyword . "%")
-            ->orWhere('merk', 'like', "%" . $keyword . "%")
-            ->orWhere('tipe', 'like', "%" . $keyword . "%")
-            ->orWhere('sn', 'like', "%" . $keyword . "%")
-            ->orWhere('kelayakan', 'like', "%" . $keyword . "%")
-            ->orWhere('status', 'like', "%" . $keyword . "%")
-            ->orWhereHas('kategori', function ($query) use ($keyword) {
-                $query->where('nama_kategori', 'like', "%" . $keyword . "%");
-            })
-            ->paginate(10);
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('cari');
+    //     $databarang = DataBarang::where('barang', 'like', "%" . $keyword . "%")
+    //         ->orWhere('lokasi', 'like', "%" . $keyword . "%")
+    //         ->orWhere('no_asset', 'like', "%" . $keyword . "%")
+    //         ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
+    //         // ->orWhere('kategori', 'like', "%" . $keyword . "%")
+    //         ->orWhere('merk', 'like', "%" . $keyword . "%")
+    //         ->orWhere('tipe', 'like', "%" . $keyword . "%")
+    //         ->orWhere('sn', 'like', "%" . $keyword . "%")
+    //         ->orWhere('kelayakan', 'like', "%" . $keyword . "%")
+    //         ->orWhere('status', 'like', "%" . $keyword . "%")
+    //         ->orWhereHas('kategori', function ($query) use ($keyword) {
+    //             $query->where('nama_kategori', 'like', "%" . $keyword . "%");
+    //         })
+    //         ->paginate(10);
 
-        return view('admin.databarang.index', compact('databarang'));
-    }
+    //     return view('admin.databarang.index', compact('databarang'));
+    // }
+    public function search(Request $request)
+{
+    $keyword = $request->input('cari');
+    $bulan = $request->input('bulan');
+
+    $databarang = DataBarang::where(function ($query) use ($keyword) {
+            $query->where('barang', 'like', "%" . $keyword . "%")
+                  ->orWhere('lokasi', 'like', "%" . $keyword . "%")
+                  ->orWhere('no_asset', 'like', "%" . $keyword . "%")
+                  ->orWhere('no_equipment', 'like', "%" . $keyword . "%")
+                  ->orWhere('merk', 'like', "%" . $keyword . "%")
+                  ->orWhere('tipe', 'like', "%" . $keyword . "%")
+                  ->orWhere('sn', 'like', "%" . $keyword . "%")
+                  ->orWhere('kelayakan', 'like', "%" . $keyword . "%")
+                  ->orWhere('status', 'like', "%" . $keyword . "%")
+                  ->orWhereHas('kategori', function ($query) use ($keyword) {
+                      $query->where('nama_kategori', 'like', "%" . $keyword . "%");
+                  });
+        })
+        ->when($bulan, function ($query, $bulan) {
+            return $query->whereMonth('created_at', $bulan);
+        })
+        ->paginate(10);
+
+    return view('admin.databarang.index', compact('databarang'));
+}
+
 
     //export xls
     public function export()

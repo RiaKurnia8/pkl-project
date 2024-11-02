@@ -81,6 +81,8 @@ Route::get('admin/export-peminjaman', [HomeController::class, 'exportPeminjaman'
 Route::get('/admin/dashboard/exportpdf', [HomeController::class, 'exportPdf'])->name('admin.dashboard.exportPdf');
 
 //dashboard admin
+Route::get('/admin/dashboard/search', [HomeController::class, 'search'])->name('admin.dashboard.search');
+
 //data barang
 Route::get('/admin/databarang', [DataBarangController::class, 'index'])->name('admin.databarang.index');
 Route::get('/admin/databarang/cari', [DataBarangController::class, 'search'])->name('admin.databarang.search');

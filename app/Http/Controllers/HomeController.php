@@ -7,6 +7,7 @@ use App\Models\DataBarang;
 use Illuminate\Http\Request;
 use App\Models\Peminjamans;
 use App\Models\Pengembalians;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,6 +19,9 @@ class HomeController extends Controller
     {
         // Hitung jumlah data barang
         $jumlahBarang = DataBarang::count();
+
+        // Hitung jumlah user
+        $jumlahUser = User::count(); // Menghitung jumlah user
 
         // Ambil data peminjaman yang tidak dihapus
         $query = Peminjamans::leftJoin('pengembalians', function ($join) {
@@ -49,6 +53,7 @@ class HomeController extends Controller
         return view('admin.dashboard', [
             'jumlahBarang' => $jumlahBarang,
             'Peminjamans' => $PeminjamansWithPengembalian,
+            'jumlahUser' => $jumlahUser, // Menambahkan jumlah user ke view
         ]);
     }
 

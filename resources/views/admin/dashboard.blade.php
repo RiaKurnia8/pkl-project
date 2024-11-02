@@ -15,9 +15,9 @@
 <h1 class="mt-4">Dashboard</h1>
 
 <div class="row">
-    <!-- Jumlah Data Barang -->
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-danger text-white mb-4">
+    <!-- Card Jumlah Data Barang -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card bg-danger text-white">
             <div class="card-body">
                 <h2 class="mb-2">{{ $jumlahBarang }}</h2> <!-- Menampilkan jumlah barang dinamis -->
                 <p>Jumlah Data Barang</p>
@@ -28,7 +28,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Card Jumlah Data User -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card bg-warning text-black">
+            <div class="card-body">
+                <h2 class="mb-2">{{ $jumlahUser }}</h2> <!-- Menampilkan jumlah user dinamis -->
+                <p>Jumlah Data User</p>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('admin.useradmin.index') }}">Baca Selengkapnya</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
  
 <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
 <div class="d-flex justify-content-end mb-3">
@@ -69,7 +86,7 @@
     <tbody>
     @foreach ($Peminjamans as $index => $peminjaman)
             <tr>
-                <td>{{ $index + 1 }}</td>
+                <td>{{ ($Peminjamans->currentPage() - 1) * $Peminjamans->perPage() + $index + 1 }}</td>
                 <td>{{ $peminjaman->username }}</td>
                 <td>{{ $peminjaman->barang }}</td>
                 <td>{{ $peminjaman->plant }}</td>
@@ -117,6 +134,7 @@
         @endforeach
     </tbody>
 </table>
+{!! $Peminjamans->withQueryString()->links('pagination::bootstrap-5') !!}
 
 </div>
 

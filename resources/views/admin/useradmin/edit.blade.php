@@ -25,8 +25,9 @@
 
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK</label>
-                            <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik"
-                                id="nik" value="{{ $user->nik }}">
+                            <input type="number" class="form-control @error('nik') is-invalid @enderror" 
+                                   name="nik" id="nik" value="{{ $user->nik }}" 
+                                   maxlength="5" oninput="this.value = this.value.slice(0, 5)">
                             @error('nik')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror

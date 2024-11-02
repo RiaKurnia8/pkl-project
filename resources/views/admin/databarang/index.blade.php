@@ -13,6 +13,65 @@
     @endif
 
     <h1>Data Barang</h1>
+      <!-- Bagian Filter Bulan, Search, dan Export -->
+    </br>
+    <div class="row mb-3 align-items-center">
+        {{-- <!-- Dropdown Filter Bulan -->
+        <div class="col-md-4">
+            <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
+                <label for="bulan" class="me-2">Filter Bulan:</label>
+                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;">
+                    <option value="">Semua Bulan</option>
+                    @foreach (range(1, 12) as $month)
+                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>
+                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                        </option>
+                    @endforeach
+                </select>
+                <!-- Tombol Submit untuk Filter Bulan -->
+                <button type="submit" class="btn btn-primary" style="margin-left: -1px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div> --}}
+    <div class="row mb-3 align-items-center">
+        <!-- Dropdown Filter Bulan -->
+        <div class="col-md-4">
+            <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
+                <label for="bulan" class="me-2">Filter Bulan:</label>
+                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;">
+                    <option value="">Semua Bulan</option>
+                    @php
+                        $monthsIndo = [
+                            1 => 'Januari',
+                            2 => 'Februari',
+                            3 => 'Maret',
+                            4 => 'April',
+                            5 => 'Mei',
+                            6 => 'Juni',
+                            7 => 'Juli',
+                            8 => 'Agustus',
+                            9 => 'September',
+                            10 => 'Oktober',
+                            11 => 'November',
+                            12 => 'Desember',
+                        ];
+                    @endphp
+                    @foreach ($monthsIndo as $month => $monthName)
+                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>
+                            {{ $monthName }}
+                        </option>
+                    @endforeach
+                </select>
+                <!-- Tombol Submit untuk Filter Bulan -->
+                <button type="submit" class="btn btn-primary" style="margin-left: -1px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
 
     <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
     
@@ -53,7 +112,6 @@
                     <th>Foto</th>
                     <th>Status</th>
                     <th>Tanggal Tambah</th>
-                    <th>Tanggal Edit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -89,7 +147,7 @@
                         
                         <td>{{ $data->status }}</td>
                         <td>{{ $data->created_at->format('d-m-Y ') }}</td> <!-- Tanggal Tambah -->
-                        <td>{{ $data->updated_at->format('d-m-Y ') }}</td> <!-- Tanggal Edit -->
+                        
                         {{-- <td>
                             <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
                                 @csrf
