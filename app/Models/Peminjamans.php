@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Peminjamans extends Model
 {
-    use HasFactory ;
+    use HasFactory;
 
     protected $table = 'peminjamans'; // Pastikan ini sesuai dengan nama tabel
 
@@ -19,5 +19,6 @@ class Peminjamans extends Model
         'barang_dipinjam',
         'tanggal_pinjam',
         'status',
+        'is_deleted'
     ];
 }

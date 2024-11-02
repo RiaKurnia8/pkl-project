@@ -81,7 +81,7 @@
             {{-- Riwayat --}}
             <div class="sb-sidenav-menu-heading">Riwayat Sampah</div>
 
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.riwayat_sampah') }}">
                 <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can"></i></div>
                 Riwayat Sampah
             </a>

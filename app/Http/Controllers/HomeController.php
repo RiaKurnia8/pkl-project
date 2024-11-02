@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DashboardExport;
 use App\Models\DataBarang;
 use Illuminate\Http\Request;
 use App\Models\Peminjamans;
 use App\Models\Pengembalians;
-//use App\Models\DataBarang;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
-                                                                   
-    public function index()
+
+    public function index(Request $request)
     {
         // Hitung jumlah data barang
         $jumlahBarang = DataBarang::count();
 
-        // Ambil semua data peminjaman dengan join ke pengembalians
-        $query = Peminjamans::leftJoin('pengembalians', function($join) {
-                $join->on('peminjamans.username', '=', 'pengembalians.username')
-                     ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
-            })
+        // Ambil data peminjaman yang tidak dihapus
+        $query = Peminjamans::leftJoin('pengembalians', function ($join) {
+            $join->on('peminjamans.username', '=', 'pengembalians.username')
+                ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+        })
+            ->where('peminjamans.is_deleted', false) // Hanya data yang tidak dihapus
             ->select(
+                'peminjamans.id',
                 'peminjamans.username',
                 'peminjamans.barang_dipinjam as barang',
                 'peminjamans.plant',
@@ -30,9 +34,16 @@ class HomeController extends Controller
                 'pengembalians.tanggal_pengembalian'
             );
 
+        // Filter pencarian
+        if ($request->has('cari')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('peminjamans.username', 'like', '%' . $request->cari . '%')
+                    ->orWhere('peminjamans.barang_dipinjam', 'like', '%' . $request->cari . '%')
+                    ->orWhere('peminjamans.plant', 'like', '%' . $request->cari . '%');
+            });
+        }
 
-        // Ambil data peminjaman yang sudah difilter
-        $PeminjamansWithPengembalian = $query->get();
+        $PeminjamansWithPengembalian = $query->paginate(10)->withQueryString();
 
         // Kirim data ke view
         return view('admin.dashboard', [
@@ -40,4 +51,92 @@ class HomeController extends Controller
             'Peminjamans' => $PeminjamansWithPengembalian,
         ]);
     }
+
+    //delete
+
+    public function delete($id)
+    {
+        $peminjaman = Peminjamans::findOrFail($id);
+        $peminjaman->is_deleted = true;
+        $peminjaman->save();
+
+        return redirect()->route('admin.dashboard.index')->with('success', 'Data berhasil dihapus!');
+    }
+
+    //trash
+    public function showTrash()
+    {
+        $trashedPeminjamans = Peminjamans::leftJoin('pengembalians', function ($join) {
+            $join->on('peminjamans.username', '=', 'pengembalians.username')
+                ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+        })
+            ->where('peminjamans.is_deleted', true)
+            ->select(
+                'peminjamans.id', // Tambahkan 'id' di sini
+                'peminjamans.username',
+                'peminjamans.barang_dipinjam as barang',
+                'peminjamans.plant',
+                'peminjamans.tanggal_pinjam',
+                'pengembalians.tanggal_pengembalian'
+            )
+            ->get();
+
+        return view('admin.riwayat_sampah', ['Peminjamans' => $trashedPeminjamans]);
+    }
+
+    //mengembalikan data
+    public function restore($id)
+    {
+        // Cari data peminjaman berdasarkan ID
+        $peminjaman = Peminjamans::findOrFail($id);
+
+        // Ubah status is_deleted menjadi false untuk mengembalikan data
+        $peminjaman->is_deleted = false;
+        $peminjaman->save();
+
+        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+        return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dikembalikan dari Riwayat Sampah.');
+    }
+
+    //hapus permanen
+    public function forceDelete($id)
+    {
+        // Cari data peminjaman berdasarkan ID
+        $peminjaman = Peminjamans::findOrFail($id);
+
+        // Hapus data secara permanen
+        $peminjaman->delete();
+
+        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+        return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dihapus secara permanen.');
+    }
+
+    //export excel
+    public function exportPeminjaman()
+    {
+        return Excel::download(new DashboardExport, 'data-dashboard.xlsx');
+    }
+
+    //export pdf
+    
+    public function exportPdf()
+{
+    $peminjamanData = Peminjamans::leftJoin('pengembalians', function ($join) {
+            $join->on('peminjamans.username', '=', 'pengembalians.username')
+                 ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+        })
+        ->where('peminjamans.is_deleted', false)
+        ->select(
+            'peminjamans.username',
+            'peminjamans.barang_dipinjam as barang',
+            'peminjamans.plant',
+            'peminjamans.tanggal_pinjam',
+            DB::raw('COALESCE(pengembalians.tanggal_pengembalian, "-") as tanggal_pengembalian')
+        )
+        ->get();
+
+    $pdf = Pdf::loadView('admin.dashboard_pdf', compact('peminjamanData'));
+    return $pdf->download('dashboard_data.pdf');
+}
+
 }
