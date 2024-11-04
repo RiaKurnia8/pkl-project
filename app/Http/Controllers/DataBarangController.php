@@ -244,6 +244,19 @@ class DataBarangController extends Controller
     {
         return Excel::download(new DataBarangExport, 'laporan-data-barang.xlsx');
     }
+    // Ekspor berdasarkan lokasi
+    public function exportByLocation(Request $request)
+    {
+        $lokasi = $request->input('lokasi'); // Ambil lokasi dari input request
+
+        return Excel::download(new DataBarangExport($lokasi), "data_barang_{$lokasi}.xlsx");
+    }
+
+    // // Ekspor semua data tanpa filter lokasi
+    // public function exportAll()
+    // {
+    //     return Excel::download(new DataBarangExport(), 'data_barang_all.xlsx');
+    // }
 
     //export pdf
     public function exportPdf()
@@ -256,4 +269,22 @@ class DataBarangController extends Controller
     $pdf->setPaper('A4', 'landscape');
         return $pdf->download('laporan-data-barang.pdf');
 }
+
+//export pdf berdasarkan lokasi
+public function exportPdfByLocation(Request $request)
+{
+    // Ambil input lokasi dari request
+    $lokasi = $request->input('lokasi');
+    
+    // Query data barang berdasarkan lokasi
+    $databarang = DataBarang::where('lokasi', $lokasi)->get();
+
+    // Load view dan kirim data ke PDF
+    $pdf = Pdf::loadView('admin.databarang.indexlokasi_pdf', compact('databarang', 'lokasi'))
+        ->setPaper('A4', 'landscape');
+
+    // Kembalikan file PDF untuk diunduh dengan nama file sesuai lokasi
+    return $pdf->download("data_barang_{$lokasi}.pdf");
+}
+
 }

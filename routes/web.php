@@ -87,10 +87,13 @@ Route::get('/admin/dashboard/search', [HomeController::class, 'search'])->name('
 Route::get('/admin/databarang', [DataBarangController::class, 'index'])->name('admin.databarang.index');
 Route::get('/admin/databarang/cari', [DataBarangController::class, 'search'])->name('admin.databarang.search');
 Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
+Route::get('/export/data-barang/location', [DataBarangController::class, 'exportByLocation'])->name('export.location');
 
 Route::get('/admin/databarang/add', [DataBarangController::class, 'create'])->name('admin.databarang.create');
 Route::post('/admin/databarang/add', [DataBarangController::class, 'store'])->name('admin.databarang.store');
 Route::get('/admin/databarang/exportpdf', [DataBarangController::class, 'exportPdf'])->name('admin.databarang.exportPdf');
+Route::get('/export/data-barang/pdf-location', [DataBarangController::class, 'exportPdfByLocation'])->name('export.pdf.location');
+
 
 Route::get('/admin/databarang/{id}', [DataBarangController::class, 'edit'])->name('admin.databarang.edit');
 Route::post('/admin/databarang/{id}', [DataBarangController::class, 'update'])->name('admin.databarang.update');

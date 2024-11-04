@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data Barang - Lokasi: {{ $lokasi }}</title>
+    <style>
+        table, td, th {
+          border: 1px solid;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: auto;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        @media print {
+            table {
+                page-break-inside: auto;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            thead {
+                display: table-header-group;
+            }
+            tfoot {
+                display: table-footer-group;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="display: inline-block;">Data Barang - Lokasi: {{ $lokasi }}</h1>
+    <img src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
+    
+    <div style="border-radius: 5px;">
+        <table class="table table-striped">
+            <thead style="background-color: #dc3545; color: white;">
+                <tr>
+                    <th>No</th>
+                    <th>Lokasi</th>
+                    <th>Barang</th>
+                    <th>No. Asset</th>
+                    <th>No. Equipment</th>
+                    <th>Kategori</th>
+                    <th>Merk</th>
+                    <th>Tipe</th>
+                    <th>S/N</th>
+                    <th>Kelayakan</th>
+                    <th>Foto</th>
+                    <th>Status</th>
+                    <th>Tanggal Tambah</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach ($databarang as $i => $data)
+                    <!-- Contoh data barang (ini akan diganti dengan data dari database) -->
+                    <tr>
+                        {{-- <th scope="row">{{ $i + 1 }}</th> --}}
+                        <th scope="row">{{ $i + 1 }}</th>
+                        <td>{{ $data->lokasi }}</td>
+                        <td>{{ $data->barang }}</td>
+                        <td>{{ $data->no_asset }}</td>
+                        <td>{{ $data->no_equipment }}</td>
+                        <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak tersedia' }}</td> <!-- Ambil nama kategori -->
+                        <td>{{ $data->merk }}</td>
+                        <td>{{ $data->tipe }}</td>
+                        <td>{{ $data->sn }}</td>
+                        <td>{{ $data->kelayakan }}</td>
+                        {{-- foto --}}
+                        <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100" height="100"></td> 
+                        {{-- <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100"> --}}
+
+                        <td>{{ $data->status }}</td>
+                        <td>{{ $data->created_at->format('d-m-Y ') }}</td>
+                        
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -15,10 +15,28 @@ use Maatwebsite\Excel\Events\AfterSheet;
 class DataBarangExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents
 {
     private $nomor = 0;
+    private $lokasi; // Menyimpan lokasi yang diinginkan
 
+    // Constructor untuk menerima lokasi
+    public function __construct($lokasi = null)
+    {
+        $this->lokasi = $lokasi;
+    }
+
+    // public function collection()
+    // {
+    //     return DataBarang::all();
+    // }
     public function collection()
     {
-        return DataBarang::all();
+        $query = DataBarang::query();
+
+        // Tambahkan kondisi untuk filter lokasi jika ada
+        if ($this->lokasi) {
+            $query->where('lokasi', $this->lokasi);
+        }
+
+        return $query->get();
     }
 
     public function headings(): array

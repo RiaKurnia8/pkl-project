@@ -16,31 +16,11 @@
       <!-- Bagian Filter Bulan, Search, dan Export -->
     </br>
     <div class="row mb-3 align-items-center">
-        {{-- <!-- Dropdown Filter Bulan -->
-        <div class="col-md-4">
-            <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
-                <label for="bulan" class="me-2">Filter Bulan:</label>
-                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;">
-                    <option value="">Semua Bulan</option>
-                    @foreach (range(1, 12) as $month)
-                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>
-                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
-                        </option>
-                    @endforeach
-                </select>
-                <!-- Tombol Submit untuk Filter Bulan -->
-                <button type="submit" class="btn btn-primary" style="margin-left: -1px;">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
-    </div> --}}
-    <div class="row mb-3 align-items-center">
         <!-- Dropdown Filter Bulan -->
         <div class="col-md-4">
             <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
                 <label for="bulan" class="me-2">Filter Bulan:</label>
-                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;">
+                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;" onchange="this.form.submit()">
                     <option value="">Semua Bulan</option>
                     @php
                         $monthsIndo = [
@@ -70,7 +50,34 @@
                 </button>
             </form>
         </div>
+        <form action="" method="GET" id="exportForm">
+            <label for="lokasi">Print Berdasarkan Lokasi:</label>
+            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
+        
+            <button type="submit" onclick="setFormAction('excel')" class="btn btn-success">
+                <i class="fas fa-file-excel"></i> 
+            </button>
+        
+            <button type="submit" onclick="setFormAction('pdf')" class="btn btn-danger">
+                <i class="fas fa-file-pdf"></i> 
+            </button>
+        </form>
+        {{-- <form action="{{ route('export.location') }}" method="GET">
+            <label for="lokasi">Masukkan Lokasi:</label>
+            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-file-excel "></i> 
+            </button>
+        </form>
+        <form action="{{ route('export.pdf.location') }}" method="GET">
+            <label for="lokasi">Masukkan Lokasi:</label>
+            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-file-pdf "></i> 
+            </button>
+        </form> --}}
     </div>
+    
 
 
     <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
@@ -87,6 +94,9 @@
                 </div>
             
             </form>
+               
+        
+        
              <a href="{{ route('admin.databarang.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
              <a href="{{ route('admin.databarang.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 
@@ -202,6 +212,18 @@
 
     </div>
 
+      <!-- Script to set form action for export -->
+      <script>
+        function setFormAction(format) {
+            const form = document.getElementById('exportForm');
+            if (format === 'excel') {
+                form.action = "{{ route('export.location') }}";
+            } else if (format === 'pdf') {
+                form.action = "{{ route('export.pdf.location') }}";
+            }
+        }
+    </script>
+
 @endsection
 
 <!-- CDN Bootstrap dan jQuery -->
@@ -212,7 +234,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
 
 @endsection
 
