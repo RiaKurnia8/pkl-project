@@ -10,7 +10,11 @@
 </div>
 @endif
 
-<h1>Kategori</h1>
+<h1 class="mb-5">Kategori</h1>
+
+<div class="mb-1">
+    <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Kategori</button>
+</div>
 
 <div style="padding: 20px; border-radius: 10px;">
     <table class="table table-striped">
@@ -62,8 +66,5 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Kategori</button>
-    </div>
+</div>
 @endsection

@@ -139,9 +139,41 @@ class HomeController extends Controller
             DB::raw('COALESCE(pengembalians.tanggal_pengembalian, "-") as tanggal_pengembalian')
         )
         ->get();
-
+    
+    $timestamp = now()->format('Ymd_His');
+    $filename = "dashboard_data_{$timestamp}.pdf";
     $pdf = Pdf::loadView('admin.dashboard_pdf', compact('peminjamanData'));
-    return $pdf->download('dashboard_data.pdf');
+    return $pdf->download($filename); 
 }
+
+public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $peminjamanData = Peminjamans::leftJoin('pengembalians', function ($join) {
+            $join->on('peminjamans.username', '=', 'pengembalians.username')
+                ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+        })
+            ->where('peminjamans.is_deleted', false)
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('peminjamans.username', 'like', "%{$search}%")
+                        ->orWhere('peminjamans.barang_dipinjam', 'like', "%{$search}%")
+                        ->orWhere('peminjamans.plant', 'like', "%{$search}%")
+                        ->orWhere('peminjamans.tanggal_pinjam', 'like', "%{$search}%");
+                });
+            })
+            ->select(
+                'peminjamans.id',
+                'peminjamans.username',
+                'peminjamans.barang_dipinjam as barang',
+                'peminjamans.plant',
+                'peminjamans.tanggal_pinjam',
+                DB::raw('COALESCE(pengembalians.tanggal_pengembalian, "-") as tanggal_pengembalian')
+            )
+            ->get();
+
+        return response()->json(['data' => $peminjamanData]);
+    }
 
 }
