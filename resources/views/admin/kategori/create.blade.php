@@ -24,8 +24,11 @@
                     <label class="form-check-label" for="status_off">Off</label>
                 </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Simpan</button>
+
+            <div class="d-flex gap-2">
+                <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
         </form>
     </div>
 @endsection

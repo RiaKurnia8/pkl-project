@@ -27,7 +27,7 @@ class UserAdminController extends Controller
     $validated = $request->validate([
         'name' => 'required',
         'nik' => 'required|digits_between:1,5',
-        'username' => 'required|unique:users,username',
+        // 'username' => 'required|unique:users,username',
         'nomor_hp' => 'required',
         'plant' => 'required',
         'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
@@ -35,7 +35,7 @@ class UserAdminController extends Controller
     ], [
         'name.required' => 'Nama wajib diisi!!',
         'nik.required' => 'NIK wajib diisi!!',
-        'username.required' => 'Username wajib diisi!!',
+        // 'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
         'plant.required' => 'Plant wajib diisi!!',
         'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
@@ -67,7 +67,7 @@ class UserAdminController extends Controller
     $validated = $request->validate([
         'name' => 'required',
         'nik' => 'required|digits_between:1,5',
-        'username' => 'required|unique:users,username,' . $id,
+        // 'username' => 'required|unique:users,username,' . $id,
         'nomor_hp' => 'required',
         'plant' => 'required',
         'jenis_kelamin' => ['required', 'in:Laki-laki,Perempuan'],
@@ -75,7 +75,7 @@ class UserAdminController extends Controller
     ], [
         'name.required' => 'Nama wajib diisi!!',
         'nik.required' => 'NIK wajib diisi!!',
-        'username.required' => 'Username wajib diisi!!',
+        // 'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
         'plant.required' => 'Plant wajib diisi!!',
         'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
@@ -115,7 +115,7 @@ class UserAdminController extends Controller
         $users = User::where('name', 'like', "%" . $keyword . "%")
             ->orWhere('nik', 'like', "%" . $keyword . "%")
             ->orWhere('usertype', 'like', "%" . $keyword . "%")
-            ->orWhere('username', 'like', "%" . $keyword . "%")
+            // ->orWhere('username', 'like', "%" . $keyword . "%")
             ->orWhere('nomor_hp', 'like', "%" . $keyword . "%")
             ->orWhere('plant', 'like', "%" . $keyword . "%")
             ->orWhere('jenis_kelamin', 'like', "%" . $keyword . "%")

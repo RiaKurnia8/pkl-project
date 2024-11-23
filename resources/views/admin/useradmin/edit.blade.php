@@ -27,29 +27,37 @@
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" 
                                    name="nik" id="nik" value="{{ $user->nik }}" 
-                                   maxlength="5" oninput="this.value = this.value.slice(0, 5)">
+                                   maxlength="5" oninput="this.value = this.value.slice(0, 5)" readonly>
                             @error('nik')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
+                        
 
-                        <div class="mb-3">
-                            <label for="usertype" class="form-label">Usertype</label>
-                            <input type="text" class="form-control @error('usertype') is-invalid @enderror" name="usertype"
-                                id="usertype" value="{{ $user->usertype }}">
+                        <div class="form-group mb-3">
+                            <label for="usertype" style="font-weight: bold; font-size: 14px;">Usertype:</label>
+                            <select id="usertype" name="usertype" required
+                                style="border: 1px solid #d1d5db; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;">
+                                <option value="admin" {{ old('usertype', $user->usertype) == 'admin' ? 'selected' : '' }}>
+                                    Admin
+                                </option>
+                                <option value="user" {{ old('usertype', $user->usertype) == 'user' ? 'selected' : '' }}>
+                                    User
+                                </option>
+                            </select>
                             @error('usertype')
-                                <p style="color: red">{{ $message }}</p>
+                                <p style="color: red; font-size: 12px;">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
                                 id="username" value="{{ $user->username }}">
                             @error('username')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="mb-3">
                             <label for="nomor_hp" class="form-label">No. Hp</label>
@@ -71,8 +79,9 @@
                         <div class="mb-3">
                             <label for="plant" class="form-label">Plant</label>
                             <input type="text" class="form-control @error('plant') is-invalid @enderror"
-                                name="plant" id="plant" value="{{ $user->plant }}">
-                            @error('plant')
+                                name="plant" id="plant" value="{{ $user->plant }}"
+                                maxlength="5" oninput="this.value = this.value.slice(0, 5)" readonly>
+                             @error('plant')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
@@ -97,7 +106,7 @@
 
 
 
-                         <!-- Input Password Baru dengan icon toggle visibility -->
+                         {{-- <!-- Input Password Baru dengan icon toggle visibility -->
 <!-- Input Password Baru dengan icon toggle visibility -->
 <div style="position: relative; margin-bottom: 16px;">
     <label for="old_password" class="form-label">Password Lama</label>
@@ -110,10 +119,10 @@
     @error('old_password')
         <p style="color: red; font-size: 12px;">{{ $message }}</p>
     @enderror
-</div>
+</div> --}}
 
 <div style="position: relative; margin-bottom: 16px;">
-    <label for="password" style="font-size: 14px;">Password Baru</label>
+    <label for="password" style="font-size: 14px;">Reset Password</label>
     <input id="password" name="password" type="password"
            class="form-control @error('password') is-invalid @enderror"
            style="padding-right: 40px; border: 1px solid #333; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px;">

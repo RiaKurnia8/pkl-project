@@ -42,7 +42,8 @@
 </head>
 
 <body>
-    <h1>Data Peminjaman</h1>
+    <h1 style="display: inline-block;">Data Peminjaman</h1>
+    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
     <!-- Tabel Data Peminjaman -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
@@ -55,6 +56,8 @@
                     <th>Plant</th>
                     <th>Barang dipinjam</th>
                     <th>Tanggal pinjam</th>
+                    <th>Keperluan</th> --
+                    <th>Notes</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -69,6 +72,8 @@
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pinjam }}</td>
+                        <td>{{ $data->keperluan }}</td>
+                        <td>{{ $data->notes }}</td>
                         <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach

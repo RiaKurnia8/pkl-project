@@ -25,13 +25,13 @@ class HomeController extends Controller
 
         // Ambil data peminjaman yang tidak dihapus
         $query = Peminjamans::leftJoin('pengembalians', function ($join) {
-            $join->on('peminjamans.username', '=', 'pengembalians.username')
+            $join->on('peminjamans.name', '=', 'pengembalians.name')
                 ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
         })
             ->where('peminjamans.is_deleted', false) // Hanya data yang tidak dihapus
             ->select(
                 'peminjamans.id',
-                'peminjamans.username',
+                'peminjamans.name',
                 'peminjamans.barang_dipinjam as barang',
                 'peminjamans.plant',
                 'peminjamans.tanggal_pinjam',
@@ -41,7 +41,7 @@ class HomeController extends Controller
         // Filter pencarian
         if ($request->has('cari')) {
             $query->where(function ($q) use ($request) {
-                $q->where('peminjamans.username', 'like', '%' . $request->cari . '%')
+                $q->where('peminjamans.name', 'like', '%' . $request->cari . '%')
                     ->orWhere('peminjamans.barang_dipinjam', 'like', '%' . $request->cari . '%')
                     ->orWhere('peminjamans.plant', 'like', '%' . $request->cari . '%');
             });
@@ -72,13 +72,13 @@ class HomeController extends Controller
     public function showTrash()
     {
         $trashedPeminjamans = Peminjamans::leftJoin('pengembalians', function ($join) {
-            $join->on('peminjamans.username', '=', 'pengembalians.username')
+            $join->on('peminjamans.name', '=', 'pengembalians.name')
                 ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
         })
             ->where('peminjamans.is_deleted', true)
             ->select(
                 'peminjamans.id', // Tambahkan 'id' di sini
-                'peminjamans.username',
+                'peminjamans.name',
                 'peminjamans.barang_dipinjam as barang',
                 'peminjamans.plant',
                 'peminjamans.tanggal_pinjam',
@@ -127,12 +127,12 @@ class HomeController extends Controller
     public function exportPdf()
 {
     $peminjamanData = Peminjamans::leftJoin('pengembalians', function ($join) {
-            $join->on('peminjamans.username', '=', 'pengembalians.username')
+            $join->on('peminjamans.name', '=', 'pengembalians.name')
                  ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
         })
         ->where('peminjamans.is_deleted', false)
         ->select(
-            'peminjamans.username',
+            'peminjamans.name',
             'peminjamans.barang_dipinjam as barang',
             'peminjamans.plant',
             'peminjamans.tanggal_pinjam',

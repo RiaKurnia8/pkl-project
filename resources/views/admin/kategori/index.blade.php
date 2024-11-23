@@ -12,6 +12,12 @@
 
 <h1>Kategori</h1>
 
+    <!-- Tombol Add Kategori lebih ke bawah -->
+    <div class="d-flex justify-content mt-4">
+        <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Kategori</button>
+    </div>
+</div>
+
 <div style="padding: 20px; border-radius: 10px;">
     <table class="table table-striped">
         <thead style="background-color: #dc3545; color: white;">
@@ -63,7 +69,4 @@
         </tbody>
     </table>
 
-    <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Kategori</button>
-    </div>
 @endsection

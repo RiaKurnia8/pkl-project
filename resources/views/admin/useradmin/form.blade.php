@@ -44,19 +44,23 @@
 
                         <div class="mb-3">
                             <label for="usertype" class="form-label">Usertype</label>
-                            <input type="text" class="form-control @error('usertype') is-invalid @enderror" name="usertype" id="usertype" value="{{ old('usertype') }}">
-                            @error('usertype')
+                            <select class="form-control @error('usertype') is-invalid @enderror" name="usertype" id="usertype">
+                                <option value="">-- Pilih Usertype --</option>
+                                <option value="admin" {{ old('admin') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ old('user') == 'user' ? 'selected' : '' }}>User</option>
+                            </select>
+                            @error('user')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ old('username') }}">
                             @error('username')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="mb-3">
                             <label for="nomor_hp" class="form-label">No. Hp</label>

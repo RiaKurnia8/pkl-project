@@ -40,6 +40,8 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'plant',
             'barang_dipinjam',
             'tanggal_pinjam',
+            'keperluan',
+            'notes',
             'status',
         ];
     }
@@ -54,6 +56,8 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $peminjaman->plant,
             $peminjaman->barang_dipinjam,
             $peminjaman->tanggal_pinjam,
+            $peminjaman->keperluan,
+            $peminjaman->notes,
             $peminjaman->status,
         ];
     }

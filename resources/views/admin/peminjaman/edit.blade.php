@@ -18,34 +18,41 @@
         @method('PUT')
 
         <!-- Input untuk NIK -->
-        <div class="form-group">
-            <label for="nik">NIK</label>
-            <input type="text" name="nik" class="form-control" id="nik" value="{{ old('nik', $peminjaman->nik) }}" required>
-        </div>
+<div class="form-group">
+    <label for="nik">NIK</label>
+    <input type="text" name="nik" class="form-control" id="nik" value="{{ old('nik', $peminjaman->nik) }}" readonly>
+</div>
+
 
         <!-- Input untuk Username -->
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" class="form-control" id="username" value="{{ old('username', $peminjaman->username) }}" required>
-        </div>
+        </div>  --}}
+
+        <div class="form-group">
+            <label for="name">Nama</label>
+            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $peminjaman->name) }}" readonly>
+        </div> 
 
         <!-- Input untuk Plant -->
         <div class="form-group">
             <label for="plant">Plant</label>
-            <input type="text" name="plant" class="form-control" id="plant" value="{{ old('plant', $peminjaman->plant) }}" required>
+            <input type="text" name="plant" class="form-control" id="plant" value="{{ old('plant', $peminjaman->plant) }}" readonly>
         </div>
 
         <!-- Input untuk Barang yang dipinjam -->
         <div class="form-group">
             <label for="barang_dipinjam">Barang yang dipinjam</label>
-            <input type="text" name="barang_dipinjam" class="form-control" id="barang_dipinjam" value="{{ old('barang_dipinjam', $peminjaman->barang_dipinjam) }}" required>
+            <input type="text" name="barang_dipinjam" class="form-control" id="barang_dipinjam" value="{{ old('barang_dipinjam', $peminjaman->barang_dipinjam) }}" readonly>
         </div>
 
         <!-- Input untuk Tanggal Pinjam -->
-        <div class="form-group">
-            <label for="tanggal_pinjam">Tanggal Pinjam</label>
-            <input type="date" name="tanggal_pinjam" class="form-control" id="tanggal_pinjam" value="{{ old('tanggal_pinjam', $peminjaman->tanggal_pinjam) }}" required>
-        </div>
+<div class="form-group">
+    <label for="tanggal_pinjam">Tanggal Pinjam</label>
+    <input type="date" name="tanggal_pinjam" class="form-control" id="tanggal_pinjam" value="{{ old('tanggal_pinjam', $peminjaman->tanggal_pinjam) }}" readonly>
+</div>
+
 
         <!-- Input untuk Status -->
         <div class="mb-3">
@@ -60,6 +67,32 @@
                 <p style="color: red">{{ $message }}</p>
             @enderror
         </div>
+
+        {{-- Input untuk Keperluan --}}
+        <div class="mb-3">
+            <label for="keperluan" class="form-label">Keperluan</label>
+            <textarea class="form-control @error('keperluan') is-invalid @enderror" 
+                      name="keperluan" 
+                      id="keperluan" 
+                      rows="5" 
+                      readonly>{{ old('keperluan', $peminjaman->keperluan) }}</textarea>
+            @error('keperluan')
+                <p style="color: red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Input untuk Notes --}}
+<div class="mb-3">
+    <label for="notes" class="form-label">Notes</label>
+    <textarea class="form-control @error('notes') is-invalid @enderror" 
+              name="notes" 
+              id="notes" 
+              rows="5">{{ old('notes', $peminjaman->notes) }}</textarea>
+    @error('notes')
+        <p style="color: red">{{ $message }}</p>
+    @enderror
+</div>
+
 
         <!-- Tombol Submit -->
         <form action="{{ route('admin.peminjaman.update', $peminjaman->id) }}" method="POST" enctype="multipart/form-data">

@@ -24,10 +24,15 @@
             <input type="text" class="form-control" id="nik" name="nik" value="{{ Auth::user()->nik }}" readonly>
         </div>
 
-        <!-- Username Input -->
-        <div class="form-group">
-            <label for="username">Username :</label>
+         {{-- <div class="form-group">
+            <label for="username">userNama :</label>
             <input type="text" class="form-control" id="username" name="username" value="{{ Auth::user()->username }}" readonly>
+        </div> --}}
+
+        <!-- Name Input -->
+        <div class="form-group">
+            <label for="name">Nama :</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ Auth::user()->name }}" readonly>
         </div>
 
         <!-- Plant Input -->
@@ -46,6 +51,18 @@
         <div class="form-group">
             <label for="tanggal_pengembalian">Tanggal Pengembalian :</label>
             <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required>
+        </div>
+
+        <!-- Notes Input -->
+        {{-- <div class="form-group">
+            <label for="notes">Notes :</label>
+            <textarea class="form-control" id="notes" name="notes" rows="5" required></textarea>
+        </div> --}}
+
+         {{-- keperluan --}}
+         <div class="form-group">
+            <label for="keperluan">Keperluan :</label>
+            <textarea class="form-control" id="keperluan" name="keperluan" rows="5" required></textarea>
         </div>
 
         <!-- Tombol Back dan Save -->

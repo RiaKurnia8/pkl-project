@@ -20,7 +20,7 @@ class User extends Authenticatable
         'name',
         'nik',
         'usertype',
-        'username',
+        // 'username',
         'nomor_hp',
         'plant',
         'jenis_kelamin',

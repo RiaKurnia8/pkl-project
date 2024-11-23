@@ -46,11 +46,14 @@ class PeminjamanController extends Controller
     {
         $request->validate([
             'nik' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
+            //'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'plant' => 'required|string|max:255',
             'barang_dipinjam' => 'required|string|max:255',
             'tanggal_pinjam' => 'required|date',
             'status' => 'required|string|max:255',
+            'keperluan' => 'required|string',
+            //'notes' => 'required|string',
         ]);
     
         $peminjaman = Peminjamans::find($id);

@@ -34,8 +34,7 @@ class HpengembalianController extends Controller
         // Mencari data pengembalian berdasarkan kata kunci dan nik pengguna
         $pengembalians = Pengembalians::where('nik', $nik)
             ->where(function ($query) use ($keyword) {
-                $query->where('username', 'like', "%" . $keyword . "%")
-                    ->orWhere('plant', 'like', "%" . $keyword . "%")
+                $query->where('plant', 'like', "%" . $keyword . "%")
                     ->orWhere('barang_dipinjam', 'like', "%" . $keyword . "%")
                     ->orWhere('tanggal_pengembalian', 'like', "%" . $keyword . "%")
                     ->orWhere('status', 'like', "%" . $keyword . "%");

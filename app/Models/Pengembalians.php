@@ -12,10 +12,13 @@ class Pengembalians extends Model
 
     protected $fillable = [
         'nik',
-        'username',
+        // 'username',
+        'name',
         'plant',
         'barang_dipinjam',
         'tanggal_pengembalian',
         'status',
+        'keperluan',
+        'notes',
     ];
 }

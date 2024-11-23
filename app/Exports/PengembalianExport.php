@@ -40,7 +40,10 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
             'plant',
             'barang_dipinjam',
             'tanggal_pengembalian',
+            'keperluan',
+            'notes',
             'status',
+
         ];
     }
 
@@ -54,6 +57,8 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
             $pengembalian->plant,
             $pengembalian->barang_dipinjam,
             $pengembalian->tanggal_pengembalian,
+            $pengembalian->keperluan,
+            $pengembalian->notes,
             $pengembalian->status,
         ];
     }

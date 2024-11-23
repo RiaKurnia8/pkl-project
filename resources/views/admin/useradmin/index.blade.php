@@ -29,6 +29,12 @@
     </div>
 </div>   
 
+{{-- add data --}}
+<div class="col-auto">
+    <a class="btn btn-primary" href="{{ route('admin.useradmin.create') }}">Add Data</a>
+</div>
+</div>
+
 <!-- Tabel Data User -->
 <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
     <table class="table table-striped">
@@ -38,7 +44,7 @@
             <th>Nama</th>
             <th>NIK</th>
             <th>Usertype</th>
-            <th>Username</th>
+            {{-- <th>Username</th> --}}
             <th>No. Hp</th>
             <th>Plant</th>
             <th>Jenis Kelamin</th>
@@ -54,7 +60,7 @@
             <td>{{ $data->name }}</td>
             <td>{{ $data->nik }}</td>
             <td>{{ $data->usertype }}</td>
-            <td>{{ $data->username }}</td>
+            {{-- <td>{{ $data->username }}</td> --}}
             <td>{{ $data->nomor_hp }}</td>
             <td>{{ $data->plant }}</td>
             <td>{{ $data->jenis_kelamin }}</td>
@@ -98,8 +104,6 @@
     </tbody>
 </table>
 
-{{-- add data --}}
-<a class="btn btn-primary" href="{{ route('admin.useradmin.create') }}">Add Data</a>
         {!! $users->withQueryString()->links('pagination::bootstrap-5') !!}
 
 

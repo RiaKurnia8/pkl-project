@@ -22,8 +22,6 @@
     </div>
 </div>
 
-
-
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
     <table class="table table-striped">
@@ -34,6 +32,8 @@
                 <th>Plant</th>
                 <th>Barang</th>
                 <th>Tanggal Pinjam</th>
+                <th>Keperluan</th>
+                <th>Notes</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -45,6 +45,8 @@
                     <td>{{ $peminjaman->plant }}</td>
                     <td>{{ $peminjaman->barang_dipinjam }}</td>
                     <td>{{ $peminjaman->tanggal_pinjam }}</td>
+                    <td>{{ $peminjaman->keperluan }}</td>
+                    <td>{{ $peminjaman->notes }}</td>
                     <td>{{ $peminjaman->status }}</td>
                 </tr>
             @endforeach

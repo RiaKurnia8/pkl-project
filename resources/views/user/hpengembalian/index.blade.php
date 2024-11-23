@@ -31,6 +31,8 @@
                 <th>Plant</th>
                 <th>Barang</th>
                 <th>Tanggal Pengembalian</th>
+                <th>Keperluan</th>
+                <th>Notes</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -42,6 +44,8 @@
                     <td>{{ $pengembalian->plant }}</td>
                     <td>{{ $pengembalian->barang_dipinjam }}</td>
                     <td>{{ $pengembalian->tanggal_pengembalian }}</td>
+                    <td>{{ $pengembalian->keperluan }}</td>
+                    <td>{{ $pengembalian->notes }}</td>
                     <td>{{ $pengembalian->status }}</td>
                 </tr>
             @endforeach

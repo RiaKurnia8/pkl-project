@@ -14,11 +14,14 @@ class Peminjamans extends Model
 
     protected $fillable = [
         'nik',
-        'username',
+        //'username',
+        'name',
         'plant',
         'barang_dipinjam',
         'tanggal_pinjam',
         'status',
+        'keperluan',
+        'notes',
         'is_deleted'
     ];
 }

@@ -41,10 +41,13 @@
             <tr>
                 <th>No</th>
                 <th>NIK</th>
-                <th>Username</th>
+                {{-- <th>Username</th> --}}
+                <th>Nama</th>
                 <th>Plant</th>
                 <th>Barang dipinjam</th>
                 <th>Tanggal pinjam</th>
+                <th>Keperluan</th>
+                <th>Notes</th>
                 <th>Status</th>
                 <th>Aksi</th>
             </tr>
@@ -55,10 +58,13 @@
                     <tr>
                         <th scope="row">{{ $i + 1 + ($peminjamans->currentPage() - 1) * $peminjamans->perPage() }}</th>
                         <td>{{ $data->nik }}</td>
-                        <td>{{ $data->username }}</td>
+                        {{-- <td>{{ $data->username }}</td> --}}
+                        <td>{{ $data->name }}</td>
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pinjam }}</td>
+                        <td>{{ $data->keperluan}}</td>
+                        <td>{{ $data->notes}}</td>
                         <td>{{ $data->status}}</td>
                         
                         <td>

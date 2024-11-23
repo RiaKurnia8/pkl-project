@@ -101,8 +101,13 @@
              <a href="{{ route('admin.databarang.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 
         </div>
-    </div>
-    
+    </div> 
+
+    <!-- Tombol Add Data di bagian atas -->
+<div class="d-flex justify-content-start mb-3">
+    <a class="btn btn-primary" href="{{ route('admin.databarang.create') }}">Add Data</a>
+</div>
+
 
     <!-- Tabel Data Barang -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
@@ -207,7 +212,6 @@
             </tbody>
         </table>
 
-        <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
         {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
 
     </div>
