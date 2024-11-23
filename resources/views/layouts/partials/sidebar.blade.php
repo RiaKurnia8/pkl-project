@@ -30,6 +30,9 @@
 
                     <a class="nav-link" href="{{ url('admin/kategori') }}">
                         <i class="fas fa-layer-group" style="margin-right: 10px;"></i>Kategory</a>
+                    <a class="nav-link" href="{{ url('admin/plant') }}">
+                        <i class="fas fa-location-dot" style="margin-right: 10px;"></i>Plant</a>
+                        
                 </nav>
             </div>
 
@@ -85,7 +88,7 @@
                 <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can"></i></div>
                 Riwayat Sampah
             </a>
-            
+
         </div>
     </div>
     <div class="sb-sidenav-footer">

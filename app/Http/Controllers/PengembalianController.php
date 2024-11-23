@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 class PengembalianController extends Controller
 {
     public function index() {
-        $pengembalians = Pengembalians::paginate(10);
+        $pengembalians = Pengembalians::all();
         
         return view('admin.pengembalian.index', compact('pengembalians'));
     }

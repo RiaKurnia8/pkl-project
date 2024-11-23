@@ -76,12 +76,26 @@
 
                     <!-- Kolom Kedua (Plant, Jenis Kelamin, Password) -->
                     <div class="col-md-6">
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="plant" class="form-label">Plant</label>
                             <input type="text" class="form-control @error('plant') is-invalid @enderror"
                                 name="plant" id="plant" value="{{ $user->plant }}"
                                 maxlength="5" oninput="this.value = this.value.slice(0, 5)" readonly>
                              @error('plant')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="plant_id" class="form-label">Plant</label>
+                            <select name="plant_id" id="plant_id" class="form-control @error('plant_id') is-invalid @enderror">
+                                <option value="">-- Pilih Plant --</option>
+                                @foreach($plants as $plant)
+                                    <option value="{{ $plant->id }}" {{ old('plant_id', isset($user) ? $user->plant_id : '') == $plant->id ? 'selected' : '' }}>
+                                        {{ $plant->plant }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('plant_id')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>

@@ -51,7 +51,7 @@
 <div class="d-flex justify-content-end mb-3">
     <!-- Bagian Search -->
     <div class="col-auto">
-        <form action="{{ route('admin.dashboard.index') }}" method="GET">
+        {{-- <form action="{{ route('admin.dashboard.index') }}" method="GET">
             <div class="input-group">
                 <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
                 <button type="submit" class="btn btn-primary">
@@ -59,7 +59,7 @@
                 </button>
             </div>
         
-        </form>
+        </form> --}}
          <a href="{{ route('admin.export.peminjaman') }}" class="btn btn-success mt-2"><i class="fas fa-file-excel"></i></a>
          <a href="{{ route('admin.dashboard.exportPdf') }}" class="btn btn-danger mt-2"><i class="fas fa-file-pdf"></i></a>
 
@@ -71,7 +71,7 @@
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
-    <table class="table table-striped">
+    <table id="dashboardTable" class="table table-striped">
         <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
             <tr>
             <th>No</th>
@@ -86,7 +86,7 @@
     <tbody>
     @foreach ($Peminjamans as $index => $peminjaman)
             <tr>
-                <td>{{ ($Peminjamans->currentPage() - 1) * $Peminjamans->perPage() + $index + 1 }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td>{{ $peminjaman->username }}</td>
                 <td>{{ $peminjaman->barang }}</td>
                 <td>{{ $peminjaman->plant }}</td>
@@ -134,13 +134,31 @@
         @endforeach
     </tbody>
 </table>
-{!! $Peminjamans->withQueryString()->links('pagination::bootstrap-5') !!}
+{{-- {!! $Peminjamans->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 
 </div>
 
 @endsection
-<!-- CDN Bootstrap dan jQuery -->
-@section('scripts')
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#dashboardTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
+        });
+    });
+</script>
+    
+@endpush
+
+{{-- @section('scripts')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -161,14 +179,4 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            toastr.options.timeOut = 5000;
-            @if (Session::has('error'))
-                toastr.error('{{ Session::get('error') }}');
-            @elseif (Session::has('success'))
-                toastr.success('{{ Session::get('success') }}');
-            @endif
-        });
-    </script> --}}
-@endpush
+@endpush --}}

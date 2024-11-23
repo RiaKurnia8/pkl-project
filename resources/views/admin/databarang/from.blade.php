@@ -13,8 +13,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="lokasi" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control @error('lokasi') is-invalid @enderror" name="lokasi"
-                                id="lokasi">
+                            <input type="text" class="form-control @error('lokasi') is-invalid @enderror" name="lokasi" 
+                                id="lokasi" value="{{ old('lokasi') }}">
                             @error('lokasi')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -23,7 +23,7 @@
                         <div class="mb-3">
                             <label for="barang" class="form-label">Barang</label>
                             <input type="text" class="form-control @error('barang') is-invalid @enderror" name="barang"
-                                id="barang">
+                                id="barang" value="{{ old('barang') }}">
                             @error('barang')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -32,7 +32,7 @@
                         <div class="mb-3">
                             <label for="asset" class="form-label">No.Asset</label>
                             <input type="text" class="form-control @error('no_asset') is-invalid @enderror"
-                                name="no_asset" id="no_asset">
+                                name="no_asset" id="no_asset" value="{{ old('no_asset') }}">
                             @error('no_asset')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -41,30 +41,15 @@
                         <div class="mb-3">
                             <label for="equipment" class="form-label">No.Equipment</label>
                             <input type="text" class="form-control @error('no_equipment') is-invalid @enderror"
-                                name="no_equipment" id="no_equipment">
+                                name="no_equipment" id="no_equipment" value="{{ old('no_equipment') }}">
                             @error('no_equipment')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        {{-- <div class="mb-3">
-                            <label for="kategori_id" class="form-label">Kategori</label>
-                            <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
-                                <option value="">-- Pilih Kategori --</option>
-                                @foreach($kategoris as $kategori)
-                                    <option value="{{ $kategori->id }}" 
-                                        {{ old('kategori_id', isset($databarang) ? $databarang->kategori_id : '') == $kategori->id ? 'selected' : '' }}>
-                                        {{ $kategori->nama_kategori }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('kategori_id')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
+                        
                         <div class="mb-3">
                             <label for="kategori_id" class="form-label">Kategori</label>
-                            <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                            <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror" value="{{ old('kategori') }}">
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach($kategoris as $kategori)
                                     @if($kategori->status === 'on') <!-- Memeriksa apakah status adalah 'on' -->
@@ -83,7 +68,7 @@
                         <div class="mb-3">
                             <label for="merk" class="form-label">Merk</label>
                             <input type="text" class="form-control @error('merk') is-invalid @enderror" name="merk"
-                                id="merk">
+                                id="merk" value="{{ old('merk') }}">
                             @error('merk')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -103,7 +88,7 @@
                         <div class="mb-3">
                             <label for="tipe" class="form-label">Tipe</label>
                             <input type="text" class="form-control @error('tipe') is-invalid @enderror" name="tipe"
-                                id="tipe">
+                                id="tipe" value="{{ old('tipe') }}">
                             @error('tipe')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -112,7 +97,7 @@
                         <div class="mb-3">
                             <label for="sn" class="form-label">SN</label>
                             <input type="text" class="form-control @error('sn') is-invalid @enderror" name="sn"
-                                id="sn">
+                                id="sn" value="{{ old('sn') }}">
                             @error('sn')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
@@ -121,7 +106,7 @@
                         <div class="mb-3">
                             <label for="kelayakan" class="form-label">Kelayakan</label>
                             <select class="form-control @error('kelayakan') is-invalid @enderror" name="kelayakan"
-                                id="kelayakan">
+                                id="kelayakan" value="{{ old('kelayakan') }}">
                                 <option value="">-- Pilih Kelayakan --</option>
                                 <option value="layak">Layak</option>
                                 <option value="tidaklayak">Tidak Layak</option>
@@ -142,7 +127,10 @@
                             @endif
                         
                             <!-- Opsi untuk mengunggah gambar baru -->
-                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos">
+                            <input type="file" class="form-control @error('fotos') is-invalid @enderror" name="fotos" id="fotos" value="{{ old('fotos') }}">
+                            @error('fotos')
+                                <p style="color: red">{{ $message }}</p>
+                            @enderror
                         
 
                         </div>
@@ -150,7 +138,7 @@
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control @error('status') is-invalid @enderror" name="status"
-                                id="status">
+                                id="status" value="{{ old('status') }}">
                                 <option value="">-- Pilih status --</option>
                                 <option value="dipinjam">dipinjam</option>
                                 <option value="kembali">kembali</option>

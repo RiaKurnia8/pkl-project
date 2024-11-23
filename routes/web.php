@@ -8,6 +8,7 @@ use App\Http\Controllers\HpengembalianController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PlantController;
 use App\Http\Controllers\ProfilAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilUserController;
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //user
-Route::get('/user/dashboard', [UserController::class, 'index'])
+Route::get('/user/dashboard' , [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('user.dashboard');
 
@@ -87,12 +88,12 @@ Route::get('/admin/dashboard/search', [HomeController::class, 'search'])->name('
 Route::get('/admin/databarang', [DataBarangController::class, 'index'])->name('admin.databarang.index');
 Route::get('/admin/databarang/cari', [DataBarangController::class, 'search'])->name('admin.databarang.search');
 Route::get('admin/databarang/export/', [DataBarangController::class, 'export'])->name('admin.databarang.xls');
-Route::get('/export/data-barang/location', [DataBarangController::class, 'exportByLocation'])->name('export.location');
+Route::get('/admin/databarang/export', [DataBarangController::class, 'export'])->name('admin.databarang.export');
 
 Route::get('/admin/databarang/add', [DataBarangController::class, 'create'])->name('admin.databarang.create');
 Route::post('/admin/databarang/add', [DataBarangController::class, 'store'])->name('admin.databarang.store');
 Route::get('/admin/databarang/exportpdf', [DataBarangController::class, 'exportPdf'])->name('admin.databarang.exportPdf');
-Route::get('/export/data-barang/pdf-location', [DataBarangController::class, 'exportPdfByLocation'])->name('export.pdf.location');
+
 
 
 Route::get('/admin/databarang/{id}', [DataBarangController::class, 'edit'])->name('admin.databarang.edit');
@@ -110,6 +111,8 @@ Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->nam
 Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search'])->name('admin.datadisposal.search');
 Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');
 Route::get('/admin/datadisposal/exportpdf', [DataDisposalController::class, 'exportPdf'])->name('admin.datadisposal.exportPdf');
+// Route::get('/export/data-disposal/location', [DataDisposalController::class, 'exportByLocation'])->name('export.location');
+// Route::get('/export/data-disposal/pdf-location', [DataDisposalController::class, 'exportPdfByLocation'])->name('export.pdf.location');
 
 //kategori
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
@@ -188,4 +191,14 @@ Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->na
 Route::get('/admin/pengembalian/cari', [PengembalianController::class, 'search'])->name('admin.pengembalian.search');
 Route::get('admin/pengembalian/export/', [PengembalianController::class, 'export'])->name('admin.pengembalian.xls');
 Route::get('/admin/pengembalian/exportpdf', [PengembalianController::class, 'exportPdf'])->name('admin.pengembalian.exportPdf');
+
+//plant
+Route::get('/admin/plant', [PlantController::class, 'index'])->name('admin.plant.index');
+Route::get('/admin/plant/create', [PlantController::class, 'create'])->name('admin.plant.create'); // Menampilkan form tambah plant
+Route::post('/admin/plant/store', [PlantController::class, 'store'])->name('admin.plant.store'); // Menyimpan plant baru
+Route::get('/admin/plant/{id}', [PlantController::class, 'edit'])->name('admin.plant.edit');
+Route::put('/admin/plant/{id}', [PlantController::class, 'update'])->name('admin.plant.update');
+Route::delete('/admin/plant/{id}', [PlantController::class, 'destroy'])->name('admin.plant.destroy');
+
+
 

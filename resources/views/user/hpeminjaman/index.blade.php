@@ -7,7 +7,7 @@
 <h1 class="mt-4">Peminjaman Barang</h1>
 
 <!-- Form Pencarian -->
-<div class="d-flex justify-content-end mb-3">
+{{-- <div class="d-flex justify-content-end mb-3">
     <!-- Bagian Search -->
     <div class="col-auto">
         <form action="{{ route('user.hpeminjaman.search') }}" method="GET">
@@ -20,11 +20,11 @@
         
         </form>
     </div>
-</div>
+</div> --}}
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
-    <table class="table table-striped">
+    <table id="hpeminjamanTable" class="table table-striped">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>
@@ -40,7 +40,7 @@
         <tbody>
             @foreach($peminjamans as $index => $peminjaman)
                 <tr>
-                    <td>{{ $peminjamans->firstItem() + $index }}</td>
+                    <td>{{ $index + 1 }}</td>
                     <td>{{ $peminjaman->nik }}</td>
                     <td>{{ $peminjaman->plant }}</td>
                     <td>{{ $peminjaman->barang_dipinjam }}</td>
@@ -64,7 +64,7 @@
             @endforeach
         </tbody> --}}
     </table>
-    {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!}
+    {{-- {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 </div>
 
 <!-- Teks Showing Entries -->
@@ -73,3 +73,19 @@
 </div> --}}
 
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#hpeminjamanTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
+        });
+    });
+</script>
+@endpush

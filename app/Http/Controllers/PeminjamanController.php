@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 class PeminjamanController extends Controller
 {
     public function index() {
-        $peminjamans = Peminjamans::paginate(10);
+        $peminjamans = Peminjamans::all();
         
         return view('admin.peminjaman.index', compact('peminjamans'));
     }

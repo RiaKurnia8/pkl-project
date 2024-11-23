@@ -15,7 +15,7 @@
 <h1 class="mt-4">Riwayat Sampah</h1>
 
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table id="riwayatTable" class="table table-striped">
         <thead style="background-color: #f71d1d; color: white;">
             <tr>
                 <th>No</th>
@@ -116,3 +116,20 @@
     </table>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#riwayatTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
+        });
+    });
+</script>
+@endpush

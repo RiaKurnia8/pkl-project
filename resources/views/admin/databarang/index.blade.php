@@ -4,87 +4,89 @@
 
 @section('content')
 
-    {{-- pesan sukses --}}
+    
     @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
             {{ session()->get('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     <h1>Data Barang</h1>
-      <!-- Bagian Filter Bulan, Search, dan Export -->
+   
     </br>
     <div class="row mb-3 align-items-center">
-        <!-- Dropdown Filter Bulan -->
-        <div class="col-md-4">
+
+        <div class="col-md-6">
             <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
                 <label for="bulan" class="me-2">Filter Bulan:</label>
-                <select name="bulan" class="form-select me-0" style="max-width: 150px; margin-right: -2px;" onchange="this.form.submit()">
+                <select name="bulan" class="form-select me-2" style="max-width: 150px;" onchange="this.form.submit()">
                     <option value="">Semua Bulan</option>
                     @php
                         $monthsIndo = [
-                            1 => 'Januari',
-                            2 => 'Februari',
-                            3 => 'Maret',
-                            4 => 'April',
-                            5 => 'Mei',
-                            6 => 'Juni',
-                            7 => 'Juli',
-                            8 => 'Agustus',
-                            9 => 'September',
-                            10 => 'Oktober',
-                            11 => 'November',
-                            12 => 'Desember',
+                            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+                            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+                            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
                         ];
                     @endphp
                     @foreach ($monthsIndo as $month => $monthName)
-                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>
-                            {{ $monthName }}
-                        </option>
+                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>{{ $monthName }}</option>
                     @endforeach
                 </select>
-                <!-- Tombol Submit untuk Filter Bulan -->
-                <button type="submit" class="btn btn-primary" style="margin-left: -1px;">
+                
+                <!-- Filter Tanggal Awal -->
+                <label for="tanggal_awal" class="ms-3">Dari Tanggal:</label>
+                <input type="date" name="tanggal_awal" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_awal') }}">
+                
+                <!-- Filter Tanggal Akhir -->
+                <label for="tanggal_akhir" class="ms-3">Sampai Tanggal:</label>
+                <input type="date" name="tanggal_akhir" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_akhir') }}">
+                
+                <!-- Tombol Submit -->
+                <button type="submit" class="btn btn-primary ms-2">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
         </div>
-        <form action="" method="GET" id="exportForm">
-            <label for="lokasi">Print Berdasarkan Lokasi:</label>
-            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
-        
-            <button type="submit" onclick="setFormAction('excel')" class="btn btn-success">
-                <i class="fas fa-file-excel"></i> 
-            </button>
-        
-            <button type="submit" onclick="setFormAction('pdf')" class="btn btn-danger">
-                <i class="fas fa-file-pdf"></i> 
-            </button>
-        </form>
-        {{-- <form action="{{ route('export.location') }}" method="GET">
-            <label for="lokasi">Masukkan Lokasi:</label>
-            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-file-excel "></i> 
-            </button>
-        </form>
-        <form action="{{ route('export.pdf.location') }}" method="GET">
-            <label for="lokasi">Masukkan Lokasi:</label>
-            <input type="text" name="lokasi" id="lokasi" placeholder="Masukkan lokasi" required>
-            <button type="submit" class="btn btn-danger">
-                <i class="fas fa-file-pdf "></i> 
-            </button>
-        </form> --}}
     </div>
-    
+{{-- export --}}
+    <div>
+        <form action="{{ route('admin.databarang.export') }}" method="GET" class="mb-3">
+            <div class="row align-items-end">
+                <!-- Filter Tanggal Mulai -->
+                <div class="col-auto">
+                    <label for="start_date">Tanggal Mulai</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+                </div>
+                <!-- Filter Tanggal Akhir -->
+                <div class="col-auto">
+                    <label for="end_date">Tanggal Akhir</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
+                </div>
+                <!-- Filter Pencarian Umum (Lokasi, Barang, Kategori, Status) -->
+                <div class="col-auto">
+                    <label for="search">Filter</label>
+                    <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}" placeholder="Lokasi, Barang, Kategori, Status">
+                </div>
+                <!-- Filter Format File -->
+                <div class="col-auto">
+                    <label for="type">Format File</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="excel">Excel</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-danger w-100">Export</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-
-    <!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-    
+ <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
     <div class="d-flex justify-content-end mb-3">
-        <!-- Bagian Search -->
-        <div class="col-auto">
+         
+        {{-- <div class="col-auto">
             <form action="{{ route('admin.databarang.search') }}" method="GET">
                 <div class="input-group">
                     <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
@@ -94,25 +96,14 @@
                 </div>
             
             </form>
-               
-        
-        
              <a href="{{ route('admin.databarang.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
              <a href="{{ route('admin.databarang.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 
-        </div>
-    </div> 
-
-    <!-- Tombol Add Data di bagian atas -->
-<div class="d-flex justify-content-start mb-3">
-    <a class="btn btn-primary" href="{{ route('admin.databarang.create') }}">Add Data</a>
-</div>
-
-
-    <!-- Tabel Data Barang -->
-    <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
-        <table class="table table-striped">
-            <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
+        </div> --}}
+    </div>
+    <div style="border-radius: 5px;"> <!-- Padding dan border-radius -->
+        <table id="databarangTable" class="table table-striped table-bordered"> <!-- Tambahkan id -->
+            <thead style="background-color: #dc3545; color: white;">
                 <tr class="text-center">
                     <th>No</th>
                     <th>Lokasi</th>
@@ -131,23 +122,14 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach ($databarang as $i => $data)
-                    <!-- Contoh data barang (ini akan diganti dengan data dari database) -->
                     <tr class="text-center">
-                        {{-- <th scope="row">{{ $i + 1 }}</th> --}}
-                        <th scope="row">{{ $i + 1 + ($databarang->currentPage() - 1) * $databarang->perPage() }}</th>
+                        <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->lokasi }}</td>
                         <td>{{ $data->barang }}</td>
                         <td>{{ $data->no_asset }}</td>
                         <td>{{ $data->no_equipment }}</td>
-                        <td>
-                            @if($data->kategori)
-                                {{ $data->kategori->nama_kategori }}
-                            @else
-                                Kategori tidak ada
-                            @endif
-                        </td>
+                        <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak ada' }}</td>
                         <td>{{ $data->merk }}</td>
                         <td>{{ $data->tipe }}</td>
                         <td>{{ $data->sn }}</td>
@@ -159,86 +141,153 @@
                                 <span>Tidak ada foto</span>
                             @endif
                         </td>
-                        
                         <td>{{ $data->status }}</td>
-                        <td>{{ $data->created_at->format('d-m-Y ') }}</td> <!-- Tanggal Tambah -->
-                        
-                        {{-- <td>
-                            <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i> <!-- Ikon Edit -->
+                        <td>{{ $data->created_at->format('d-m-Y') }}</td>
+                        <td>
+                            <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i>
                             </a>
-                            <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </td> --}}
-                         <!-- Tombol Aksi -->
-                <td>
-                    <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning btn-sm">
-                        <i class="fas fa-edit"></i> 
-                    </a>
-                    <!-- Tombol Hapus dengan Modal Konfirmasi -->
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
-                        <i class="fas fa-trash"></i> 
-                    </button>
-                    
-                    <!-- Modal Konfirmasi Penghapusan -->
-                    <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Apakah Anda yakin ingin menghapus data ini? <p><strong>{{ $data->barang }}</strong></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus data ini? <p><strong>{{ $data->barang }}</strong></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ route('admin.databarang.destroy', $data->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </td>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
-        {!! $databarang->withQueryString()->links('pagination::bootstrap-5') !!}
-
     </div>
-
-      <!-- Script to set form action for export -->
+    
+     
       <script>
-        function setFormAction(format) {
-            const form = document.getElementById('exportForm');
-            if (format === 'excel') {
-                form.action = "{{ route('export.location') }}";
-            } else if (format === 'pdf') {
-                form.action = "{{ route('export.pdf.location') }}";
+        document.addEventListener('DOMContentLoaded', function() {
+            const alert = document.getElementById('success-alert');
+            if (alert) {
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                }, 3000); // 3000ms = 3 detik
             }
-        }
+        });
+
     </script>
+
 
 @endsection
 
-<!-- CDN Bootstrap dan jQuery -->
-@section('scripts')
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#databarangTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
+        });
+    });
+</script>
+{{-- <script>
+    $(document).ready(function(){
+        $('#databarangTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('admin.databarang.index') }}",
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'lokasi', name: 'lokasi'},
+                {data: 'barang', name: 'barang'},
+                {data: 'no_asset', name: 'no_asset'},
+                {data: 'no_equipment', name: 'no_equipment'},
+                {data: 'kategori', name: 'kategori'},
+                {data: 'merk', name: 'merk'},
+                {data: 'tipe', name: 'tipe'},
+                {data: 'sn', name: 'sn'},
+                {data: 'kelayakan', name: 'kelayakan'},
+                {data: 'foto', name: 'foto'},
+                {data: 'status', name: 'status'},
+                // {data: 'created_at', name: 'created_at'},
+                {
+                data: 'created_at', 
+                name: 'created_at',
+                render: function(data, type, row) {
+                    return moment(data).format('DD-MM-YYYY');  // Format tanggal d-m-Y
+                }
+            },
+                {data: 'action', name: 'action'}
+            ]
+        });
+    });
+
+    $(document).on('click', '.delete-button', function () {
+    let id = $(this).data('id');
+
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "{{ url('admin/databarang') }}/" + id,
+                type: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    $('#databarangTable').DataTable().ajax.reload(null, false); // Reload data tanpa refresh halaman
+                    Swal.fire('Berhasil!', response.success, 'success'); // Menampilkan pesan sukses
+                },
+                error: function (xhr) {
+                    Swal.fire('Gagal!', xhr.responseJSON?.message || 'Terjadi kesalahan saat menghapus data.', 'error');
+                }
+            });
+        }
+    });
+}); --}}
+
+    
+</script>
+
+@endpush
+
+
+{{-- @section('scripts')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous"></script>
 @endsection
 
 @push('css')
@@ -251,14 +300,6 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            toastr.options.timeOut = 5000;
-            @if (Session::has('error'))
-                toastr.error('{{ Session::get('error') }}');
-            @elseif (Session::has('success'))
-                toastr.success('{{ Session::get('success') }}');
-            @endif
-        });
-    </script> --}}
-@endpush
+
+@endpush --}}
+

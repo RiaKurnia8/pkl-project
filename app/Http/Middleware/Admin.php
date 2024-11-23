@@ -14,13 +14,30 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    // public function handle(Request $request, Closure $next): Response
+    // {
+    //     if(Auth::user()->usertype != 'admin')
+    //     {
+    //         return redirect('dashboard');
+    //     }
+
+
+    //     return $next($request);
+    // }
+    
+
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'admin')
-        {
-            return redirect('dashboard');
-        }
+        // Jika pengguna tidak terautentikasi atau bukan admin
+        if (!Auth::check() || Auth::user()->usertype != 'admin') {
+            // Hapus sesi dan logout pengguna jika sesi kedaluwarsa atau tidak terautentikasi
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
+            // Redirect ke halaman login
+            return redirect()->route('login');
+        }
 
         return $next($request);
     }
