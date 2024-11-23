@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //user
-Route::get('/user/dashboard', [UserController::class, 'index'])
+Route::get('/user/dashboard' , [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('user.dashboard');
 
