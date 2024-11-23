@@ -13,13 +13,14 @@ class DataDisposalController extends Controller
 {
     public function index()
     {
-        $datadisposal = DataBarang::where('kelayakan', 'tidaklayak')->paginate(10);
+        $datadisposal = DataBarang::where('kelayakan', 'tidaklayak')->get();
         return view('admin.datadisposal.index', compact('datadisposal'));
     }
 
     public function search(Request $request)
     {
         $keyword = $request->input('cari');
+        $bulan = $request->input('bulan');
         
         // Hanya mencari di data dengan kelayakan 'tidak layak'
         $datadisposal = DataBarang::where('kelayakan', 'tidaklayak')
@@ -35,6 +36,9 @@ class DataDisposalController extends Controller
                     ->orWhereHas('kategori', function ($query) use ($keyword) {
                         $query->where('nama_kategori', 'like', "%" . $keyword . "%");
                     });
+            })
+            ->when($bulan, function ($query, $bulan) {
+                return $query->whereMonth('created_at', $bulan);
             })
             ->paginate(10);
 

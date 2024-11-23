@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,13 +13,16 @@ class UserAdminController extends Controller
     {
         // Mengambil data user tanpa kolom password untuk tampilan index
        // $users = User::select('id', 'name', 'nik','usertype', 'username', 'nomor_hp', 'plant', 'jenis_kelamin')->paginate(10);
-       $users = User::paginate(10);
+    //    $users = User::with('plant')->paginate(10);
+       $users = User::all();
+       
         return view('admin.useradmin.index', compact('users'));
     }
 
     public function create()
     {
-        return view('admin.useradmin.form');
+        $plants = Plant::where('status', 'on')->get();
+        return view('admin.useradmin.form', compact('plants'));
     }
 
     public function store(Request $request)
@@ -29,7 +33,7 @@ class UserAdminController extends Controller
         'nik' => 'required|digits_between:1,5',
         'username' => 'required|unique:users,username',
         'nomor_hp' => 'required',
-        'plant' => 'required',
+        'plant_id' => 'required',
         'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
         'password' => 'nullable|min:8', // Password tidak wajib diisi
     ], [
@@ -37,7 +41,7 @@ class UserAdminController extends Controller
         'nik.required' => 'NIK wajib diisi!!',
         'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
-        'plant.required' => 'Plant wajib diisi!!',
+        'plant_id.required' => 'Plant wajib diisi!!',
         'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
         'password.min' => 'Password harus minimal 8 karakter!!',
         // Hapus validasi konfirmasi password
@@ -58,7 +62,8 @@ class UserAdminController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.useradmin.edit', compact('user'));
+        $plants = Plant::where('status', 'on')->get(); // Ambil plant yang statusnya 'on'
+        return view('admin.useradmin.edit', compact('user', 'plants'));
     }
 
     public function update(Request $request, $id)
@@ -69,7 +74,7 @@ class UserAdminController extends Controller
         'nik' => 'required|digits_between:1,5',
         'username' => 'required|unique:users,username,' . $id,
         'nomor_hp' => 'required',
-        'plant' => 'required',
+        'plant_id' => 'required',
         'jenis_kelamin' => ['required', 'in:Laki-laki,Perempuan'],
         'password' => 'nullable|min:8', // Password tidak wajib diisi
     ], [
@@ -77,7 +82,7 @@ class UserAdminController extends Controller
         'nik.required' => 'NIK wajib diisi!!',
         'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
-        'plant.required' => 'Plant wajib diisi!!',
+        'plant_id.required' => 'Plant wajib diisi!!',
         'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi!!',
         'password.min' => 'Password harus minimal 8 karakter!!',
         // Hapus validasi konfirmasi password

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'usertype',
         'username',
         'nomor_hp',
-        'plant',
+        'plant_id',
         'jenis_kelamin',
         'password',
     ];
@@ -45,4 +45,9 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function plant()
+    {
+        return $this->belongsTo(Plant::class);
+    }
 }

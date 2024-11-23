@@ -42,6 +42,7 @@
             @error('password')
                 <p style="color: red; font-size: 12px;">{{ $message }}</p>
             @enderror
+            
         </div>
 
         <!-- Konfirmasi Password Baru -->
@@ -56,16 +57,15 @@
             @error('password_confirmation')
                 <p style="color: red; font-size: 12px;">{{ $message }}</p>
             @enderror
+        
         </div>
 
 
 
         <!-- Tombol Kembali dan Simpan -->
         <div class="flex justify-between mt-4">
-            <a href="{{ url()->previous() }}"
-                style="background-color: #dc2626; color: #fff; padding: 10px 24px; font-size: 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">BACK</a>
-            <button type="submit"
-                style="background-color: #dc2626; color: #fff; padding: 10px 24px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold;">SAVE</button>
+            <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
+            <button type="submit" class="btn btn-danger" >SAVE</button>
         </div>
     </form>
 </section>
@@ -102,3 +102,26 @@
 @endif
 
 @endsection
+@section('scripts')
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+
+
+@endsection
+
+@push('css')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/css/toastr.css" rel="stylesheet">
+@endpush
+
+@push('js')
+    <script src="https://code.jquery.com/jquery-3.7.2.min.js"
+        integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
+
+@endpush

@@ -6,7 +6,7 @@
 
 {{-- pesan sukses --}}
 @if (session()->has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
     {{ session()->get('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
@@ -20,12 +20,12 @@
     <!-- Bagian Search -->
     <div class="col-auto">
         <form action="{{ route('admin.peminjaman.search') }}" method="GET">
-            <div class="input-group">
+            {{-- <div class="input-group">
                 <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-search"></i>
                 </button>
-            </div>
+            </div> --}}
         
         </form>
          <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
@@ -36,7 +36,7 @@
 
 <!-- Tabel Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
-    <table class="table table-striped">
+    <table id="peminjamanTable" class="table table-striped">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>
@@ -53,7 +53,7 @@
             @foreach ($peminjamans as $i => $data)
                 @if ($data && $data->id) <!-- Pastikan $data dan $data->id tidak null -->
                     <tr>
-                        <th scope="row">{{ $i + 1 + ($peminjamans->currentPage() - 1) * $peminjamans->perPage() }}</th>
+                        <td>{{ $i + 1 }}</td>
                         <td>{{ $data->nik }}</td>
                         <td>{{ $data->username }}</td>
                         <td>{{ $data->plant }}</td>
@@ -100,12 +100,43 @@
     </table>
     
     <!-- Pagination -->
-    {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!}
+    {{-- {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 </div>
+
+<script>
+    // Menghilangkan pesan sukses setelah 3 detik
+    document.addEventListener('DOMContentLoaded', function() {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000); // 3000ms = 3 detik
+        }
+    });
+
+</script>
 
 @endsection
 
-<!-- CDN Bootstrap dan jQuery -->
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#peminjamanTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
+        });
+    });
+</script>
+    
+@endpush
+
+{{-- <!-- CDN Bootstrap dan jQuery -->
 @section('scripts')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -127,14 +158,4 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            toastr.options.timeOut = 5000;
-            @if (Session::has('error'))
-                toastr.error('{{ Session::get('error') }}');
-            @elseif (Session::has('success'))
-                toastr.success('{{ Session::get('success') }}');
-            @endif
-        });
-    </script> --}}
-@endpush
+@endpush --}}

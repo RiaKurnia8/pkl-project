@@ -32,25 +32,51 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    //pesan error
+    public function messages(): array
+    {
+        return [
+            'nik.required' => 'Masukkan NIK Anda.',
+            'nik.string' => 'NIK harus berupa string.',
+            'nik.digits' => 'NIK harus terdiri dari 5 angka.',
+            'nik.exists' => 'NIK yang dimasukkan tidak terdaftar.',
+            'password.required' => 'Masukkan Password Anda.',
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
+{
+    $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('nik', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+    // Cek apakah NIK yang dimasukkan ada di database
+    $user = \App\Models\User::where('nik', $this->nik)->first();
 
-            throw ValidationException::withMessages([
-                'nik' => trans('auth.failed'),
-            ]);
-        }
+    // Jika NIK tidak ditemukan
+    if (! $user) {
+        RateLimiter::hit($this->throttleKey());
 
-        RateLimiter::clear($this->throttleKey());
+        throw ValidationException::withMessages([
+            'nik' => 'NIK yang Anda masukkan salah.',
+        ]);
     }
+
+    // Jika NIK ditemukan tapi password salah
+    if (! Auth::attempt($this->only('nik', 'password'), $this->boolean('remember'))) {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'password' => 'Password yang Anda masukkan salah.',
+        ]);
+    }
+
+    // Jika NIK dan password keduanya benar
+    RateLimiter::clear($this->throttleKey());
+}
 
     /**
      * Ensure the login request is not rate limited.

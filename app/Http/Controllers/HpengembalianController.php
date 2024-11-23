@@ -17,7 +17,7 @@ class HpengembalianController extends Controller
 
         // Mengambil data pengembalian yang sesuai dengan nik pengguna
         //$pengembalians = Pengembalians::where('nik', $nik)->get();
-        $pengembalians = Pengembalians::where('nik', $nik)->paginate(10);
+        $pengembalians = Pengembalians::where('nik', $nik)->get();
 
         // Mengirim data pengembalian ke view
         return view('user.hpengembalian.index', compact('pengembalians'));

@@ -47,7 +47,8 @@ class HomeController extends Controller
             });
         }
 
-        $PeminjamansWithPengembalian = $query->paginate(10)->withQueryString();
+        // $PeminjamansWithPengembalian = $query->paginate(10)->withQueryString();
+        $PeminjamansWithPengembalian = $query->get();
 
         // Kirim data ke view
         return view('admin.dashboard', [

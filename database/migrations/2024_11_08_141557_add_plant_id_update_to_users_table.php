@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //$table->string('nik')->unique()->nullable(); // Kolom NIK, unik dan nullable
-            $table->string('username')->nullable(); // Kolom username
-            $table->string('nomor_hp')->nullable(); // Kolom nomor HP
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable(); // Kolom jenis kelamin
+            // Menambahkan kolom plant_id sebagai foreign key
+            $table->unsignedBigInteger('plant_id')->nullable();
+            $table->foreign('plant_id')->references('id')->on('plants')->onDelete('set null');
         });
     }
 
@@ -25,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['nik', 'username', 'nomor_hp', 'plant', 'jenis_kelamin']);
+             // Menghapus foreign key dan kolom plant_id
+             $table->dropForeign(['plant_id']);
+             $table->dropColumn('plant_id');
         });
     }
 };

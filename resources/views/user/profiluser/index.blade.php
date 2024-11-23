@@ -21,6 +21,16 @@
             @enderror
         </div>
 
+        <!-- Input Plant -->
+<div class="form-group mb-3">
+    <label for="plant" style="font-weight: bold; font-size: 14px;">Plant:</label>
+    <input id="plant" name="plant" type="text" value="{{ old('plant', auth()->user()->plant) }}" required
+    style="background-color: #d1d5db; border: none; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;" readonly>
+    @error('plant')
+        <p style="color: red; font-size: 15px;">{{ $message }}</p>
+    @enderror
+</div>
+
         <!-- Input Nama -->
         <div class="form-group mb-3">
             <label for="name" style="font-weight: bold; font-size: 14px;">Nama:</label>
@@ -31,32 +41,12 @@
             @enderror
         </div>
 
-        <!-- Input Username -->
-        <div class="form-group mb-3">
-            <label for="username" style="font-weight: bold; font-size: 14px;">Username:</label>
-            <input id="username" name="username" type="text" value="{{ old('username', auth()->user()->username) }}" required
-                style="border: 1px solid #d1d5db; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;">
-            @error('username')
-                <p style="color: red; font-size: 12px;">{{ $message }}</p>
-            @enderror
-        </div>
-
         <!-- Input Nomor HP -->
         <div class="form-group mb-3">
             <label for="nomor_hp" style="font-weight: bold; font-size: 14px;">No. HP:</label>
             <input id="nomor_hp" name="nomor_hp" type="text" value="{{ old('nomor_hp', auth()->user()->nomor_hp) }}" required
                 style="border: 1px solid #d1d5db; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;">
             @error('nomor_hp')
-                <p style="color: red; font-size: 12px;">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <!-- Input Plant -->
-        <div class="form-group mb-3">
-            <label for="plant" style="font-weight: bold; font-size: 14px;">Plant:</label>
-            <input id="plant" name="plant" type="text" value="{{ old('plant', auth()->user()->plant) }}" required
-                style="border: 1px solid #d1d5db; padding: 8px; width: 100%; font-size: 14px; border-radius: 4px;">
-            @error('plant')
                 <p style="color: red; font-size: 12px;">{{ $message }}</p>
             @enderror
         </div>
