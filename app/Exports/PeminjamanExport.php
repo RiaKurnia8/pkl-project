@@ -36,7 +36,6 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
         return [
             'No',
             'nik',
-            'username',
             'plant',
             'barang_dipinjam',
             'tanggal_pinjam',
@@ -52,7 +51,6 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
         return [
             ++$this->nomor,
             $peminjaman->nik,
-            $peminjaman->username,
             $peminjaman->plant,
             $peminjaman->barang_dipinjam,
             $peminjaman->tanggal_pinjam,

@@ -14,24 +14,13 @@
 
 <h1>Data Peminjaman</h1>
 
-<!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-    
-<div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        <form action="{{ route('admin.peminjaman.search') }}" method="GET">
-            {{-- <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div> --}}
-        
-        </form>
-         <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
-         <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
-
-    </div>
+<!-- Bagian Tombol PDF, Excel, dan Search -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Tombol PDF dan Excel di sebelah kiri -->
+    <div class="d-flex">
+        <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success me-2"><i class="fas fa-file-excel"></i></a>
+        <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf"></i></a>
+</div>
 </div>
 
 <!-- Tabel Peminjaman -->

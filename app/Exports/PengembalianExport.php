@@ -36,7 +36,6 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
         return [
             'No',
             'nik',
-            'username',
             'plant',
             'barang_dipinjam',
             'tanggal_pengembalian',
@@ -53,7 +52,6 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
         return [
             ++$this->nomor,
             $pengembalian->nik,
-            $pengembalian->username,
             $pengembalian->plant,
             $pengembalian->barang_dipinjam,
             $pengembalian->tanggal_pengembalian,

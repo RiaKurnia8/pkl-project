@@ -14,23 +14,12 @@
 
 <h1>Data pengembalian</h1>
 
-<!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-    
-<div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        {{-- <form action="{{ route('admin.pengembalian.search') }}" method="GET">
-            <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        
-        </form> --}}
-         <a href="{{ route('admin.pengembalian.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
-         <a href="{{ route('admin.pengembalian.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
-
+<!-- Bagian Tombol PDF, Excel, dan Search -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Tombol PDF dan Excel di sebelah kiri -->
+    <div class="d-flex">
+        <a href="{{ route('admin.pengembalian.xls') }}" class="btn btn-success me-2"><i class="fas fa-file-excel"></i></a>
+        <a href="{{ route('admin.pengembalian.exportPdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf"></i></a>
     </div>
 </div>
 
@@ -41,7 +30,6 @@
             <tr>
                 <th>No</th>
                 <th>NIK</th>
-                {{-- <th>Username</th> --}}
                 <th>Nama</th>
                 <th>Plant</th>
                 <th>Barang dipinjam</th>
@@ -58,24 +46,21 @@
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $data->nik }}</td>
-                        {{-- <td>{{ $data->username }}</td> --}}
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pengembalian }}</td>
-                        <td>{{ $data->keperluan}}</td>
-                        <td>{{ $data->notes}}</td>
-                        <td>{{ $data->status}}</td>
-                        
+                        <td>{{ $data->keperluan }}</td>
+                        <td>{{ $data->notes }}</td>
+                        <td>{{ $data->status }}</td>
                         <td>
                             <a href="{{ route('admin.pengembalian.edit', $data->id) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> 
+                                <i class="fas fa-edit"></i>
                             </a>
-                            <!-- Tombol Hapus dengan Modal Konfirmasi -->
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
-                                <i class="fas fa-trash"></i> 
+                                <i class="fas fa-trash"></i>
                             </button>
-                            
+
                             <!-- Modal Konfirmasi Penghapusan -->
                             <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -104,10 +89,6 @@
             @endforeach
         </tbody>
     </table>
-    
-    <!-- Pagination -->
-<!-- Pagination -->
-{{-- {!! $pengembalians->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 </div>
 
 <script>
@@ -120,10 +101,10 @@
             }, 3000); // 3000ms = 3 detik
         }
     });
-
 </script>
 
 @endsection
+
 @push('scripts')
 <script>
     $(document).ready(function() {
@@ -140,28 +121,3 @@
     });
 </script>
 @endpush
-
-
-<!-- CDN Bootstrap dan jQuery -->
-{{-- @section('scripts')
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
-
-@endsection
-
-@push('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/css/toastr.css" rel="stylesheet">
-@endpush
-
-@push('js')
-    <script src="https://code.jquery.com/jquery-3.7.2.min.js"
-        integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous">
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-@endpush --}}

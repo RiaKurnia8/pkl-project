@@ -52,7 +52,6 @@
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
-                    <th>Username</th>
                     <th>Plant</th>
                     <th>Barang dipinjam</th>
                     <th>Tanggal pengembalian</th>
@@ -68,7 +67,6 @@
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->nik }}</td>
-                        <td>{{ $data->username }}</td>
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pengembalian }}</td>
