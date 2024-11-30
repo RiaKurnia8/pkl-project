@@ -15,7 +15,7 @@
 <h1 class="mt-4">Riwayat Sampah</h1>
 
 <div class="table-responsive">
-    <table id="riwayatTable" class="table table-striped">
+    <table id="riwayatTable" class="table table-striped table-bordered">
         <thead style="background-color: #f71d1d; color: white;">
             <tr>
                 <th>No</th>
@@ -73,14 +73,7 @@
                         </div>
                     </div>
                 </td>
-                {{-- <td>
-                    <form action="{{ route('admin.riwayat_sampah.delete', $peminjaman->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini secara permanen?');">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus Permanen -->
-                        </button>
-                    </form>
-                </td> --}}
+
                 <td>
                     <!-- Tombol Hapus Permanen yang memicu modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#permanentDeleteModal{{ $peminjaman->id }}">

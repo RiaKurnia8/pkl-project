@@ -37,25 +37,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 //user
-Route::get('/user/dashboard' , [UserController::class, 'index'])
+Route::get('/user/dashboard', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('user.dashboard');
 
-Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'index'])->name('user.hpeminjaman.index');
-Route::get('/user/hpeminjaman',[HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
+Route::get('/user/hpeminjaman', [HpeminjamanController::class, 'index'])->name('user.hpeminjaman.index');
+Route::get('/user/hpeminjaman', [HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
 
 
-Route::get('/user/hpengembalian',[HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
-Route::get('/user/hpengembalian',[HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
+Route::get('/user/hpengembalian', [HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
+Route::get('/user/hpengembalian', [HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
 
-Route::get('/user/upeminjaman',[UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
-Route::get('/user/upengembalian',[UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
+Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
+Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
 
 Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form
-Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store'); 
+Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store');
 
 Route::get('/user/hpeminjaman/cari', [HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
 //profil user
@@ -70,9 +70,9 @@ Route::post('/user/edit-password', [ProfilUserController::class, 'postUpdatePass
 Route::get('/user/hpengembalian/cari', [HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
 
 //admin
-Route::get('admin/dashboard', [HomeController::class,'index'])
-->middleware(['auth', 'admin'])
-->name('admin.dashboard.index');
+Route::get('admin/dashboard', [HomeController::class, 'index'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.dashboard.index');
 
 Route::get('admin/riwayat-sampah', [HomeController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.riwayat_sampah');
 Route::post('admin/peminjaman/{id}/delete', [HomeController::class, 'delete'])->middleware(['auth', 'admin'])->name('admin.peminjaman.delete');
@@ -94,25 +94,27 @@ Route::get('/admin/databarang/add', [DataBarangController::class, 'create'])->na
 Route::post('/admin/databarang/add', [DataBarangController::class, 'store'])->name('admin.databarang.store');
 Route::get('/admin/databarang/exportpdf', [DataBarangController::class, 'exportPdf'])->name('admin.databarang.exportPdf');
 
-
-
 Route::get('/admin/databarang/{id}', [DataBarangController::class, 'edit'])->name('admin.databarang.edit');
 Route::post('/admin/databarang/{id}', [DataBarangController::class, 'update'])->name('admin.databarang.update');
 Route::delete('/admin/databarang/{id}', [DataBarangController::class, 'destroy'])->name('admin.databarang.destroy');
+//sampah databarang
+Route::get('admin/barang-sampah', [DataBarangController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.databarang.sampah');
+Route::put('admin/databarang/{id}/restore', [DataBarangController::class, 'restore'])->name('admin.databarang.restore');
+Route::delete('admin/databarang/{id}/force-delete', [DataBarangController::class, 'forceDelete'])->name('admin.databarang.forceDelete');
+
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
-
-
-
-
+//sampah useradmin
+Route::get('admin/user-sampah', [UserAdminController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.useradmin.sampah');
+Route::put('admin/useradmin/{id}/restore', [UserAdminController::class, 'restore'])->name('admin.useradmin.restore');
+Route::delete('admin/useradmin/{id}/force-delete', [UserAdminController::class, 'forceDelete'])->name('admin.useradmin.forceDelete');
 
 
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
 Route::get('/admin/datadisposal/cari', [DataDisposalController::class, 'search'])->name('admin.datadisposal.search');
 Route::get('admin/datadisposal/export/', [DataDisposalController::class, 'export'])->name('admin.datadisposal.xls');
 Route::get('/admin/datadisposal/exportpdf', [DataDisposalController::class, 'exportPdf'])->name('admin.datadisposal.exportPdf');
-// Route::get('/export/data-disposal/location', [DataDisposalController::class, 'exportByLocation'])->name('export.location');
-// Route::get('/export/data-disposal/pdf-location', [DataDisposalController::class, 'exportPdfByLocation'])->name('export.pdf.location');
+
 
 //kategori
 Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
@@ -123,6 +125,8 @@ Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.in
 Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+
 
 Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman.index');
 Route::get('/admin/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
@@ -185,7 +189,7 @@ Route::delete('/admin/pengembalian/{id}', [PengembalianController::class, 'destr
 Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update'])->name('admin.pengembalian.update');
 
 Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('pengembalian.index'); // Menampilkan form
-Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store'); 
+Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store');
 Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
 
 Route::get('/admin/pengembalian/cari', [PengembalianController::class, 'search'])->name('admin.pengembalian.search');
@@ -199,6 +203,3 @@ Route::post('/admin/plant/store', [PlantController::class, 'store'])->name('admi
 Route::get('/admin/plant/{id}', [PlantController::class, 'edit'])->name('admin.plant.edit');
 Route::put('/admin/plant/{id}', [PlantController::class, 'update'])->name('admin.plant.update');
 Route::delete('/admin/plant/{id}', [PlantController::class, 'destroy'])->name('admin.plant.destroy');
-
-
-

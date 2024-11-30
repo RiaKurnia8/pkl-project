@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DataBarang extends Model
 {
@@ -21,6 +22,7 @@ class DataBarang extends Model
         'kelayakan',
         'foto',
         'status',
+        
     ];
 
     // Relasi ke model Kategori (setiap Databarang punya satu Kategori)

@@ -15,92 +15,89 @@
     <h1>Data Barang</h1>
    
     </br>
-    <div class="row mb-3 align-items-center">
-
-        <div class="col-md-6">
-            <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center">
-                <label for="bulan" class="me-2">Filter Bulan:</label>
-                <select name="bulan" class="form-select me-2" style="max-width: 150px;" onchange="this.form.submit()">
-                    <option value="">Semua Bulan</option>
-                    @php
-                        $monthsIndo = [
-                            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-                            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-                            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
-                        ];
-                    @endphp
-                    @foreach ($monthsIndo as $month => $monthName)
-                        <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>{{ $monthName }}</option>
-                    @endforeach
-                </select>
-                
-                <!-- Filter Tanggal Awal -->
-                <label for="tanggal_awal" class="ms-3">Dari Tanggal:</label>
-                <input type="date" name="tanggal_awal" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_awal') }}">
-                
-                <!-- Filter Tanggal Akhir -->
-                <label for="tanggal_akhir" class="ms-3">Sampai Tanggal:</label>
-                <input type="date" name="tanggal_akhir" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_akhir') }}">
-                
-                <!-- Tombol Submit -->
-                <button type="submit" class="btn btn-primary ms-2">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-{{-- export --}}
-    <div>
-        <form action="{{ route('admin.databarang.export') }}" method="GET" class="mb-3">
-            <div class="row align-items-end">
-                <!-- Filter Tanggal Mulai -->
-                <div class="col-auto">
-                    <label for="start_date">Tanggal Mulai</label>
-                    <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+    
+    <!-- Card untuk Filter Export -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Export</h5>
                 </div>
-                <!-- Filter Tanggal Akhir -->
-                <div class="col-auto">
-                    <label for="end_date">Tanggal Akhir</label>
-                    <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
-                </div>
-                <!-- Filter Pencarian Umum (Lokasi, Barang, Kategori, Status) -->
-                <div class="col-auto">
-                    <label for="search">Filter</label>
-                    <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}" placeholder="Lokasi, Barang, Kategori, Status">
-                </div>
-                <!-- Filter Format File -->
-                <div class="col-auto">
-                    <label for="type">Format File</label>
-                    <select name="type" id="type" class="form-control">
-                        <option value="excel">Excel</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-danger w-100">Export</button>
+                <div class="card-body">
+                    <form action="{{ route('admin.databarang.export') }}" method="GET" class="mb-3">
+                        <div class="row align-items-end">
+                            <!-- Filter Tanggal Mulai -->
+                            <div class="col-auto">
+                                <label for="start_date">Tanggal Mulai</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+                            </div>
+                            <!-- Filter Tanggal Akhir -->
+                            <div class="col-auto">
+                                <label for="end_date">Tanggal Akhir</label>
+                                <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
+                            </div>
+                            <!-- Filter Pencarian Umum -->
+                            <div class="col-auto">
+                                <label for="search">Keyword</label>
+                                <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}" placeholder="Lokasi, Barang, Kategori, Status">
+                            </div>
+                            <!-- Filter Format File -->
+                            <div class="col-md-2">
+                                <label for="type">Format File</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="excel">Excel</option>
+                                    <option value="pdf">PDF</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-danger w-100">Export</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
+    <!-- Card untuk Filter Search -->
+    <div class="col-md-8 mt-2">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Search</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.databarang.search') }}" method="GET" class="d-flex align-items-center flex-wrap">
+                    <label for="bulan" class="me-2">Filter Bulan:</label>
+                    <select name="bulan" class="form-select me-2" style="max-width: 150px;" onchange="this.form.submit()">
+                        <option value="">Semua Bulan</option>
+                        @php
+                            $monthsIndo = [
+                                1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+                                5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+                                9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
+                            ];
+                        @endphp
+                        @foreach ($monthsIndo as $month => $monthName)
+                            <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>{{ $monthName }}</option>
+                        @endforeach
+                    </select>
+
+                    <label for="tanggal_awal" class="ms-3">Dari Tanggal:</label>
+                    <input type="date" name="tanggal_awal" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_awal') }}" onchange="this.form.submit()">
+
+                    <label for="tanggal_akhir" class="ms-3">Sampai Tanggal:</label>
+                    <input type="date" name="tanggal_akhir" class="form-control ms-2" style="max-width: 150px;" value="{{ request('tanggal_akhir') }}" onchange="this.form.submit()">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+    <div class="d-flex justify-content-between mb-2">
+        <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
     </div>
 
- <a class="btn btn-primary" href="{{ route('admin.databarang.create') }} ">Add Data</a>
-    <div class="d-flex justify-content-end mb-3">
-         
-        {{-- <div class="col-auto">
-            <form action="{{ route('admin.databarang.search') }}" method="GET">
-                <div class="input-group">
-                    <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            
-            </form>
-             <a href="{{ route('admin.databarang.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
-             <a href="{{ route('admin.databarang.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 
-        </div> --}}
-    </div>
     <div style="border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table id="databarangTable" class="table table-striped table-bordered"> <!-- Tambahkan id -->
             <thead style="background-color: #dc3545; color: white;">
@@ -209,72 +206,6 @@
             }
         });
     });
-</script>
-{{-- <script>
-    $(document).ready(function(){
-        $('#databarangTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('admin.databarang.index') }}",
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'lokasi', name: 'lokasi'},
-                {data: 'barang', name: 'barang'},
-                {data: 'no_asset', name: 'no_asset'},
-                {data: 'no_equipment', name: 'no_equipment'},
-                {data: 'kategori', name: 'kategori'},
-                {data: 'merk', name: 'merk'},
-                {data: 'tipe', name: 'tipe'},
-                {data: 'sn', name: 'sn'},
-                {data: 'kelayakan', name: 'kelayakan'},
-                {data: 'foto', name: 'foto'},
-                {data: 'status', name: 'status'},
-                // {data: 'created_at', name: 'created_at'},
-                {
-                data: 'created_at', 
-                name: 'created_at',
-                render: function(data, type, row) {
-                    return moment(data).format('DD-MM-YYYY');  // Format tanggal d-m-Y
-                }
-            },
-                {data: 'action', name: 'action'}
-            ]
-        });
-    });
-
-    $(document).on('click', '.delete-button', function () {
-    let id = $(this).data('id');
-
-    Swal.fire({
-        title: 'Apakah Anda yakin?',
-        text: "Data yang dihapus tidak dapat dikembalikan!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Ya, hapus!',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "{{ url('admin/databarang') }}/" + id,
-                type: 'DELETE',
-                data: {
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function (response) {
-                    $('#databarangTable').DataTable().ajax.reload(null, false); // Reload data tanpa refresh halaman
-                    Swal.fire('Berhasil!', response.success, 'success'); // Menampilkan pesan sukses
-                },
-                error: function (xhr) {
-                    Swal.fire('Gagal!', xhr.responseJSON?.message || 'Terjadi kesalahan saat menghapus data.', 'error');
-                }
-            });
-        }
-    });
-}); --}}
-
-    
 </script>
 
 @endpush

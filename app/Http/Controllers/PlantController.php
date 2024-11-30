@@ -19,30 +19,7 @@ class PlantController extends Controller
     // Mengirimkan variabel plants ke view
     return view('admin.plant.index', compact('plants'));
     }
-    // public function index(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $plants = Plant::select(['id', 'plant', 'status']); // Pilih kolom sesuai kebutuhan
-    //         $data = Plant::all();
-    //         return DataTables::of($plants)
-    //             ->addIndexColumn() // Menambahkan kolom nomor otomatis
-    //             ->addColumn('aksi', function ($row) {
-    //                 $editUrl = route('admin.plant.edit', $row->id);
-    //                 $deleteUrl = route('admin.plant.destroy', $row->id);
-    //                 return '
-    //                 <a href="' . $editUrl . '" class="btn btn-sm btn-warning">
-    //                 <i class="fas fa-edit"></i> 
-    //                 </a>
-    //                 <button type="button" class="btn btn-sm btn-danger" onclick="hapusData(' . $row->id . ')">
-    //                 <i class="fas fa-trash-alt"></i>
-    //                 </button>
-    //             ';
-    //             })
-    //             ->rawColumns(['aksi']) // Agar HTML pada kolom "aksi" tidak di-*escape*
-    //             ->make(true);
-    //     }
-    //     return view('admin.plant.index');
-    // }
+    
 
 
     /**

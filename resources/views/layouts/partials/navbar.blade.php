@@ -43,15 +43,42 @@
         </li>
         <!-- Tombol Log Out -->
         <li class="nav-item">
-            <form method="POST" action="{{ route('logout') }}">
+            {{-- <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 this.closest('form').submit();">
                     <i class="fas fa-sign-out-alt"></i> 
                 </a>
+            </form> --}}
+            <form id="logout-form" method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a class="nav-link text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
             </form>
         </li>
     </ul>
     
 </nav>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin keluar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" onclick="document.getElementById('logout-form').submit();">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

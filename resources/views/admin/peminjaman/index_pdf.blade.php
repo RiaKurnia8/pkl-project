@@ -42,8 +42,13 @@
 </head>
 
 <body>
-    <h1 style="display: inline-block;">Data Peminjaman</h1>
-    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
+    <div style="margin-bottom: 20px; position: relative;">
+        <h1 style="display: inline-block;">Data Disposal</h1>
+        <p><strong>Tanggal Export:</strong> {{ \Carbon\Carbon::now()->format('d-m-Y') }} </p>
+        <p><strong>Di Export Oleh:</strong> {{ Auth::user()->name }}</p>
+        <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo"
+            style="position: absolute; top: 0; right: 0; width: 100px; height: auto;">
+    </div>
     <!-- Tabel Data Peminjaman -->
     <div style=" border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
@@ -52,7 +57,7 @@
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
-                    <th>Username</th>
+                    <th>Nama</th>
                     <th>Plant</th>
                     <th>Barang dipinjam</th>
                     <th>Tanggal pinjam</th>
@@ -68,7 +73,7 @@
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->nik }}</td>
-                        <td>{{ $data->username }}</td>
+                        <td>{{ $data->name }}</td>
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pinjam }}</td>

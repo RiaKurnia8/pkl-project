@@ -24,7 +24,7 @@
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
-    <table id="hpeminjamanTable" class="table table-striped">
+    <table id="hpeminjamanTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>

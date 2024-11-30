@@ -6,6 +6,7 @@ use App\Exports\DataBarangExport;
 use App\Models\DataBarang;
 use App\Models\Kategori;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 // use File;
@@ -16,54 +17,12 @@ class DataBarangController extends Controller
 {
     public function index()
     {
-        $databarang = DataBarang::all();
+        // $databarang = DataBarang::all();
+        $databarang = DataBarang::where('is_deleted', false)->get();
         $kategoris = Kategori::all();
         // dd($databarang);
         return view('admin.databarang.index', compact('databarang','kategoris'));
     }
-
-    // public function index(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $data = DataBarang::all();
-    //         return DataTables::of($data)
-    //         ->addIndexColumn()
-            
-    //         ->addColumn('foto', function($data){
-    //             $img = asset('img/' . $data->foto);
-    //             return '<img src="'.$img.'" alt="Foto Barang" width="130" height="130">';         
-    //         })
-
-    //         ->addColumn('kategori', function ($data) {
-    //             return $data->kategori ? $data->kategori->nama_kategori : 'Kategori tidak ada';
-    //         })
-
-    //         // ->addColumn('action', function($row){
-    //         //     $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-    //         //     return $btn;
-    //         // })
-    //         ->addColumn('action', function($row){
-    //             $editUrl = route('admin.databarang.edit', $row->id);
-    //             $deleteUrl = route('admin.databarang.destroy', $row->id);
-    //             $btn = '
-    //                 <a href="'.$editUrl.'" class="btn btn-warning btn-sm">
-    //                 <i class="fas fa-edit"></i>
-    //                 </a>
-    //                 <button type="button" class="btn btn-danger btn-sm delete-button" data-id="'.$row->id.'">
-    //                 <i class="fas fa-trash-alt"></i>
-    //                 </button>
-    //             ';
-    //             return $btn;
-    //         })
-    //         ->rawColumns(['action', 'foto'])
-    //         ->make(true);
-    //     }
-        
-    //     $kategoris = Kategori::all();
-    //     return view('admin.databarang.index', compact('kategoris'));
-
-    // }
-
     public function create()
     {
         $kategoris = Kategori::all();
@@ -226,7 +185,9 @@ class DataBarangController extends Controller
     public function destroy($id)
     {
         $databarang = DataBarang::find($id);
-        $databarang->delete();
+        // $databarang->delete();
+        $databarang->is_deleted = true;  // Set is_deleted menjadi true
+        $databarang->save();
 
         if ($databarang) {
             return redirect()->route('admin.databarang.index')->with('success', 'Data Barang Berhasil dihapus');
@@ -234,17 +195,40 @@ class DataBarangController extends Controller
             return redirect()->route('admin.databarang.index')->with('failed', 'Data Barang Gagal dihapus');
         }
     }
-    // public function destroy(string $id)
-    // {
-    //     try {
-    //         $databarang = DataBarang::findOrFail($id); // Mencari data berdasarkan ID
-    //         $databarang->delete(); // Menghapus data plant
-    
-    //         return response()->json(['message' => 'Data Barang Berhasil dihapus'], 200); // Mengirimkan respons sukses
-    //     } catch (\Exception $e) {
-    //         return response()->json(['message' => 'Data Barang Gagal dihapus'], 500); // Jika terjadi kesalahan
-    //     }
-    // }
+
+    public function showTrash()
+{
+    // Ambil data barang yang sudah dihapus (is_deleted = true)
+    $databarang = DataBarang::where('is_deleted', true)->get();
+
+    return view('admin.databarang.trash', compact('databarang'));
+}
+
+public function restore($id)
+{
+    // Cari data peminjaman berdasarkan ID
+    $databarang = DataBarang::findOrFail($id);
+
+    // Ubah status is_deleted menjadi false untuk mengembalikan data
+    $databarang->is_deleted = false;
+    $databarang->save();
+
+    // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+    return redirect()->route('admin.databarang.sampah')->with('success', 'Data berhasil dikembalikan dari Riwayat Sampah.');
+}
+
+//hapus permanen
+public function forceDelete($id)
+{
+    // Cari data peminjaman berdasarkan ID
+    $databarang = DataBarang::findOrFail($id);
+
+    // Hapus data secara permanen
+    $databarang->delete();
+
+    // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+    return redirect()->route('admin.databarang.sampah')->with('success', 'Data berhasil dihapus secara permanen.');
+}
 
 //search
 public function search(Request $request)
@@ -274,38 +258,10 @@ public function search(Request $request)
         ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
             return $query->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir]);
         })
-        ->paginate(10);
+        ->get();
 
     return view('admin.databarang.index', compact('databarang'));
 }
-
-
-    //export xls
-    // public function export()
-    // {
-    //     return Excel::download(new DataBarangExport, 'laporan-data-barang.xlsx');
-    // }
-    // // Ekspor berdasarkan lokasi
-    // public function exportByLocation(Request $request)
-    // {
-    //     $lokasi = $request->input('lokasi'); // Ambil lokasi dari input request
-
-    //     return Excel::download(new DataBarangExport($lokasi), "data_barang_{$lokasi}.xlsx");
-    // }
-
-
-    //export pdf
-//     public function exportPdf()
-//     {
-//         //dd('ada');
-//         $databarang = DataBarang::all();
-//         $pdf = Pdf::loadView('admin.databarang.index_pdf', ['databarang' =>$databarang]);
-
-//          // Atur ukuran kertas dan orientasi menjadi landscape
-//     $pdf->setPaper('A4', 'landscape');
-//         return $pdf->download('laporan-data-barang.pdf');
-// }
-
 
 public function export(Request $request)
 {
@@ -313,7 +269,10 @@ public function export(Request $request)
 
     // Filter berdasarkan rentang tanggal
     if ($request->start_date && $request->end_date) {
-        $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $endDate = Carbon::parse($request->end_date)->endOfDay();
+
+        $query->whereBetween('created_at', [$startDate, $endDate]);
     }
 
     // Filter berdasarkan pencarian umum (lokasi, barang, kategori, status)
@@ -338,22 +297,14 @@ public function export(Request $request)
     // Menentukan nama file berdasarkan filter
     $fileName = 'laporan-data-barang_' . $date;
 
-    // Menambahkan filter ke dalam nama file jika ada
-    // if ($request->start_date && $request->end_date) {
-    //     $fileName .= '_from-' . $request->start_date . '_to-' . $request->end_date;
-    // }
-    //     // Menambahkan filter ke dalam nama file
     if ($request->start_date && $request->end_date) {
         $fileName .= '_from-' . $request->start_date . '_to-' . $request->end_date;
     }
 
-    if ($request->start_date && $request->end_date) {
-                $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
-            }
-
     if ($request->search) {
         $fileName .= '_search-' . urlencode($request->search);
     }
+    
 
     // Tentukan jenis file (PDF atau Excel)
     if ($request->type === 'pdf') {
@@ -365,5 +316,10 @@ public function export(Request $request)
     // Jika format file Excel
     return Excel::download(new DataBarangExport($databarang), $fileName . '.xlsx');
 }
+
+
+//riwayat sampah
+
+
 
 }

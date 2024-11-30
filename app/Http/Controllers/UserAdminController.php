@@ -31,6 +31,7 @@ class UserAdminController extends Controller
     $validated = $request->validate([
         'name' => 'required',
         'nik' => 'required|digits_between:1,5',
+        'usertype' => 'required',
         // 'username' => 'required|unique:users,username',
         'nomor_hp' => 'required',
         'plant_id' => 'required',
@@ -39,6 +40,7 @@ class UserAdminController extends Controller
     ], [
         'name.required' => 'Nama wajib diisi!!',
         'nik.required' => 'NIK wajib diisi!!',
+        'usertype.required' => 'Usertype wajib diisi!!',
         // 'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
         'plant_id.required' => 'Plant wajib diisi!!',
@@ -72,6 +74,7 @@ class UserAdminController extends Controller
     $validated = $request->validate([
         'name' => 'required',
         'nik' => 'required|digits_between:1,5',
+        'usertype' => 'required',
         // 'username' => 'required|unique:users,username,' . $id,
         'nomor_hp' => 'required',
         'plant_id' => 'required',
@@ -80,6 +83,7 @@ class UserAdminController extends Controller
     ], [
         'name.required' => 'Nama wajib diisi!!',
         'nik.required' => 'NIK wajib diisi!!',
+        'usertype.required' => 'Usertype wajib diisi!!',
         // 'username.required' => 'Username wajib diisi!!',
         'nomor_hp.required' => 'No.Hp wajib diisi!!',
         'plant_id.required' => 'Plant wajib diisi!!',
@@ -104,14 +108,56 @@ class UserAdminController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $user->is_deleted = true;  // Set is_deleted menjadi true
+        $user->save();
 
-        if (!$user) {
-            return redirect()->route('admin.useradmin.index')->with('error', 'Data user tidak ditemukan.');
+        if ($user) {
+            return redirect()->route('admin.useradmin.index')->with('success', 'Data user berhasil dihapus.');
+        } else {
+            return redirect()->route('admin.useradmin.index')->with('failed', 'Data user tidak ditemukan.');
         }
 
-        $user->delete();
+        // if (!$user) {
+        //     return redirect()->route('admin.useradmin.index')->with('error', 'Data user tidak ditemukan.');
+        // }
 
-        return redirect()->route('admin.useradmin.index')->with('success', 'Data user berhasil dihapus.');
+        // // $user->delete();
+
+
+        // return redirect()->route('admin.useradmin.index')->with('success', 'Data user berhasil dihapus.');
+    }
+    public function showTrash()
+    {
+        // Ambil data barang yang sudah dihapus (is_deleted = true)
+        $user = User::where('is_deleted', true)->get();
+    
+        return view('admin.useradmin.trash', compact('user'));
+    }
+    
+    public function restore($id)
+    {
+        // Cari data peminjaman berdasarkan ID
+        $user = User::findOrFail($id);
+    
+        // Ubah status is_deleted menjadi false untuk mengembalikan data
+        $user->is_deleted = false;
+        $user->save();
+    
+        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+        return redirect()->route('admin.useradmin.sampah')->with('success', 'Data berhasil dikembalikan dari Riwayat Sampah.');
+    }
+    
+    //hapus permanen
+    public function forceDelete($id)
+    {
+        // Cari data peminjaman berdasarkan ID
+        $user = User::findOrFail($id);
+    
+        // Hapus data secara permanen
+        $user->delete();
+    
+        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+        return redirect()->route('admin.useradmin.sampah')->with('success', 'Data berhasil dihapus secara permanen.');
     }
 
     public function search(Request $request)

@@ -101,7 +101,7 @@ class PeminjamanController extends Controller
     //export xls
     public function export()
     {
-        return Excel::download(new PeminjamanExport, 'laporan-data-peminjaman.xlsx');
+        return Excel::download(new PeminjamanExport, 'laporan-data-peminjaman-' . date('d-m-Y') . '.xlsx');
     }
 
     //export pdf
@@ -113,6 +113,6 @@ class PeminjamanController extends Controller
 
          // Atur ukuran kertas dan orientasi menjadi landscape
     $pdf->setPaper('A4', 'landscape');
-        return $pdf->download('laporan-data-peminjaman.pdf');
+        return $pdf->download('laporan-data-peminjaman-'. date('d-m-Y') .'.pdf');
     }
 }

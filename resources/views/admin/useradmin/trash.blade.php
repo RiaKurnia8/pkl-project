@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Data User')
+@section('title', 'Sampah')
 
 @section('content')
 
@@ -12,39 +12,33 @@
         </div>
     @endif
 
-    <h1>Data User</h1>
-
-    <div class="mt-4 ms-3">
-    <a class="btn btn-primary" href="{{ route('admin.useradmin.create') }}">Add Data</a>
-    </div>
+    <h1>Data User Sampah</h1>
 
    
     <!-- Tabel Data User -->
     <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
-        <table id="userTable" class="table table-striped table-bordered">
+        <table id="usersampahTable" class="table table-striped table-bordered">
             <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
                     <th>NIK</th>
                     <th>Usertype</th>
-                    {{-- <th>Username</th> --}}
                     <th>No. Hp</th>
                     <th>Plant</th>
                     <th>Jenis Kelamin</th>
-                    <!-- <th>Password</th> -->
+                    
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $i => $data)
+                @foreach ($user as $i => $data)
                     <!-- Contoh data user (ini bisa diganti dengan data dari database) -->
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->nik }}</td>
                         <td>{{ $data->usertype }}</td>
-                        {{-- <td>{{ $data->username }}</td> --}}
                         <td>{{ $data->nomor_hp }}</td>
                         {{-- <td>{{ $data->plant_id }}</td> --}}
                         <td>{{ $data->plant ? $data->plant->plant : 'Tidak Ditemukan' }}</td> <!-- Menampilkan nama plant -->
@@ -52,43 +46,63 @@
                         <!-- <td>{{ $data->password }}</td> -->
                         <!-- Tombol Aksi -->
                         <td>
-                            <a href="{{ route('admin.useradmin.edit', $data->id) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <!-- Tombol Hapus dengan Modal Konfirmasi -->
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal{{ $data->id }}">
-                                <i class="fas fa-trash"></i>
+                            <!-- Tombol Restore yang memicu modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restoreModal{{ $data->id }}">
+                                <i class="fas fa-undo"></i> <!-- Ikon Restore -->
                             </button>
-
-                            <!-- Modal Konfirmasi Penghapusan -->
-                            <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
-                                aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
+                        
+                            <!-- Modal Konfirmasi Restore -->
+                            <div class="modal fade" id="restoreModal{{ $data->id }}" tabindex="-1" aria-labelledby="restoreModalLabel{{ $data->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi
-                                                Penghapusan</h5>
+                                            <h5 class="modal-title" id="restoreModalLabel{{ $data->id }}">Konfirmasi Restore</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin mengembalikan data ini dari Riwayat Sampah?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ route('admin.useradmin.restore', $data->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PUT') <!-- Simulasikan metode PUT -->
+                                                <button type="submit" class="btn btn-primary">Restore</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Tombol Hapus Permanen yang memicu modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#permanentDeleteModal{{ $data->id }}">
+                                <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus Permanen -->
+                            </button>
+                        
+                            <!-- Modal Konfirmasi Penghapusan Permanen -->
+                            <div class="modal fade" id="permanentDeleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="permanentDeleteModalLabel{{ $data->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="permanentDeleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan Permanen</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus data ini? <p>
-                                                <strong>{{ $data->nik }}</strong></p>
+                                            Apakah Anda yakin ingin menghapus data ini secara permanen?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Batal</button>
-                                            <form action="{{ route('admin.useradmin.destroy', $data->id) }}" method="POST"
-                                                style="display:inline;">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ route('admin.useradmin.forceDelete', $data->id) }}" method="POST" style="display:inline;">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                <button type="submit" class="btn btn-danger">Hapus Permanen</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
+
+                        
                     </tr>
                 @endforeach
                 <!-- Tambahkan data lainnya sesuai kebutuhan -->
@@ -117,7 +131,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#userTable').DataTable({
+        $('#usersampahTable').DataTable({
             paging: true,
             searching: true,
             ordering: true,
@@ -131,27 +145,3 @@
 </script>
     
 @endpush
-
-<!-- CDN Bootstrap dan jQuery -->
-{{-- @section('scripts')
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
-
-@endsection
-
-@push('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/css/toastr.css" rel="stylesheet">
-@endpush
-
-@push('js')
-    <script src="https://code.jquery.com/jquery-3.7.2.min.js"
-        integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous">
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-@endpush --}}

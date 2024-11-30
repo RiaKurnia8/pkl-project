@@ -14,29 +14,15 @@
 
 <h1>Data Peminjaman</h1>
 
-<!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-    
-<div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        <form action="{{ route('admin.peminjaman.search') }}" method="GET">
-            {{-- <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div> --}}
-        
-        </form>
-         <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
-         <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
-
-    </div>
+<div class="mt-4 ms-3">
+   <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
+   <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
 </div>
+
 
 <!-- Tabel Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
-    <table id="peminjamanTable" class="table table-striped">
+    <table id="peminjamanTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>

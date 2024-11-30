@@ -7,10 +7,24 @@
         <h1 class="mb-4">Tambah Kategori</h1>
         <form action="{{ route('kategori.store') }}" method="POST">
             @csrf
-            <div class="form-group mb-4">
+            {{-- <div class="form-group mb-4">
                 <label for="nama_kategori" class="mb-2">Nama Kategori</label>
-                <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" placeholder="Masukkan nama kategori" required>
-            </div>
+                <input type="text" class="form-control" id="nama_kategori" name="nama_kategori"
+                    placeholder="Masukkan nama kategori" required>
+                @error('nama_kategori')
+                    <p style="color: red">{{ $message }}</p>
+                @enderror
+            </div> --}}
+
+            <div class="form-group mb-4">
+                <div class="mb-3">
+                    <label for="nama_kategori" class="form-label">Kategori</label>
+                    <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori"
+                        id="nama_kategori" placeholder="Masukkan nama kategori">
+                    @error('nama_kategori')
+                        <p style="color: red">{{ $message }}</p>
+                    @enderror
+                </div>
 
             <!-- Kolom Status -->
             <div class="form-group mb-4">
@@ -27,7 +41,7 @@
             <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
 
-        </div>
-        </form>
+    </div>
+    </form>
     </div>
 @endsection

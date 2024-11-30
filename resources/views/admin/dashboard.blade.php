@@ -45,33 +45,19 @@
 </div>
 
 
-
- 
-<!-- Bagian Search di atas, PDF dan Excel di bawahnya di sebelah kanan -->
-<div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        {{-- <form action="{{ route('admin.dashboard.index') }}" method="GET">
-            <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        
-        </form> --}}
-         <a href="{{ route('admin.export.peminjaman') }}" class="btn btn-success mt-2"><i class="fas fa-file-excel"></i></a>
+<div class="mt-4 ms-3">
+    <a href="{{ route('admin.export.peminjaman') }}" class="btn btn-success mt-2"><i class="fas fa-file-excel"></i></a>
          <a href="{{ route('admin.dashboard.exportPdf') }}" class="btn btn-danger mt-2"><i class="fas fa-file-pdf"></i></a>
-
-    </div>
 </div>
+ 
+
 
 
 
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
-    <table id="dashboardTable" class="table table-striped">
+    <table id="dashboardTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
             <tr>
             <th>No</th>
@@ -158,25 +144,3 @@
     
 @endpush
 
-{{-- @section('scripts')
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
-
-@endsection
-
-@push('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/css/toastr.css" rel="stylesheet">
-@endpush
-
-@push('js')
-    <script src="https://code.jquery.com/jquery-3.7.2.min.js"
-        integrity="sha384-pesnqDzEPzp58KTGw8ViPmq7fl0R/DpZ6PPcZn+SaH2gxvUo4EtYdciwMIzAEzXk" crossorigin="anonymous">
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/js/toastr.js"></script>
-@endpush --}}

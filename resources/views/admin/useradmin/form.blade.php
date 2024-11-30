@@ -8,7 +8,7 @@
         <h2 style="text-align: center;">Tambah User</h2>
         
         {{-- Tampilkan pesan kesalahan jika ada --}}
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -16,7 +16,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif --}}
         
         <form action="{{ route('admin.useradmin.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -49,18 +49,10 @@
                                 <option value="admin" {{ old('admin') == 'admin' ? 'selected' : '' }}>Admin</option>
                                 <option value="user" {{ old('user') == 'user' ? 'selected' : '' }}>User</option>
                             </select>
-                            @error('user')
+                            @error('usertype')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        {{-- <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ old('username') }}">
-                            @error('username')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
 
                         <div class="mb-3">
                             <label for="nomor_hp" class="form-label">No. Hp</label>

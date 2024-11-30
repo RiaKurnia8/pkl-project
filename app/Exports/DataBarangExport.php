@@ -28,17 +28,34 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
         return $this->databarang;
     }
 
-    
 
-    // public function collection()
-    // {
-    //     return DataBarang::all();
-    // }
-    
 
     public function headings(): array
     {
-        return [
+        // return [
+        //     'No',
+        //     'Lokasi',
+        //     'Barang',
+        //     'No.Asset',
+        //     'No.Equipment',
+        //     'Kategori',
+        //     'Merk',
+        //     'Tipe',
+        //     'Sn',
+        //     'Kelayakan',
+        //     'Foto',
+        //     'Status',
+        //     'Tanggal Tambah',
+            
+        // ];
+        // Tanggal saat ini dalam format d-m-Y
+    $currentDate = now()->format('d-m-Y');
+    $userName = auth()->user()->name;
+
+    return [
+        ['Tanggal Export: ' . $currentDate], // Baris pertama berisi tanggal ekspor
+        ['Nama Pengguna: ' . $userName], // Baris kedua berisi nama pengguna
+        [
             'No',
             'Lokasi',
             'Barang',
@@ -52,8 +69,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             'Foto',
             'Status',
             'Tanggal Tambah',
-            
-        ];
+        ]
+    ];
     }
 
     // Pemetaan
@@ -90,7 +107,13 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             // Tambahkan pendengar acara untuk menyematkan gambar
             AfterSheet::class => function (AfterSheet $event) {
                 $dataBarangs = $this->collection();
-                $row = 2; // Mulai dari baris kedua (baris pertama adalah heading)
+                $row = 4; // Mulai dari baris kedua (baris pertama adalah heading)
+                 // Menggabungkan dan memusatkan kolom A (Tanggal Export) dan kolom B (Nama Pengguna)
+            $event->sheet->getDelegate()->mergeCells('A1:M1'); // Menggabungkan baris pertama untuk tanggal export
+            $event->sheet->getDelegate()->mergeCells('A2:M2'); // Menggabungkan baris kedua untuk nama pengguna
+            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            $event->sheet->getDelegate()->getStyle('A3:M3')->getFont()->setBold(true);
 
                 foreach ($dataBarangs as $dataBarang) {
                     if ($dataBarang->foto) {
