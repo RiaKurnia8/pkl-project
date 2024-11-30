@@ -38,7 +38,7 @@
         <!-- Plant Input -->
         <div class="form-group">
             <label for="plant">Plant :</label>
-            <input type="text" class="form-control" id="plant" name="plant" value="{{ Auth::user()->plant }}" readonly>
+            <input type="text" class="form-control" id="plant" name="plant" value="{{ Auth::user()->plant->plant ??  'Plant tidak ditemukan'}}" readonly>
         </div>
 
         <!-- Barang Pengembalian Input -->

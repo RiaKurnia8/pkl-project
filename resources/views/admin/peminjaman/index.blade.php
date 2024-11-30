@@ -14,9 +14,19 @@
 
 <h1>Data Peminjaman</h1>
 
+<<<<<<< HEAD
 <div class="mt-4 ms-3">
    <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
    <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
+=======
+<!-- Bagian Tombol PDF, Excel, dan Search -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Tombol PDF dan Excel di sebelah kiri -->
+    <div class="d-flex">
+        <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success me-2"><i class="fas fa-file-excel"></i></a>
+        <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf"></i></a>
+</div>
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
 </div>
 
 

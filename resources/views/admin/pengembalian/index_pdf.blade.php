@@ -57,7 +57,10 @@
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
+<<<<<<< HEAD
                     <th>Nama</th>
+=======
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                     <th>Plant</th>
                     <th>Barang dipinjam</th>
                     <th>Tanggal pengembalian</th>
@@ -73,7 +76,10 @@
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->nik }}</td>
+<<<<<<< HEAD
                         <td>{{ $data->name }}</td>
+=======
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pengembalian }}</td>

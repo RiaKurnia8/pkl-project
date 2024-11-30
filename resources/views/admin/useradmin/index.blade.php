@@ -18,7 +18,16 @@
     <a class="btn btn-primary" href="{{ route('admin.useradmin.create') }}">Add Data</a>
     </div>
 
+<<<<<<< HEAD
    
+=======
+    {{-- add data --}}
+<div class="col-auto">
+    <a class="btn btn-primary" href="{{ route('admin.useradmin.create') }}">Add Data</a>
+</div>
+</div>
+
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
     <!-- Tabel Data User -->
     <div style="padding: 20px; border-radius: 10px;"> <!-- Padding dan border-radius -->
         <table id="userTable" class="table table-striped table-bordered">
@@ -28,7 +37,10 @@
                     <th>Nama</th>
                     <th>NIK</th>
                     <th>Usertype</th>
+<<<<<<< HEAD
                     {{-- <th>Username</th> --}}
+=======
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                     <th>No. Hp</th>
                     <th>Plant</th>
                     <th>Jenis Kelamin</th>
@@ -44,7 +56,10 @@
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->nik }}</td>
                         <td>{{ $data->usertype }}</td>
+<<<<<<< HEAD
                         {{-- <td>{{ $data->username }}</td> --}}
+=======
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                         <td>{{ $data->nomor_hp }}</td>
                         {{-- <td>{{ $data->plant_id }}</td> --}}
                         <td>{{ $data->plant ? $data->plant->plant : 'Tidak Ditemukan' }}</td> <!-- Menampilkan nama plant -->
@@ -95,11 +110,14 @@
             </tbody>
         </table>
 
+<<<<<<< HEAD
         {{-- add data --}}
        
         {{-- {!! $users->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 
     </div>
+=======
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
 
     <script>
         // Menghilangkan pesan sukses setelah 3 detik

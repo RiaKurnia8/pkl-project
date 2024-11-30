@@ -38,8 +38,12 @@
         <!-- Plant Input -->
         <div class="form-group">
             <label for="plant">Plant :</label>
+<<<<<<< HEAD
             <input type="text" class="form-control" id="plant" name="plant" 
                    value="{{ Auth::user()->plant->plant ?? 'Plant tidak ditemukan' }}" readonly>
+=======
+            <input type="text" class="form-control" id="plant" name="plant" value="{{ Auth::user()->plant->plant ??  'Plant tidak ditemukan' }}" readonly>
+>>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
         </div>
 
         <!-- Barang Dipinjam Input -->
