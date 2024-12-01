@@ -141,7 +141,7 @@
                         
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control @error('status') is-invalid @enderror" name="status" id="status">
                                 <option value="">-- Pilih Status --</option>
@@ -153,7 +153,7 @@
                             @error('status')
                                 <p style="color: red">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         </br>
                         </br> </br> </br>

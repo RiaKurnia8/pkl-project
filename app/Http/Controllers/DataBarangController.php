@@ -43,7 +43,7 @@ class DataBarangController extends Controller
             'sn' => 'required',
             'kelayakan' => ['required', 'in:layak,tidaklayak'],
             'fotos' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'status' => ['required', 'in:dipinjam,kembali,dikantor'],
+            // 'status' => ['required', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
             'barang.required' => 'Barang wajib diisi!!',
@@ -55,7 +55,7 @@ class DataBarangController extends Controller
             'sn.required' => 'SN wajib diisi!!',
             'kelayakan.required' => 'Kelayakan wajib diisi!!',
             'fotos.required' => 'Foto wajib diisi!!',
-            'status.required' => 'Status wajib diisi!!',
+            // 'status.required' => 'Status wajib diisi!!',
         ]);
 
         //foto
@@ -113,7 +113,7 @@ class DataBarangController extends Controller
             // 'kelayakan' => ['required', 'in:layak,tidaklayak'],
             'kelayakan' => ['nullable', 'in:layak,tidaklayak'],
             'fotos' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'status' => ['nullable', 'in:dipinjam,kembali,dikantor'],
+            // 'status' => ['nullable', 'in:dipinjam,kembali,dikantor'],
         ], [
             'lokasi.required' => 'Lokasi wajib diisi!!',
             'barang.required' => 'Barang wajib diisi!!',
@@ -169,7 +169,7 @@ class DataBarangController extends Controller
         $databarang->sn = $request->sn;
         $databarang->kelayakan = $request->kelayakan;
         $databarang->foto = $request->foto;
-        $databarang->status = $request->status;
+        // $databarang->status = $request->status;
         $databarang->save();
 
         if ($databarang) {
@@ -287,6 +287,8 @@ public function export(Request $request)
               ->orWhere('status', 'like', $searchTerm);
         });
     }
+
+    $query->where('is_deleted', '!=', 1);
 
     // Ambil data sesuai filter
     $databarang = $query->get();

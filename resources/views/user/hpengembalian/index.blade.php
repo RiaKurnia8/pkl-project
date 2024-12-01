@@ -5,21 +5,6 @@
 @section('content')
 
 <h1 class="mt-4">Pengembalian Barang</h1>
-{{-- 
-<div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        <form action="{{ route('user.hpengembalian.search') }}" method="GET">
-            <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        
-        </form>
-    </div>
-</div> --}}
 
 <!-- Tabel Data pengembalian -->
 <div style="padding: 20px; border-radius: 10px;">

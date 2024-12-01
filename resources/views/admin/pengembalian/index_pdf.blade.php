@@ -43,7 +43,7 @@
 
 <body>
     <div style="margin-bottom: 20px; position: relative;">
-        <h1 style="display: inline-block;">Data Disposal</h1>
+        <h1 style="display: inline-block;">Pengembalian</h1>
         <p><strong>Tanggal Export:</strong> {{ \Carbon\Carbon::now()->format('d-m-Y') }} </p>
         <p><strong>Di Export Oleh:</strong> {{ Auth::user()->name }}</p>
         <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo"
@@ -57,10 +57,7 @@
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
-<<<<<<< HEAD
                     <th>Nama</th>
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                     <th>Plant</th>
                     <th>Barang dipinjam</th>
                     <th>Tanggal pengembalian</th>
@@ -76,10 +73,7 @@
                         {{-- <th scope="row">{{ $i + 1 }}</th> --}}
                         <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $data->nik }}</td>
-<<<<<<< HEAD
                         <td>{{ $data->name }}</td>
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pengembalian }}</td>

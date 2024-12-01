@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<h1 class="mt-4">Riwayat Sampah</h1>
+<h1 class="mt-4">Riwayat Sampah Dashboard</h1>
 
 <div class="table-responsive">
     <table id="riwayatTable" class="table table-striped table-bordered">
@@ -24,8 +24,8 @@
                 <th>Plant</th>
                 <th>Tanggal Pinjam</th>
                 <th>Tanggal Pengembalian</th>
-                <th>Pulihkan</th>
-                <th>Hapus Permanen</th>
+                <th>Aksi</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -72,9 +72,7 @@
                             </div>
                         </div>
                     </div>
-                </td>
-
-                <td>
+                
                     <!-- Tombol Hapus Permanen yang memicu modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#permanentDeleteModal{{ $peminjaman->id }}">
                         <i class="fas fa-trash-alt"></i> <!-- Ikon Hapus Permanen -->

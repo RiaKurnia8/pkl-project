@@ -18,16 +18,16 @@
     <form action="upeminjaman" method="POST">
         @csrf
 
+        <div class="form-group">
+            <label for="id">ID :</label>
+            <input type="text" class="form-control" id="id" name="id" value="{{ $nextId }}" readonly>
+        </div>
+
         <!-- NIK Input -->
         <div class="form-group">
             <label for="nik">NIK :</label>
             <input type="text" class="form-control" id="nik" name="nik" value="{{ Auth::user()->nik }}" readonly>
         </div>
-
-        {{-- <div class="form-group">
-            <label for="username">userNama :</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ Auth::user()->username }}" readonly>
-        </div> --}}
 
         <!-- Name Input -->
         <div class="form-group">
@@ -38,12 +38,8 @@
         <!-- Plant Input -->
         <div class="form-group">
             <label for="plant">Plant :</label>
-<<<<<<< HEAD
             <input type="text" class="form-control" id="plant" name="plant" 
                    value="{{ Auth::user()->plant->plant ?? 'Plant tidak ditemukan' }}" readonly>
-=======
-            <input type="text" class="form-control" id="plant" name="plant" value="{{ Auth::user()->plant->plant ??  'Plant tidak ditemukan' }}" readonly>
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
         </div>
 
         <!-- Barang Dipinjam Input -->
@@ -57,12 +53,7 @@
             <label for="tanggal_pinjam">Tanggal Pinjam :</label>
             <input type="date" class="form-control" id="tanggal_pinjam" name="tanggal_pinjam" required>
         </div>
-
-        <!-- Notes Input -->
-        {{-- <div class="form-group">
-            <label for="notes">Notes :</label>
-            <textarea class="form-control" id="notes" name="notes" rows="5" readonly></textarea>
-        </div> --}}
+        
 
         {{-- keperluan --}}
         <div class="form-group">

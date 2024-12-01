@@ -13,6 +13,7 @@ class Peminjamans extends Model
     protected $table = 'peminjamans'; // Pastikan ini sesuai dengan nama tabel
 
     protected $fillable = [
+        'id',
         'nik',
         //'username',
         'name',
@@ -20,6 +21,7 @@ class Peminjamans extends Model
         'barang_dipinjam',
         'tanggal_pinjam',
         'status',
+        'keterangan',
         'keperluan',
         'notes',
         'is_deleted'

@@ -86,6 +86,11 @@
                         User
                     </a>
 
+                    {{-- <a class="nav-link" href="{{ route('admin.peminjaman.sampah') }}">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can-arrow-up"></i></i></div>
+                        Peminjaman
+                    </a> --}}
+
                 </nav>
             </div>
 

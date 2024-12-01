@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Peminjamans;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -26,26 +27,51 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
     private $nomor = 0;
 
 
+    // public function collection()
+    // {
+    //     return Peminjamans::all();
+    // }
     public function collection()
     {
-        return Peminjamans::all();
+        $peminjamans = Peminjamans::all();
+
+        // Menambahkan tanggal_pengembalian dari tabel pengembalians
+        foreach ($peminjamans as $peminjaman) {
+            $pengembalian = DB::table('pengembalians')
+                ->where('nik', $peminjaman->nik)
+                ->where('barang_dipinjam', $peminjaman->barang_dipinjam)
+                ->first();
+
+            // Set tanggal_pengembalian jika ditemukan
+            $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
+              // Debugging: menampilkan tanggal_pengembalian
+        logger($peminjaman->tanggal_pengembalian);
+        }
+
+        return $peminjamans;
     }
 
     public function headings(): array
     {
+        $currentDate = now()->format('d-m-Y');
+        $userName = auth()->user()->name;
         return [
+            ['Tanggal Export: ' . $currentDate], // Baris pertama berisi tanggal ekspor
+            ['Dieksport Oleh: ' . $userName],
+            [
             'No',
+            'ID',
             'nik',
-<<<<<<< HEAD
             'name',
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
             'plant',
             'barang_dipinjam',
             'tanggal_pinjam',
             'keperluan',
             'notes',
             'status',
+            'keterangan',
+            'tanggal pengembalian'
+            ]
         ];
     }
 
@@ -54,17 +80,17 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
     {
         return [
             ++$this->nomor,
+            $peminjaman->id,
             $peminjaman->nik,
-<<<<<<< HEAD
             $peminjaman->name,
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
             $peminjaman->plant,
             $peminjaman->barang_dipinjam,
             $peminjaman->tanggal_pinjam,
             $peminjaman->keperluan,
             $peminjaman->notes,
             $peminjaman->status,
+            $peminjaman->keterangan,
+            $peminjaman->tanggal_pengembalian ?? '-',
         ];
     }
 
@@ -72,7 +98,8 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
     {
         return[
             1 => ['font' => ['bold' => true], ],
-
+            2 => ['font' => ['bold' => true], ],
+            3 => ['font' => ['bold' => true], ],
         ];
     }
 

@@ -48,14 +48,19 @@ Route::get('/user/hpeminjaman', [HpeminjamanController::class, 'index'])->name('
 Route::get('/user/hpeminjaman', [HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
 
 
+
+
 Route::get('/user/hpengembalian', [HpengembalianController::class, 'index'])->name('user.hpengembalian.index');
 Route::get('/user/hpengembalian', [HpengembalianController::class, 'search'])->name('user.hpengembalian.search');
 
 Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('user.upeminjaman.index');
+
 Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('user.upeminjaman.index');
 
 Route::get('/user/upeminjaman', [UpeminjamanController::class, 'index'])->name('peminjaman.index'); // Menampilkan form
 Route::post('/user/upeminjaman', [UpeminjamanController::class, 'store'])->name('peminjaman.store');
+
+Route::get('/upeminjaman', [UPeminjamanController::class, 'create'])->name('upeminjaman.create');
 
 Route::get('/user/hpeminjaman/cari', [HpeminjamanController::class, 'search'])->name('user.hpeminjaman.search');
 //profil user
@@ -105,9 +110,7 @@ Route::delete('admin/databarang/{id}/force-delete', [DataBarangController::class
 
 Route::get('/admin/useradmin', [UserAdminController::class, 'index'])->name('admin.useradmin.index');
 //sampah useradmin
-Route::get('admin/user-sampah', [UserAdminController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.useradmin.sampah');
-Route::put('admin/useradmin/{id}/restore', [UserAdminController::class, 'restore'])->name('admin.useradmin.restore');
-Route::delete('admin/useradmin/{id}/force-delete', [UserAdminController::class, 'forceDelete'])->name('admin.useradmin.forceDelete');
+
 
 
 Route::get('/admin/datadisposal', [DataDisposalController::class, 'index'])->name('admin.datadisposal.index');
@@ -159,12 +162,18 @@ Route::post('/admin/useradmin/store', [UserAdminController::class, 'store'])->na
 Route::get('/admin/useradmin/{id}', [UserAdminController::class, 'edit'])->name('admin.useradmin.edit');
 Route::put('/admin/useradmin/{id}', [UserAdminController::class, 'update'])->name('admin.useradmin.update');
 Route::delete('/admin/useradmin/{id}', [UserAdminController::class, 'destroy'])->name('admin.useradmin.destroy');
+Route::get('admin/user-sampah', [UserAdminController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.useradmin.sampah');
+Route::put('admin/useradmin/{id}/restore', [UserAdminController::class, 'restore'])->name('admin.useradmin.restore');
+Route::delete('admin/useradmin/{id}/force-delete', [UserAdminController::class, 'forceDelete'])->name('admin.useradmin.forceDelete');
 
 //gabungan peminjaman admin user
 Route::get('/admin/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('admin.peminjaman.edit');
 Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 Route::delete('/admin/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('admin.peminjaman.destroy');
 //trash
+Route::get('admin/peminjaman-sampah', [PeminjamanController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.peminjaman.sampah');
+Route::put('admin/peminjaman/{id}/restore', [PeminjamanController::class, 'restore'])->name('admin.peminjaman.restore');
+Route::delete('admin/peminjaman/{id}/force-delete', [PeminjamanController::class, 'forceDelete'])->name('admin.peminjaman.forceDelete');
 
 //Route::get('admin/peminjaman/trash', [PeminjamanController::class, 'showTrash'])->name('admin.trash');
 //Route::post('admin/peminjaman/{id}/restore', [PeminjamanController::class, 'restore'])->name('admin.peminjaman.restore');
@@ -190,6 +199,7 @@ Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update']
 
 Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('pengembalian.index'); // Menampilkan form
 Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store');
+
 Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
 
 Route::get('/admin/pengembalian/cari', [PengembalianController::class, 'search'])->name('admin.pengembalian.search');
@@ -203,3 +213,7 @@ Route::post('/admin/plant/store', [PlantController::class, 'store'])->name('admi
 Route::get('/admin/plant/{id}', [PlantController::class, 'edit'])->name('admin.plant.edit');
 Route::put('/admin/plant/{id}', [PlantController::class, 'update'])->name('admin.plant.update');
 Route::delete('/admin/plant/{id}', [PlantController::class, 'destroy'])->name('admin.plant.destroy');
+
+
+Route::post('/admin/user/reset-password', [UserAdminController::class, 'resetPassword'])->name('admin.user.resetPassword');
+

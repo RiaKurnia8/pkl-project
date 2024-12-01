@@ -19,6 +19,8 @@ class HpeminjamanController extends Controller
         //$peminjamans = Peminjamans::where('nik', $nik)->get();
         $peminjamans = Peminjamans::where('nik', $nik)->get();
 
+        
+
         // Mengirim data peminjaman ke view
         return view('user.hpeminjaman.index', compact('peminjamans'));
     }

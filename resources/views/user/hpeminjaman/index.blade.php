@@ -6,21 +6,6 @@
 
 <h1 class="mt-4">Peminjaman Barang</h1>
 
-<!-- Form Pencarian -->
-{{-- <div class="d-flex justify-content-end mb-3">
-    <!-- Bagian Search -->
-    <div class="col-auto">
-        <form action="{{ route('user.hpeminjaman.search') }}" method="GET">
-            <div class="input-group">
-                <input type="text" id="form1" name="cari" class="form-control" placeholder="Search" value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        
-        </form>
-    </div>
-</div> --}}
 
 <!-- Tabel Data Peminjaman -->
 <div style="padding: 20px; border-radius: 10px;">
@@ -30,11 +15,14 @@
                 <th>No</th>
                 <th>NIK</th>
                 <th>Plant</th>
+                <th>ID</th>
                 <th>Barang</th>
                 <th>Tanggal Pinjam</th>
                 <th>Keperluan</th>
                 <th>Notes</th>
                 <th>Status</th>
+                <th>Aksi</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -43,34 +31,33 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $peminjaman->nik }}</td>
                     <td>{{ $peminjaman->plant }}</td>
+                    <td>{{ $peminjaman->id }}</td>
                     <td>{{ $peminjaman->barang_dipinjam }}</td>
                     <td>{{ $peminjaman->tanggal_pinjam }}</td>
                     <td>{{ $peminjaman->keperluan }}</td>
                     <td>{{ $peminjaman->notes }}</td>
-                    <td>{{ $peminjaman->status }}</td>
+                    <td>
+                        @if (empty($peminjaman->status))
+                            <span style="color: gray; font-style: italic; font-size: 12px; white-space: nowrap;">Menunggu Konfirmasi...</span>
+                        @else
+                            {{ $peminjaman->status }}
+                        @endif
+                    </td>
+                    <td>
+                        {{-- <a href="{{ route('pengembalian.index', ['id' => $peminjaman->id]) }}" class="btn btn-sm btn-primary">
+                            Pengembalian
+                        </a> --}}
+                        <a href="{{ route('pengembalian.index', ['id' => $peminjaman->id, 'barang' => $peminjaman->barang_dipinjam]) }}" class="btn btn-sm btn-primary">
+                            Pengembalian
+                        </a>
+                        
+                    </td>
+                    <td>{{ $peminjaman->keterangan }}</td>
                 </tr>
             @endforeach
         </tbody>
-        {{-- <tbody>
-            @foreach($peminjamans as $index => $peminjaman)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $peminjaman->nik }}</td>
-                    <td>{{ $peminjaman->plant }}</td>
-                    <td>{{ $peminjaman->barang_dipinjam }}</td>
-                    <td>{{ $peminjaman->tanggal_pinjam }}</td>
-                    <td>{{ $peminjaman->status }}</td>
-                </tr>
-            @endforeach
-        </tbody> --}}
     </table>
-    {{-- {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!} --}}
 </div>
-
-<!-- Teks Showing Entries -->
-{{-- <div class="mb-3 text-right">
-    <span>Showing {{ $peminjamans->count() }} of {{ $peminjamans->count() }} entries</span>
-</div> --}}
 
 @endsection
 @push('scripts')

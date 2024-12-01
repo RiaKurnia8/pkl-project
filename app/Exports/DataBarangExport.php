@@ -54,7 +54,7 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
 
     return [
         ['Tanggal Export: ' . $currentDate], // Baris pertama berisi tanggal ekspor
-        ['Nama Pengguna: ' . $userName], // Baris kedua berisi nama pengguna
+        ['Dieksport Oleh: ' . $userName], // Baris kedua berisi nama pengguna
         [
             'No',
             'Lokasi',
@@ -67,7 +67,7 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             'Sn',
             'Kelayakan',
             'Foto',
-            'Status',
+            // 'Status',
             'Tanggal Tambah',
         ]
     ];
@@ -88,7 +88,7 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $databarangs->sn,
             $databarangs->kelayakan,
             '', // Kosongkan foto dari pemetaan
-            $databarangs->status,
+            // $databarangs->status,
             $databarangs->created_at->format('d-m-Y'),
            
         ];
@@ -112,7 +112,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
             $event->sheet->getDelegate()->mergeCells('A1:M1'); // Menggabungkan baris pertama untuk tanggal export
             $event->sheet->getDelegate()->mergeCells('A2:M2'); // Menggabungkan baris kedua untuk nama pengguna
             $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+            $event->sheet->getDelegate()->getStyle('A2')->getFont()->setBold(true);
             $event->sheet->getDelegate()->getStyle('A3:M3')->getFont()->setBold(true);
 
                 foreach ($dataBarangs as $dataBarang) {
@@ -137,8 +138,8 @@ class DataBarangExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
 
                 // Mengatur gaya untuk memusatkan teks
-                $event->sheet->getDelegate()->getStyle('A1:M' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $event->sheet->getDelegate()->getStyle('A1:M' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A3:M' . ($row - 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A3:M' . ($row - 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }

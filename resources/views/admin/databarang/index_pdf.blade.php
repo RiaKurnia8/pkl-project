@@ -44,7 +44,7 @@
 
 <body>
     <div style="margin-bottom: 20px; position: relative;">
-        <h1 style="display: inline-block;">Data Disposal</h1>
+        <h1 style="display: inline-block;">Data Barang</h1>
         <p><strong>Tanggal Export:</strong> {{ \Carbon\Carbon::now()->format('d-m-Y') }} </p>
         <p><strong>Di Export Oleh:</strong> {{ Auth::user()->name }}</p>
         <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo"
@@ -67,7 +67,7 @@
                     <th>S/N</th>
                     <th>Kelayakan</th>
                     <th>Foto</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th> --}}
                     <th>Tanggal Tambah</th>
                     
                     
@@ -93,7 +93,7 @@
                         <td><img src="{{ public_path('img/' . $data->foto) }}?{{ time() }}" width="100" height="100"></td> 
                         {{-- <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100" height="100"> --}}
 
-                        <td>{{ $data->status }}</td>
+                        {{-- <td>{{ $data->status }}</td> --}}
                         <td>{{ $data->created_at->format('d-m-Y ') }}</td>
                         
                     </tr>

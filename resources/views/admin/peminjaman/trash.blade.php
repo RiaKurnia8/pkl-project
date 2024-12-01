@@ -1,62 +1,56 @@
 @extends('layouts.admin')
 
-@section('title', 'Sampah')
+@section('title', 'Peminjaman')
 
 @section('content')
 
-    {{-- pesan sukses --}}
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+{{-- pesan sukses --}}
+@if (session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+    {{ session()->get('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
-    <h1>Databarang Sampah</h1>
+<h1>Sampah Peminjaman</h1>
 
-    <div class="table-responsive"> <!-- Padding dan border-radius -->
-        <table id="barangTable" class="table table-striped table-bordered"> <!-- Tambahkan id -->
-            <thead style="background-color: #dc3545; color: white;">
-                <tr class="text-center">
-                    <th>No</th>
-                    <th>Lokasi</th>
-                    <th>Barang</th>
-                    <th>No.Asset</th>
-                    <th>No.Equipment</th>
-                    <th>Kategori</th>
-                    <th>Merk</th>
-                    <th>Tipe</th>
-                    <th>S/N</th>
-                    <th>Kelayakan</th>
-                    <th>Foto</th>
-                    {{-- <th>Status</th> --}}
-                    <th>Tanggal Tambah</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($databarang as $i => $data)
-                    <tr class="text-center">
-                        <th scope="row">{{ $i + 1 }}</th>
-                        <td>{{ $data->lokasi }}</td>
-                        <td>{{ $data->barang }}</td>
-                        <td>{{ $data->no_asset }}</td>
-                        <td>{{ $data->no_equipment }}</td>
-                        <td>{{ $data->kategori->nama_kategori ?? 'Kategori tidak ada' }}</td>
-                        <td>{{ $data->merk }}</td>
-                        <td>{{ $data->tipe }}</td>
-                        <td>{{ $data->sn }}</td>
-                        <td>{{ $data->kelayakan }}</td>
-                        <td>
-                            @if ($data->foto)
-                                <img src="{{ asset('img/' . $data->foto) }}" alt="Foto Barang" width="100"
-                                    height="100">
-                            @else
-                                <span>Tidak ada foto</span>
-                            @endif
-                        </td>
-                        {{-- <td>{{ $data->status }}</td> --}}
-                        <td>{{ $data->created_at->format('d-m-Y') }}</td>
+
+<!-- Tabel Peminjaman -->
+<div style="padding: 20px; border-radius: 10px;">
+    <table id="sampahjamTable" class="table table-striped table-bordered">
+        <thead style="background-color: #dc3545; color: white;">
+            <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                <th>Plant</th>
+                <th>Barang dipinjam</th>
+                <th>Tanggal pinjam</th>
+                <th>Keperluan</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+                <th>Tanggal Pengembalian</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($peminjaman as $i => $data)
+                    <tr>
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $data->id }}</td>
+                        <td>{{ $data->nik }}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->plant }}</td>
+                        <td>{{ $data->barang_dipinjam }}</td>
+                        <td>{{ $data->tanggal_pinjam }}</td>
+                        <td>{{ $data->keperluan}}</td>
+                        <td>{{ $data->notes}}</td>
+                        <td>{{ $data->status }}</td>
+                        <td>{{ $data->keterangan}}</td>
+                        <td>{{ $data->tanggal_pengembalian ?? '-' }}</td>
+                        
                         <td>
                             <!-- Tombol Restore yang memicu modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restoreModal{{ $data->id }}">
@@ -76,7 +70,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <form action="{{ route('admin.databarang.restore', $data->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('admin.peminjaman.restore', $data->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('PUT') <!-- Simulasikan metode PUT -->
                                                 <button type="submit" class="btn btn-primary">Restore</button>
@@ -104,7 +98,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <form action="{{ route('admin.databarang.forceDelete', $data->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('admin.peminjaman.forceDelete', $data->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">Hapus Permanen</button>
                                             </form>
@@ -113,40 +107,46 @@
                                 </div>
                             </div>
                         </td>
-                        
-
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                
+            @endforeach
+        </tbody>
+    </table>
+    
+    <!-- Pagination -->
+    {{-- {!! $peminjamans->withQueryString()->links('pagination::bootstrap-5') !!} --}}
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const alert = document.getElementById('success-alert');
-            if (alert) {
-                setTimeout(() => {
-                    alert.classList.remove('show');
-                }, 3000); // 3000ms = 3 detik
-            }
-        });
+<script>
+    // Menghilangkan pesan sukses setelah 3 detik
+    document.addEventListener('DOMContentLoaded', function() {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000); // 3000ms = 3 detik
+        }
+    });
 
-    </script>
+</script>
 
 @endsection
+
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#barangTable').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                lengthChange: true,
-                pageLength: 10,
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
-                }
-            });
+<script>
+    $(document).ready(function() {
+        $('#sampahjamTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            lengthChange: true,
+            pageLength: 10,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/id.json" // Bahasa Indonesia (opsional)
+            }
         });
-    </script>
+    });
+</script>
+    
 @endpush
+

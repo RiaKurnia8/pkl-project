@@ -17,6 +17,11 @@
         @csrf
         @method('PUT')
 
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" name="id" class="form-control" id="id" value="{{ old('id', $peminjaman->id) }}" readonly>
+        </div>
+
         <!-- Input untuk NIK -->
 <div class="form-group">
     <label for="nik">NIK</label>

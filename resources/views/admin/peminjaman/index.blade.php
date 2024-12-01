@@ -14,19 +14,9 @@
 
 <h1>Data Peminjaman</h1>
 
-<<<<<<< HEAD
 <div class="mt-4 ms-3">
    <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success mt-1"><i class="fas fa-file-excel"></i></a>
    <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger mt-1"><i class="fas fa-file-pdf"></i></a>
-=======
-<!-- Bagian Tombol PDF, Excel, dan Search -->
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <!-- Tombol PDF dan Excel di sebelah kiri -->
-    <div class="d-flex">
-        <a href="{{ route('admin.peminjaman.xls') }}" class="btn btn-success me-2"><i class="fas fa-file-excel"></i></a>
-        <a href="{{ route('admin.peminjaman.exportPdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf"></i></a>
-</div>
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
 </div>
 
 
@@ -36,8 +26,8 @@
         <thead style="background-color: #dc3545; color: white;">
             <tr>
                 <th>No</th>
+                <th>ID</th>
                 <th>NIK</th>
-                {{-- <th>Username</th> --}}
                 <th>Nama</th>
                 <th>Plant</th>
                 <th>Barang dipinjam</th>
@@ -45,6 +35,8 @@
                 <th>Keperluan</th>
                 <th>Notes</th>
                 <th>Status</th>
+                <th>Keterangan</th>
+                <th>Tanggal Pengembalian</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -53,6 +45,7 @@
                 @if ($data && $data->id) <!-- Pastikan $data dan $data->id tidak null -->
                     <tr>
                         <td>{{ $i + 1 }}</td>
+                        <td>{{ $data->id }}</td>
                         <td>{{ $data->nik }}</td>
                         {{-- <td>{{ $data->username }}</td> --}}
                         <td>{{ $data->name }}</td>
@@ -61,12 +54,26 @@
                         <td>{{ $data->tanggal_pinjam }}</td>
                         <td>{{ $data->keperluan}}</td>
                         <td>{{ $data->notes}}</td>
-                        <td>{{ $data->status}}</td>
-                        
+                        {{-- <td>{{ $data->status}} <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a></td> --}}
                         <td>
-                            <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                            @if (empty($data->status))
+                                <span style="color: gray; font-style: italic; font-size: 13px; white-space: nowrap;">Menunggu Konfirmasi...</span>
+                            @else
+                                {{ $data->status }}
+                            @endif
+                            <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="ms-2">
                                 <i class="fas fa-edit"></i>
                             </a>
+                        </td>
+                        <td>{{ $data->keterangan}}</td>
+                        <td>{{ $data->tanggal_pengembalian ?? '-' }}</td>
+                        
+                        <td>
+                            {{-- <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a> --}}
                             <!-- Tombol Hapus dengan Modal Konfirmasi -->
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
                                 <i class="fas fa-trash"></i> 

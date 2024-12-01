@@ -113,7 +113,7 @@
                     <th>S/N</th>
                     <th>Kelayakan</th>
                     <th>Foto</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th> --}}
                     <th>Tanggal Tambah</th>
                     <th>Aksi</th>
                 </tr>
@@ -138,7 +138,7 @@
                                 <span>Tidak ada foto</span>
                             @endif
                         </td>
-                        <td>{{ $data->status }}</td>
+                        {{-- <td>{{ $data->status }}</td> --}}
                         <td>{{ $data->created_at->format('d-m-Y') }}</td>
                         <td>
                             <a href="{{ route('admin.databarang.edit', $data->id) }}" class="btn btn-warning btn-sm">

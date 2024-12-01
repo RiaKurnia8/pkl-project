@@ -33,20 +33,22 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
 
     public function headings(): array
     {
+        $currentDate = now()->format('d-m-Y');
+        $userName = auth()->user()->name;
         return [
+            ['Tanggal Export: ' . $currentDate], // Baris pertama berisi tanggal ekspor
+            ['Dieksport Oleh: ' . $userName],
+            [
             'No',
             'nik',
-<<<<<<< HEAD
             'name',
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
             'plant',
             'barang_dipinjam',
             'tanggal_pengembalian',
             'keperluan',
             'notes',
             'status',
-
+            ]
         ];
     }
 
@@ -56,10 +58,7 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
         return [
             ++$this->nomor,
             $pengembalian->nik,
-<<<<<<< HEAD
             $pengembalian->name,
-=======
->>>>>>> 52105e0523168caeef5f2316d4ed765a25e08aa5
             $pengembalian->plant,
             $pengembalian->barang_dipinjam,
             $pengembalian->tanggal_pengembalian,
@@ -73,6 +72,8 @@ class PengembalianExport implements FromCollection, WithHeadings, WithMapping, W
     {
         return[
             1 => ['font' => ['bold' => true], ],
+            2 => ['font' => ['bold' => true], ],
+            3 => ['font' => ['bold' => true], ],
 
         ];
     }

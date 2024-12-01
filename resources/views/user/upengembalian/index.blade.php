@@ -18,16 +18,20 @@
     <form action="upengembalian" method="POST">
         @csrf
 
+        {{-- <div class="form-group">
+            <label for="id">ID Barang :</label>
+            <input type="text" class="form-control" id="id" name="id" value="{{ Auth::user()->id }}" readonly>
+        </div> --}}
+        <div class="form-group">
+            <label for="id">ID :</label>
+            <input type="text" class="form-control" id="id" name="id" value="{{ $idBarang }}" readonly>
+        </div>
         <!-- NIK Input -->
         <div class="form-group">
             <label for="nik">NIK :</label>
             <input type="text" class="form-control" id="nik" name="nik" value="{{ Auth::user()->nik }}" readonly>
         </div>
 
-         {{-- <div class="form-group">
-            <label for="username">userNama :</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ Auth::user()->username }}" readonly>
-        </div> --}}
 
         <!-- Name Input -->
         <div class="form-group">
@@ -42,9 +46,13 @@
         </div>
 
         <!-- Barang Pengembalian Input -->
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="barang">Barang pengembalian :</label>
             <input type="text" class="form-control" id="barang" name="barang" placeholder="Masukkan Barang Pengembalian" required>
+        </div> --}}
+        <div class="form-group">
+            <label for="barang">Barang pengembalian :</label>
+            <input type="text" class="form-control" id="barang" name="barang" value="{{ $barang }}" readonly>
         </div>
 
         <!-- Tanggal Pinjam Input -->

@@ -8,13 +8,25 @@ class UpeminjamanController extends Controller
 {
     public function index()
     {
-        return view('user.upeminjaman.index');
+        $lastId = Peminjamans::max('id') ?? 0;
+        return view('user.upeminjaman.index', ['nextId' => $lastId + 1]);
+    }
+
+    // Method untuk menampilkan form peminjaman
+    public function create()
+    {
+        // Ambil ID terakhir dari tabel peminjamans
+        $lastId = Peminjamans::max('id') ?? 0;
+
+        // Kirim ID berikutnya ke view
+        return view('peminjaman.index', ['nextId' => $lastId + 1]);
     }
 
     public function store(Request $request)
     {
         // Validasi input
         $validated = $request->validate([
+            'id' => 'required|integer',
             'nik' => 'required',
             //'username' => 'required',
             'name' => 'required',
@@ -27,6 +39,7 @@ class UpeminjamanController extends Controller
 
         // Simpan data ke database
         Peminjamans::create([ // Pastikan ini menggunakan model yang benar
+            'id' => $validated['id'],
             'nik' => $validated['nik'],
             //'username' => $validated['username'],
             'name' => $validated['name'],

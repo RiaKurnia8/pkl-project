@@ -101,7 +101,8 @@ class PengembalianController extends Controller
     //export xls
     public function export()
     {
-        return Excel::download(new PengembalianExport, 'laporan-data-pengembalian.xlsx');
+        return Excel::download(new PengembalianExport, 'laporan-data-pengembalian-' . date('d-m-Y') . '.xlsx');
+        // return Excel::download(new PeminjamanExport, 'laporan-data-peminjaman-' . date('d-m-Y') . '.xlsx');
     }
 
     //export pdf
@@ -113,6 +114,6 @@ class PengembalianController extends Controller
 
          // Atur ukuran kertas dan orientasi menjadi landscape
     $pdf->setPaper('A4', 'landscape');
-        return $pdf->download('laporan-data-pengembalian.pdf');
+        return $pdf->download('laporan-data-pengembalian-' . date('d-m-Y') . '.pdf');
     }
 }
