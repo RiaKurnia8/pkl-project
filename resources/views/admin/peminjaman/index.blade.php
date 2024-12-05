@@ -64,7 +64,7 @@
                             </a>
                         </td>
                         <td>{{ $data->keterangan}}</td>
-                        <td>{{ $data->tanggal_pengembalian ?? '-' }}</td>
+                        <td>{{ $data->tanggal_pengembalian}}</td>
                         
                         <td>
                             {{-- <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">

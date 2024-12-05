@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\DB; // Tambahkan ini
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles; // Pastikan namespace ini ada
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DashboardExport implements FromCollection, WithHeadings, WithMapping, WithStyles
@@ -40,9 +41,15 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
     /**
      * Mengatur heading untuk file Excel
      */
+    
     public function headings(): array
     {
+        $currentDate = now()->format('d-m-Y');
+    $userName = auth()->user()->name;
         return [
+            ['Tanggal Export: ' . $currentDate], // Baris pertama berisi tanggal ekspor
+        ['Dieksport Oleh: ' . $userName],
+        [
             'No',
             'ID',
             'Nama',
@@ -50,6 +57,7 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
             'Plant',
             'Tanggal Pinjam',
             'Tanggal Pengembalian',
+        ]
         ];
     }
 
@@ -76,6 +84,26 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
     {
         return [
             1 => ['font' => ['bold' => true]], // Menebalkan header pada baris pertama
+            2 => ['font' => ['bold' => true]],
+            3 => ['font' => ['bold' => true]],
         ];
     }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $dataBarangs = $this->collection();
+                $row = 4; // Mulai dari baris kedua (baris pertama adalah heading)
+                 // Menggabungkan dan memusatkan kolom A (Tanggal Export) dan kolom B (Nama Pengguna)
+            $event->sheet->getDelegate()->mergeCells('A1:M1'); // Menggabungkan baris pertama untuk tanggal export
+            $event->sheet->getDelegate()->mergeCells('A2:M2'); // Menggabungkan baris kedua untuk nama pengguna
+            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+            $event->sheet->getDelegate()->getStyle('A1:M2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+            $event->sheet->getDelegate()->getStyle('A2')->getFont()->setBold(true);
+            $event->sheet->getDelegate()->getStyle('A3:M3')->getFont()->setBold(true);
+            }
+        ];
+    }
+
 }

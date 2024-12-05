@@ -22,6 +22,7 @@ class Peminjamans extends Model
         'tanggal_pinjam',
         'status',
         'keterangan',
+        'tanggal_pengembalian',
         'keperluan',
         'notes',
         'is_deleted'
