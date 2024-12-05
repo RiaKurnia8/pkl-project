@@ -22,12 +22,13 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
     public function collection()
     {
         return Peminjamans::leftJoin('pengembalians', function ($join) {
-                $join->on('peminjamans.username', '=', 'pengembalians.username')
+                $join->on('peminjamans.name', '=', 'pengembalians.name')
                      ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
             })
             ->where('peminjamans.is_deleted', false)
             ->select(
-                'peminjamans.username',
+                'peminjamans.id',
+                'peminjamans.name',
                 'peminjamans.barang_dipinjam as barang',
                 'peminjamans.plant',
                 'peminjamans.tanggal_pinjam',
@@ -43,7 +44,8 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
     {
         return [
             'No',
-            'Username',
+            'ID',
+            'Nama',
             'Barang Dipinjam',
             'Plant',
             'Tanggal Pinjam',
@@ -58,7 +60,8 @@ class DashboardExport implements FromCollection, WithHeadings, WithMapping, With
     {
         return [
             ++$this->nomor,
-            $peminjaman->username,
+            $peminjaman->id,
+            $peminjaman->name,
             $peminjaman->barang,
             $peminjaman->plant,
             $peminjaman->tanggal_pinjam,
