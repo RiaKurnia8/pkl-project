@@ -118,7 +118,8 @@
             <thead style="background-color: #dc3545; color: white;">
                 <tr>
                     <th>No</th>
-                    <th>Username</th>
+                    <th>ID</th>
+                    <th>Nama</th>
                     <th>Barang Dipinjam</th>
                     <th>Plant</th>
                     <th>Tanggal Pinjam</th>
@@ -129,7 +130,8 @@
                 @foreach ($peminjamanData as $index => $peminjaman)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $peminjaman->username }}</td>
+                        <td>{{ $peminjaman->id }}</td>
+                        <td>{{ $peminjaman->name }}</td>
                         <td>{{ $peminjaman->barang }}</td>
                         <td>{{ $peminjaman->plant }}</td>
                         <td>{{ $peminjaman->tanggal_pinjam }}</td>
