@@ -92,7 +92,7 @@ class PengembalianController extends Controller
     }
 
     // Mendapatkan hasil pencarian dan paginasi
-    $pengembalians = $pengembalianQuery->paginate(10);
+    $pengembalians = $pengembalianQuery->get();
 
     // Mengembalikan view dengan data pengembalian
     return view('admin.pengembalian.index', compact('pengembalians'));

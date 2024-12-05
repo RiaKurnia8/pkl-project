@@ -47,16 +47,12 @@
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $data->id }}</td>
                         <td>{{ $data->nik }}</td>
-                        {{-- <td>{{ $data->username }}</td> --}}
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->plant }}</td>
                         <td>{{ $data->barang_dipinjam }}</td>
                         <td>{{ $data->tanggal_pinjam }}</td>
                         <td>{{ $data->keperluan}}</td>
                         <td>{{ $data->notes}}</td>
-                        {{-- <td>{{ $data->status}} <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a></td> --}}
                         <td>
                             @if (empty($data->status))
                                 <span style="color: gray; font-style: italic; font-size: 13px; white-space: nowrap;">Menunggu Konfirmasi...</span>

@@ -61,7 +61,8 @@
         <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
             <tr>
             <th>No</th>
-            <th>Username</th>
+            <th>ID</th>
+            <th>Nama</th>
             <th>Barang</th>
             <th>Plant</th>
             <th>Tanggal Pinjam</th>
@@ -73,7 +74,8 @@
     @foreach ($Peminjamans as $index => $peminjaman)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $peminjaman->username }}</td>
+                <td>{{ $peminjaman->id }}</td>
+                <td>{{ $peminjaman->name }}</td>
                 <td>{{ $peminjaman->barang }}</td>
                 <td>{{ $peminjaman->plant }}</td>
                 <td>{{ $peminjaman->tanggal_pinjam }}</td>

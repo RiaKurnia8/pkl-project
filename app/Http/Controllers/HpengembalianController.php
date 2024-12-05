@@ -39,7 +39,7 @@ class HpengembalianController extends Controller
                     ->orWhere('tanggal_pengembalian', 'like', "%" . $keyword . "%")
                     ->orWhere('status', 'like', "%" . $keyword . "%");
             })
-            ->paginate(10);
+            ->get();
 
         // Mengirim data pencarian ke view
         return view('user.hpengembalian.index', compact('pengembalians'));

@@ -106,7 +106,7 @@ class PeminjamanController extends Controller
         }
 
         // Mendapatkan hasil pencarian dan paginasi
-        $peminjamans = $peminjamanQuery->paginate(10);
+        $peminjamans = $peminjamanQuery->get();
 
         // Mengembalikan view dengan data peminjaman
         return view('admin.peminjaman.index', compact('peminjamans'));

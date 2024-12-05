@@ -26,4 +26,10 @@ class Peminjamans extends Model
         'notes',
         'is_deleted'
     ];
+
+    public function pengembalian()
+    {
+        return $this->hasOne(Pengembalians::class, 'peminjaman_id');
+    }
+    
 }

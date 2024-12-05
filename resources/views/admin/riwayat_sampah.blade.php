@@ -19,6 +19,7 @@
         <thead style="background-color: #f71d1d; color: white;">
             <tr>
                 <th>No</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Barang</th>
                 <th>Plant</th>
@@ -32,6 +33,7 @@
             @foreach ($Peminjamans as $index => $peminjaman)
             <tr>
                 <td>{{ $index + 1 }}</td>
+                <td>{{ $peminjaman->id }}</td>
                 <td>{{ $peminjaman->name }}</td>
                 <td>{{ $peminjaman->barang }}</td>
                 <td>{{ $peminjaman->plant }}</td>

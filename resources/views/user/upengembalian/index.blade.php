@@ -45,11 +45,7 @@
             <input type="text" class="form-control" id="plant" name="plant" value="{{ Auth::user()->plant->plant ??  'Plant tidak ditemukan'}}" readonly>
         </div>
 
-        <!-- Barang Pengembalian Input -->
-        {{-- <div class="form-group">
-            <label for="barang">Barang pengembalian :</label>
-            <input type="text" class="form-control" id="barang" name="barang" placeholder="Masukkan Barang Pengembalian" required>
-        </div> --}}
+
         <div class="form-group">
             <label for="barang">Barang pengembalian :</label>
             <input type="text" class="form-control" id="barang" name="barang" value="{{ $barang }}" readonly>
