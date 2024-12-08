@@ -120,7 +120,25 @@ class HomeController extends Controller
     //export excel
     public function exportPeminjaman()
     {
-        return Excel::download(new DashboardExport, 'data-dashboard.xlsx');
+        $peminjamanData = Peminjamans::leftJoin('pengembalians', function ($join) {
+            $join->on('peminjamans.name', '=', 'pengembalians.name')
+                 ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+        })
+        ->where('peminjamans.is_deleted', false)
+        ->select(
+            'peminjamans.id',
+            'peminjamans.name',
+            'peminjamans.barang_dipinjam as barang',
+            'peminjamans.plant',
+            'peminjamans.tanggal_pinjam',
+            DB::raw('COALESCE(pengembalians.tanggal_pengembalian, "-") as tanggal_pengembalian')
+        )
+        ->orderBy('peminjamans.id')
+        ->get();
+    
+        $timestamp = now()->format('d-m-Y'); 
+        $filename = "data-dashboard-{$timestamp}.xlsx";
+        return Excel::download(new DashboardExport, $filename);
     }
 
     //export pdf
@@ -133,15 +151,17 @@ class HomeController extends Controller
         })
         ->where('peminjamans.is_deleted', false)
         ->select(
+            'peminjamans.id',
             'peminjamans.name',
             'peminjamans.barang_dipinjam as barang',
             'peminjamans.plant',
             'peminjamans.tanggal_pinjam',
             DB::raw('COALESCE(pengembalians.tanggal_pengembalian, "-") as tanggal_pengembalian')
         )
+        ->orderBy('peminjamans.id')
         ->get();
     
-    $timestamp = now()->format('Ymd_His');
+    $timestamp = now()->format('d-m-Y');
     $filename = "dashboard_data_{$timestamp}.pdf";
     $pdf = Pdf::loadView('admin.dashboard_pdf', compact('peminjamanData'));
     return $pdf->download($filename); 
@@ -152,13 +172,13 @@ public function search(Request $request)
         $search = $request->input('search');
 
         $peminjamanData = Peminjamans::leftJoin('pengembalians', function ($join) {
-            $join->on('peminjamans.username', '=', 'pengembalians.username')
+            $join->on('peminjamans.name', '=', 'pengembalians.name')
                 ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
         })
             ->where('peminjamans.is_deleted', false)
             ->when($search, function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
-                    $q->where('peminjamans.username', 'like', "%{$search}%")
+                    $q->where('peminjamans.name', 'like', "%{$search}%")
                         ->orWhere('peminjamans.barang_dipinjam', 'like', "%{$search}%")
                         ->orWhere('peminjamans.plant', 'like', "%{$search}%")
                         ->orWhere('peminjamans.tanggal_pinjam', 'like', "%{$search}%");
@@ -166,7 +186,7 @@ public function search(Request $request)
             })
             ->select(
                 'peminjamans.id',
-                'peminjamans.username',
+                'peminjamans.name',
                 'peminjamans.barang_dipinjam as barang',
                 'peminjamans.plant',
                 'peminjamans.tanggal_pinjam',

@@ -36,17 +36,17 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
         $peminjamans = Peminjamans::all();
 
         // Menambahkan tanggal_pengembalian dari tabel pengembalians
-        foreach ($peminjamans as $peminjaman) {
-            $pengembalian = DB::table('pengembalians')
-                ->where('nik', $peminjaman->nik)
-                ->where('barang_dipinjam', $peminjaman->barang_dipinjam)
-                ->first();
+        // foreach ($peminjamans as $peminjaman) {
+        //     $pengembalian = DB::table('pengembalians')
+        //         ->where('nik', $peminjaman->nik)
+        //         ->where('barang_dipinjam', $peminjaman->barang_dipinjam)
+        //         ->first();
 
-            // Set tanggal_pengembalian jika ditemukan
-            $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
-              // Debugging: menampilkan tanggal_pengembalian
-        logger($peminjaman->tanggal_pengembalian);
-        }
+        //     // Set tanggal_pengembalian jika ditemukan
+        //     $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
+        //       // Debugging: menampilkan tanggal_pengembalian
+        // logger($peminjaman->tanggal_pengembalian);
+        // }
 
         return $peminjamans;
     }
@@ -90,7 +90,7 @@ class PeminjamanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $peminjaman->notes,
             $peminjaman->status,
             $peminjaman->keterangan,
-            $peminjaman->tanggal_pengembalian ?? '-',
+            $peminjaman->tanggal_pengembalian,
         ];
     }
 

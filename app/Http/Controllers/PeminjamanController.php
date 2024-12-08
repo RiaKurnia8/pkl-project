@@ -17,15 +17,15 @@ class PeminjamanController extends Controller
     {
         $peminjamans = Peminjamans::all();
         // Loop untuk menambahkan tanggal_pengembalian dari tabel Pengembalian
-        foreach ($peminjamans as $peminjaman) {
-            $pengembalian = DB::table('pengembalians')
-                ->where('nik', $peminjaman->nik) // Mencocokkan NIK
-                ->where('barang_dipinjam', $peminjaman->barang_dipinjam) // Mencocokkan barang
-                ->first(); // Ambil satu data saja
+        // foreach ($peminjamans as $peminjaman) {
+        //     $pengembalian = DB::table('pengembalians')
+        //         ->where('nik', $peminjaman->nik) // Mencocokkan NIK
+        //         ->where('barang_dipinjam', $peminjaman->barang_dipinjam) // Mencocokkan barang
+        //         ->first(); // Ambil satu data saja
 
-            // Set tanggal_pengembalian jika ditemukan, jika tidak biarkan null
-            $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
-        }
+        //     // Set tanggal_pengembalian jika ditemukan, jika tidak biarkan null
+        //     $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
+        // }
 
         
 
@@ -106,7 +106,7 @@ class PeminjamanController extends Controller
         }
 
         // Mendapatkan hasil pencarian dan paginasi
-        $peminjamans = $peminjamanQuery->paginate(10);
+        $peminjamans = $peminjamanQuery->get();
 
         // Mengembalikan view dengan data peminjaman
         return view('admin.peminjaman.index', compact('peminjamans'));

@@ -110,15 +110,23 @@
     </style>
 </head>
 <body>
-    <h1 style="display: inline-block;">Data Dashboard</h1>
-    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;">
+    {{-- <h1 style="display: inline-block;">Data Dashboard</h1>
+    <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo" style="float: right; width: 100px; height: auto;"> --}}
+    <div style="margin-bottom: 20px; position: relative;">
+        <h1 style="display: inline-block;">Dashboard</h1>
+        <p><strong>Tanggal Export:</strong> {{ \Carbon\Carbon::now()->format('d-m-Y') }} </p>
+        <p><strong>Di Export Oleh:</strong> {{ Auth::user()->name }}</p>
+        <img id="logo-print" src="{{ base_path('public/assets/images/sasa.png') }}" alt="Logo"
+            style="position: absolute; top: 0; right: 0; width: 100px; height: auto;">
+    </div>
 
     <div style="border-radius: 5px;"> <!-- Padding dan border-radius -->
         <table class="table table-striped">
             <thead style="background-color: #dc3545; color: white;">
                 <tr>
                     <th>No</th>
-                    <th>Username</th>
+                    <th>ID</th>
+                    <th>Nama</th>
                     <th>Barang Dipinjam</th>
                     <th>Plant</th>
                     <th>Tanggal Pinjam</th>
@@ -129,7 +137,8 @@
                 @foreach ($peminjamanData as $index => $peminjaman)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $peminjaman->username }}</td>
+                        <td>{{ $peminjaman->id }}</td>
+                        <td>{{ $peminjaman->name }}</td>
                         <td>{{ $peminjaman->barang }}</td>
                         <td>{{ $peminjaman->plant }}</td>
                         <td>{{ $peminjaman->tanggal_pinjam }}</td>

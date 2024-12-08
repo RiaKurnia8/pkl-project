@@ -13,6 +13,7 @@ class Pengembalians extends Model
     protected $fillable = [
         'nik',
         // 'username',
+        'peminjaman_id',
         'name',
         'plant',
         'barang_dipinjam',
@@ -21,4 +22,9 @@ class Pengembalians extends Model
         'keperluan',
         'notes',
     ];
+
+    public function peminjaman()
+    {
+        return $this->belongsTo(Peminjamans::class, 'peminjaman_id');
+    }
 }

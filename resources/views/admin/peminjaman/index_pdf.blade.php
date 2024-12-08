@@ -91,7 +91,7 @@
                         <td>{{ $data->notes }}</td>
                         <td>{{ $data->status }}</td>
                         <td>{{ $data->keterangan}}</td>
-                        <td>{{ $data->tanggal_pengembalian ?? '-' }}</td>
+                        <td>{{ $data->tanggal_pengembalian}}</td>
                     </tr>
                 @endforeach
             </tbody>

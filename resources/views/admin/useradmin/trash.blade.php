@@ -94,6 +94,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                             <form action="{{ route('admin.useradmin.forceDelete', $data->id) }}" method="POST" style="display:inline;">
                                                 @csrf
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Hapus Permanen</button>
                                             </form>
                                         </div>
