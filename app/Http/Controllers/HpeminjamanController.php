@@ -41,7 +41,7 @@ class HpeminjamanController extends Controller
                     ->orWhere('tanggal_pinjam', 'like', "%" . $keyword . "%")
                     ->orWhere('status', 'like', "%" . $keyword . "%");
             })
-            ->paginate(10);
+            ->get();
 
         // Mengirim data peminjaman ke view
         return view('user.hpeminjaman.index', compact('peminjamans'));

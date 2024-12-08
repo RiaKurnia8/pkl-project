@@ -199,6 +199,7 @@ Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update']
 
 Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('pengembalian.index'); // Menampilkan form
 Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store');
+Route::get('/hpeminjaman', [HpeminjamanController::class, 'index'])->name('user.hpeminjaman.index');
 
 Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
 

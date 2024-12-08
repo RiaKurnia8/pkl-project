@@ -34,7 +34,7 @@
 
                 <div class="flex justify-between mt-4">
                     <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
-                    <button type="submit" class="btn btn-danger">Simpan</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
         </form>
     </div>

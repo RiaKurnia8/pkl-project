@@ -96,7 +96,7 @@
 
                         <!-- Tombol Back -->
                         <div class="mb-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">Batal</a>
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
                         </br> </br> </br>
                         <!-- Tombol Submit -->
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </div>
                 </div>

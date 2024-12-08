@@ -70,7 +70,7 @@
 
                         <!-- Tombol Back berada di bawah inputan No HP -->
                         <div class="mb-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">Batal</a>
                         </div>
                     </div>
 
@@ -199,7 +199,7 @@
 
                         <!-- Tombol Submit sejajar dengan tombol Back -->
                         <div class="mb-12 d-flex justify-content-end" style="margin-top: 40px;">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </div>
                 </div>

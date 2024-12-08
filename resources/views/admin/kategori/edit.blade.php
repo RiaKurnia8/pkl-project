@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('kategori.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('kategori.index') }}" class="btn btn-danger">Batal</a>
+        <button type="submit" class="btn btn-success">Simpan</button>
     </form>
 @endsection

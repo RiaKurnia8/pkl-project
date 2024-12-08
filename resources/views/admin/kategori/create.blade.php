@@ -38,8 +38,8 @@
                     <label class="form-check-label" for="status_off">Off</label>
                 </div>
             </div>
-            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
 
     </div>
     </form>

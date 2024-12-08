@@ -64,7 +64,7 @@
 
         <!-- Tombol Back dan Save -->
         <div class="d-flex justify-content-end mt-4">
-            <button type="submit" class="btn btn-success">SAVE</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
         </div>
     </form>
 </div>

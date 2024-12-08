@@ -155,10 +155,10 @@
                 <!-- Tombol Submit dan Back -->
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
                     </div>
                     <div class="col-md-6 text-end">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </div>
             </div>

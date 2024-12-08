@@ -75,7 +75,8 @@
 
         <!-- Tombol Back dan Save -->
         <div class="d-flex justify-content-end mt-4">
-            <button type="submit" class="btn btn-success">SAVE</button>
+            <a href="{{ route('user.hpeminjaman.index') }}" class="btn btn-danger">Batal</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
         </div>
     </form>
 </div>
