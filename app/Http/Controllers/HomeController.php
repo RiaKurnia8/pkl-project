@@ -70,52 +70,53 @@ class HomeController extends Controller
     }
 
     //trash
-    public function showTrash()
-    {
-        $trashedPeminjamans = Peminjamans::leftJoin('pengembalians', function ($join) {
-            $join->on('peminjamans.name', '=', 'pengembalians.name')
-                ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
-        })
-            ->where('peminjamans.is_deleted', true)
-            ->select(
-                'peminjamans.id', // Tambahkan 'id' di sini
-                'peminjamans.name',
-                'peminjamans.barang_dipinjam as barang',
-                'peminjamans.plant',
-                'peminjamans.tanggal_pinjam',
-                'pengembalians.tanggal_pengembalian'
-            )
-            ->get();
+    //public function showTrash()
+    // {
+    //   $trashedPeminjamans = Peminjamans::leftJoin('pengembalians', function ($join) {
+    //   $join->on('peminjamans.name', '=', 'pengembalians.name')
+    //   ->on('peminjamans.barang_dipinjam', '=', 'pengembalians.barang_dipinjam');
+    // })
+    //   ->where('peminjamans.is_deleted', true)
+    //   ->select(
+    //      'peminjamans.id', // Tambahkan 'id' di sini
+    //      'peminjamans.name',
+    //      'peminjamans.barang_dipinjam as barang',
+    //      'peminjamans.plant',
+    //      'peminjamans.tanggal_pinjam',
+    //      'pengembalians.tanggal_pengembalian'
+    // )
+    // ->get();
 
-        return view('admin.riwayat_sampah', ['Peminjamans' => $trashedPeminjamans]);
-    }
+    // return view('admin.riwayat_sampah', ['Peminjamans' => $trashedPeminjamans]);
+    // }
 
     //mengembalikan data
-    public function restore($id)
-    {
-        // Cari data peminjaman berdasarkan ID
-        $peminjaman = Peminjamans::findOrFail($id);
+    // public function restore($id)
+    // {
+        
+    // Cari data peminjaman berdasarkan ID
+    // $peminjaman = Peminjamans::findOrFail($id);
 
-        // Ubah status is_deleted menjadi false untuk mengembalikan data
-        $peminjaman->is_deleted = false;
-        $peminjaman->save();
+    // Ubah status is_deleted menjadi false untuk mengembalikan data
+    // $peminjaman->is_deleted = false;
+    // $peminjaman->save();
 
-        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
-        return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dikembalikan dari Riwayat Sampah.');
-    }
+    // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+    // return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dikembalikan dari Riwayat Sampah.');
+    // }
 
     //hapus permanen
-    public function forceDelete($id)
-    {
-        // Cari data peminjaman berdasarkan ID
-        $peminjaman = Peminjamans::findOrFail($id);
+    // public function forceDelete($id)
+    // {
+    // Cari data peminjaman berdasarkan ID
+    // $peminjaman = Peminjamans::findOrFail($id);
 
-        // Hapus data secara permanen
-        $peminjaman->delete();
+    // Hapus data secara permanen
+    // $peminjaman->delete();
 
-        // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
-        return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dihapus secara permanen.');
-    }
+    // Redirect kembali ke halaman Riwayat Sampah dengan pesan sukses
+    // return redirect()->route('admin.riwayat_sampah')->with('success', 'Data berhasil dihapus secara permanen.');
+    // }
 
     //export excel
     public function exportPeminjaman()

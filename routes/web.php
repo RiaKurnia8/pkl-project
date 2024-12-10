@@ -78,7 +78,6 @@ Route::get('/user/hpengembalian/cari', [HpengembalianController::class, 'search'
 Route::get('admin/dashboard', [HomeController::class, 'index'])
     ->middleware(['auth', 'admin'])
     ->name('admin.dashboard.index');
-
 Route::get('admin/riwayat-sampah', [HomeController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.riwayat_sampah');
 Route::post('admin/peminjaman/{id}/delete', [HomeController::class, 'delete'])->middleware(['auth', 'admin'])->name('admin.peminjaman.delete');
 Route::post('/admin/riwayat-sampah/restore/{id}', [HomeController::class, 'restore'])->name('admin.riwayat_sampah.restore');

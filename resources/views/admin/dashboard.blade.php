@@ -60,20 +60,20 @@
     <table id="dashboardTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;"> <!-- Mengatur background merah hanya untuk thead -->
             <tr>
-            <th>No</th>
+            {{--<th>No</th>--}}
             <th>ID</th>
             <th>Nama</th>
             <th>Barang</th>
             <th>Plant</th>
             <th>Tanggal Pinjam</th>
             <th>Tanggal Pengembalian</th>
-            <th>Aksi</th>
+            {{--<th>Aksi</th>--}}
         </tr>
     </thead>
     <tbody>
     @foreach ($Peminjamans as $index => $peminjaman)
             <tr>
-                <td>{{ $index + 1 }}</td>
+                {{--<td>{{ $index + 1 }}</td>--}}
                 <td>{{ $peminjaman->id }}</td>
                 <td>{{ $peminjaman->name }}</td>
                 <td>{{ $peminjaman->barang }}</td>
@@ -88,8 +88,8 @@
                         </button>
                     </form>
                 </td> --}}
-                <td>
-                    <!-- Tombol Hapus yang memicu modal -->
+                {{--<td>
+                     <!-- Tombol Hapus yang memicu modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $peminjaman->id }}">
                         <i class="fas fa-trash-alt"></i> Hapus
                     </button>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </td>
-                
+                --}}
                 
             </tr>
         @endforeach
