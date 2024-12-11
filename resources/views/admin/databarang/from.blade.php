@@ -4,7 +4,12 @@
 
 @section('content')
     <div>
+        <div class="mb-3">
+            {{-- <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a> --}}
+            <a href="{{ url()->previous() }}" class="text-danger">
+                <i class="fa-solid fa-arrow-left-long"></i></a>
         <h2 style="text-align: center;">Tambah Barang</h2>
+        </div>
         <form action="{{ route('admin.databarang.store') }}" method="POST" enctype="multipart/form-data" >
             @csrf
             <div class="container">
@@ -77,9 +82,9 @@
 
 
                         <!-- Tombol Back -->
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Kolom Kedua -->
@@ -152,7 +157,7 @@
                         </br>
                         </br> </br> </br>
                         <!-- Tombol Submit -->
-                        <div class="mb-3">
+                        <div class="mb-3 mt-4">
                             <button type="submit" class="btn btn-danger">Submit</button>
                         </div>
                     </div>

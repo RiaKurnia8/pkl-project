@@ -13,7 +13,7 @@
 
 <h1>Kategori</h1>
 <div class="d-flex justify-content-between mt-4 ms-3">
-    <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Kategori</button>
+    <button class="btn btn-primary" onclick="window.location.href='{{ route('kategori.create') }}'">Add Data</button>
 </div>
 
 <div style="padding: 20px; border-radius: 10px;">

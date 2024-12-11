@@ -4,7 +4,12 @@
 
 @section('content')
     <div>
-        <h2 style="text-align: center;">Edit Barang</h2>
+        <div class="mb-3">
+            <a href="{{ url()->previous() }}" class="text-danger">
+                <i class="fa-solid fa-arrow-left-long"></i></a>
+             <h2 style="text-align: center;">Edit Barang</h2>
+        </div>
+       
         {{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -95,9 +100,9 @@
 
 
                         <!-- Tombol Back -->
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Kolom Kedua -->
@@ -141,25 +146,11 @@
                         
                         </div>
 
-                        {{-- <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status">
-                                <option value="">-- Pilih Status --</option>
-                                <option value="dipinjam" {{ $databarang->status == 'dipinjam' ? 'selected' : '' }}>dipinjam</option>
-                                <option value="kembali" {{ $databarang->status == 'kembali' ? 'selected' : '' }}>kembali</option>
-                                <option value="dipinjam" {{ $databarang->status == 'dikantor' ? 'selected' : '' }}>dikantor</option>
-                                
-                            </select>
-                            @error('status')
-                                <p style="color: red">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
 
-                        </br>
-                        </br> </br> </br>
+                        
                         <!-- Tombol Submit -->
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                        <div class="mb-3 mt-5">
+                            <button type="submit" class="btn btn-danger">Update</button>
                         </div>
                     </div>
                 </div>

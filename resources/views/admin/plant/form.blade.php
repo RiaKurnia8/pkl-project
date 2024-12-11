@@ -3,13 +3,17 @@
 @section('title', 'Tambah Plant')
 
 @section('content')
+<div class="mb-3 mt-2">
+    <a href="{{ url()->previous() }}" class="text-danger">
+        <i class="fa-solid fa-arrow-left-long"></i></a>
+</div>
 
-    <div class="container mt-4">
-        <h1 class="mb-4">Tambah Plant</h1>
+    <div class="container">
+        <h2 style="text-align: center;">Tambah Plant</h2>
         <form action="{{ route('admin.plant.store') }}" method="POST">
             @csrf
 
-            <div class="col-md-6">
+            
                 <div class="mb-3">
                     <label for="plant" class="form-label">Plant</label>
                     <input type="text" class="form-control @error('plant') is-invalid @enderror" name="plant"
@@ -32,9 +36,9 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between mt-4">
-                    <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
-                    <button type="submit" class="btn btn-danger">Simpan</button>
+                <div class="mb-3">
+                    {{-- <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a> --}}
+                    <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
         </form>
     </div>

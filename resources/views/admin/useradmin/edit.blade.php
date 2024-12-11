@@ -5,7 +5,13 @@
 
 @section('content')
     <div>
-        <h2 style="text-align: center;">Edit User</h2>
+        <div class="mb-3 ">
+            <a href="{{ url()->previous() }}" class="text-danger">
+            <i class="fa-solid fa-arrow-left-long"></i></a>
+             <h2 style="text-align: center;">Edit User</h2>
+        </div>
+        
+       
 
         <form action="{{ route('admin.useradmin.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -69,9 +75,9 @@
                         </div>
 
                         <!-- Tombol Back berada di bawah inputan No HP -->
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Kolom Kedua (Plant, Jenis Kelamin, Password) -->
@@ -199,7 +205,7 @@
 
                         <!-- Tombol Submit sejajar dengan tombol Back -->
                         <div class="mb-12 d-flex justify-content-end" style="margin-top: 40px;">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-danger">Update</button>
                         </div>
                     </div>
                 </div>

@@ -10,9 +10,11 @@
     {{ session('success') }}
 </div>
 @endif
-
-<div class="container">
-    <h1 class="text-danger">Peminjaman Barang</h1>
+<div class="mb-3 mt-2">
+    <a href="{{ url()->previous() }}" class="text-danger">
+        <i class="fa-solid fa-arrow-left-long"></i></a>
+        <h2 style="text-align: center;">Peminjaman Barang</h2>
+    {{-- <h1 class="text-danger">Peminjaman Barang</h1> --}}
 
     <!-- Form Peminjaman -->
     <form action="upeminjaman" method="POST">
@@ -64,7 +66,7 @@
 
         <!-- Tombol Back dan Save -->
         <div class="d-flex justify-content-end mt-4">
-            <button type="submit" class="btn btn-success">SAVE</button>
+            <button type="submit" class="btn btn-danger">Submit</button>
         </div>
     </form>
 </div>

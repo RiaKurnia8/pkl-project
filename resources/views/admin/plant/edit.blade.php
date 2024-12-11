@@ -4,7 +4,13 @@
 
 @section('content')
 
-<h1>Edit Plant</h1>
+<div class="mb-3 mt-2">
+    <a href="{{ url()->previous() }}" class="text-danger">
+        <i class="fa-solid fa-arrow-left-long"></i></a>
+</div>
+
+    <div class="container">
+        <h2 style="text-align: center;">Edit Plant</h2>
 
 @if(session('success'))
         <div class="alert alert-success">
@@ -44,8 +50,9 @@
                 <label class="form-check-label" for="status_off">Off</label>
             </div>
         </div>
-            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-        <button type="submit" class="btn btn-success">Update</button>
+           
+        <button type="submit" class="btn btn-danger">Update</button>
+         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
     </form>
 
 @endsection
