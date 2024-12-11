@@ -71,10 +71,10 @@
             <div class="collapse" id="collapseTrashs" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
 
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="{{ route('admin.riwayat_sampah') }}">
+                    {{-- <a class="nav-link" href="{{ route('admin.riwayat_sampah') }}">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can-arrow-up"></i></i></div>
                         Dashboard
-                    </a>
+                    </a> --}}
 
                     <a class="nav-link" href="{{ route('admin.databarang.sampah') }}">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-trash-can-arrow-up"></i></i></div>

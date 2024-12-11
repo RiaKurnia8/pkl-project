@@ -16,19 +16,6 @@ class PeminjamanController extends Controller
     public function index()
     {
         $peminjamans = Peminjamans::all();
-        // Loop untuk menambahkan tanggal_pengembalian dari tabel Pengembalian
-        // foreach ($peminjamans as $peminjaman) {
-        //     $pengembalian = DB::table('pengembalians')
-        //         ->where('nik', $peminjaman->nik) // Mencocokkan NIK
-        //         ->where('barang_dipinjam', $peminjaman->barang_dipinjam) // Mencocokkan barang
-        //         ->first(); // Ambil satu data saja
-
-        //     // Set tanggal_pengembalian jika ditemukan, jika tidak biarkan null
-        //     $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
-        // }
-
-        
-
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
@@ -120,29 +107,27 @@ class PeminjamanController extends Controller
 
 
     public function exportPdf()
-{
-    // Ambil data peminjaman
-    $peminjamans = Peminjamans::all();
+    {
+        // Ambil data peminjaman
+        $peminjamans = Peminjamans::all();
 
-    // Loop untuk menambahkan tanggal_pengembalian dari tabel Pengembalian
-    foreach ($peminjamans as $peminjaman) {
-        $pengembalian = DB::table('pengembalians')
-            ->where('nik', $peminjaman->nik) // Mencocokkan NIK
-            ->where('barang_dipinjam', $peminjaman->barang_dipinjam) // Mencocokkan barang
-            ->first(); // Ambil satu data saja
+        // Loop untuk menambahkan tanggal_pengembalian dari tabel Pengembalian
+        foreach ($peminjamans as $peminjaman) {
+            $pengembalian = DB::table('pengembalians')
+                ->where('nik', $peminjaman->nik) // Mencocokkan NIK
+                ->where('barang_dipinjam', $peminjaman->barang_dipinjam) // Mencocokkan barang
+                ->first(); // Ambil satu data saja
 
-        // Set tanggal_pengembalian jika ditemukan, jika tidak biarkan null
-        $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
+            // Set tanggal_pengembalian jika ditemukan, jika tidak biarkan null
+            $peminjaman->tanggal_pengembalian = $pengembalian->tanggal_pengembalian ?? null;
+        }
+
+        // Mengirim data ke view PDF
+        $pdf = Pdf::loadView('admin.peminjaman.index_pdf', ['peminjaman' => $peminjamans]);
+
+        // Atur ukuran kertas dan orientasi menjadi landscape
+        $pdf->setPaper('A4', 'landscape');
+
+        return $pdf->download('laporan-data-peminjaman-' . date('d-m-Y') . '.pdf');
     }
-
-    // Mengirim data ke view PDF
-    $pdf = Pdf::loadView('admin.peminjaman.index_pdf', ['peminjaman' => $peminjamans]);
-
-    // Atur ukuran kertas dan orientasi menjadi landscape
-    $pdf->setPaper('A4', 'landscape');
-    
-    return $pdf->download('laporan-data-peminjaman-' . date('d-m-Y') . '.pdf');
-}
-
-
 }

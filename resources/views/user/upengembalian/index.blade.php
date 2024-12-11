@@ -52,10 +52,35 @@
         </div>
 
         <!-- Tanggal Pinjam Input -->
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="tanggal_pengembalian">Tanggal Pengembalian :</label>
             <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required>
+        </div> --}}
+        <div class="form-group">
+            <label for="tanggal_pengembalian">Tanggal Pengembalian :</label>
+            <input 
+                type="date" 
+                class="form-control" 
+                id="tanggal_pengembalian" 
+                name="tanggal_pengembalian" 
+                value="{{ date('Y-m-d') }}" 
+                readonly 
+                required
+            >
         </div>
+        <script>
+            // Ambil elemen input
+            const tanggalInput = document.getElementById('tanggal_pengembalian');
+            
+            // Dapatkan tanggal hari ini
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Bulan mulai dari 0
+            const dd = String(today.getDate()).padStart(2, '0');
+        
+            // Formatkan tanggal dan set nilai
+            tanggalInput.value = `${yyyy}-${mm}-${dd}`;
+        </script>
 
         <!-- Notes Input -->
         {{-- <div class="form-group">

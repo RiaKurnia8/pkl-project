@@ -67,7 +67,7 @@
             <th>Plant</th>
             <th>Tanggal Pinjam</th>
             <th>Tanggal Pengembalian</th>
-            <th>Aksi</th>
+            {{-- <th>Aksi</th> --}}
         </tr>
     </thead>
     <tbody>
@@ -88,7 +88,7 @@
                         </button>
                     </form>
                 </td> --}}
-                <td>
+                {{-- <td>
                     <!-- Tombol Hapus yang memicu modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $peminjaman->id }}">
                         <i class="fas fa-trash-alt"></i> Hapus
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                </td>
+                </td> --}}
                 
                 
             </tr>
