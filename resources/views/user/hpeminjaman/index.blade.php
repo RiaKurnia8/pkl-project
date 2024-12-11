@@ -12,10 +12,10 @@
     <table id="hpeminjamanTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
-                <th>No</th>
+                {{-- <th>No</th> --}}
+                <th>ID</th>
                 <th>NIK</th>
                 <th>Plant</th>
-                <th>ID</th>
                 <th>Barang</th>
                 <th>Tanggal Pinjam</th>
                 <th>Keperluan</th>
@@ -28,10 +28,10 @@
         <tbody>
             @foreach($peminjamans as $index => $peminjaman)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    {{-- <td>{{ $index + 1 }}</td> --}}
+                    <td>{{ $peminjaman->id }}</td>
                     <td>{{ $peminjaman->nik }}</td>
                     <td>{{ $peminjaman->plant }}</td>
-                    <td>{{ $peminjaman->id }}</td>
                     <td>{{ $peminjaman->barang_dipinjam }}</td>
                     <td>{{ $peminjaman->tanggal_pinjam }}</td>
                     <td>{{ $peminjaman->keperluan }}</td>

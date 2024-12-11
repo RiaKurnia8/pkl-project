@@ -32,7 +32,7 @@ class UserAdminController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             // 'nik' => 'required|digits_between:1,5',
-            'nik' => 'required|digits_between:1,5|unique:users,nik',
+            'nik' => 'required|digits:5|unique:users,nik', // Pastikan NIK harus tepat 5 digit
             'usertype' => 'required',
             // 'username' => 'required|unique:users,username',
             'nomor_hp' => 'required',
@@ -43,6 +43,7 @@ class UserAdminController extends Controller
             'name.required' => 'Nama wajib diisi!!',
             'nik.required' => 'NIK wajib diisi!!',
             'nik.unique' => 'Nomor NIK Sudah Terdaftar',
+            'nik.digits' => 'NIK harus terdiri dari 5 digit!!', // Pesan error untuk validasi digits
             'usertype.required' => 'Usertype wajib diisi!!',
             // 'username.required' => 'Username wajib diisi!!',
             'nomor_hp.required' => 'No.Hp wajib diisi!!',
@@ -76,7 +77,7 @@ class UserAdminController extends Controller
         // Validasi data
         $validated = $request->validate([
             'name' => 'required',
-            'nik' => 'required|digits_between:1,5',
+            'nik' => 'required|digits:5|unique:users,nik,' . $id, // Pastikan NIK harus tepat 5 digit
             'usertype' => 'required',
             // 'username' => 'required|unique:users,username,' . $id,
             'nomor_hp' => 'required',
@@ -86,6 +87,8 @@ class UserAdminController extends Controller
         ], [
             'name.required' => 'Nama wajib diisi!!',
             'nik.required' => 'NIK wajib diisi!!',
+            'nik.digits' => 'NIK harus terdiri dari 5 digit!!', // Pesan error untuk validasi digits
+            'nik.unique' => 'Nomor NIK Sudah Terdaftar',
             'usertype.required' => 'Usertype wajib diisi!!',
             // 'username.required' => 'Username wajib diisi!!',
             'nomor_hp.required' => 'No.Hp wajib diisi!!',

@@ -25,7 +25,7 @@
     <table id="peminjamanTable" class="table table-striped table-bordered">
         <thead style="background-color: #dc3545; color: white;">
             <tr>
-                <th>No</th>
+                {{-- <th>No</th> --}}
                 <th>ID</th>
                 <th>NIK</th>
                 <th>Nama</th>
@@ -44,7 +44,7 @@
             @foreach ($peminjamans as $i => $data)
                 @if ($data && $data->id) <!-- Pastikan $data dan $data->id tidak null -->
                     <tr>
-                        <td>{{ $i + 1 }}</td>
+                        {{-- <td>{{ $i + 1 }}</td> --}}
                         <td>{{ $data->id }}</td>
                         <td>{{ $data->nik }}</td>
                         <td>{{ $data->name }}</td>
@@ -67,37 +67,40 @@
                         <td>{{ $data->tanggal_pengembalian}}</td>
                         
                         <td>
-                            {{-- <a href="{{ route('admin.peminjaman.edit', $data->id) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a> --}}
-                            <!-- Tombol Hapus dengan Modal Konfirmasi -->
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
-                                <i class="fas fa-trash"></i> 
-                            </button>
-                            
-                            <!-- Modal Konfirmasi Penghapusan -->
-                            <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus data ini? <p><strong>{{ $data->barang_dipinjam }}</strong></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <form action="{{ route('admin.peminjaman.destroy', $data->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                            </form>
+                            @if ($data->keterangan === 'Sudah Kembali')
+                                <!-- Tombol Hapus dengan Modal Konfirmasi -->
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                        
+                                <!-- Modal Konfirmasi Penghapusan -->
+                                <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Konfirmasi Penghapusan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Apakah Anda yakin ingin menghapus data ini? 
+                                                <p><strong>{{ $data->barang_dipinjam }}</strong></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <form action="{{ route('admin.peminjaman.destroy', $data->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            @else
+                                <!-- Pesan ketika data belum bisa dihapus -->
+                                <span style="color: gray; font-style: italic; font-size: 13px; white-space: nowrap;">Belum bisa dihapus</span>
+                            @endif
+                        </td>                        
                     </tr>
                 @endif
             @endforeach
