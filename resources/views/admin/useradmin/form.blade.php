@@ -5,18 +5,12 @@
 
 @section('content')
     <div>
-        <h2 style="text-align: center;">Tambah User</h2>
-
-        {{-- Tampilkan pesan kesalahan jika ada --}}
-        {{-- @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif --}}
+        <div class="mb-3">
+            <a href="{{ url()->previous() }}" class="text-danger">
+                <i class="fa-solid fa-arrow-left-long"></i></a>
+             <h2 style="text-align: center;">Tambah User</h2>
+        </div>
+        
 
         <form action="{{ route('admin.useradmin.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -102,21 +96,6 @@
                             @enderror
                         </div>
 
-                        <!-- Input Password Baru dengan icon toggle visibility -->
-                        <!-- Input Password Baru dengan icon toggle visibility -->
-                        {{-- <div style="position: relative; margin-bottom: 16px;">
-                            <label for="password" style="font-size: 14px;">Password</label>
-                            <input id="password" name="password" type="password" required
-                                class="form-control @error('password') is-invalid @enderror"
-                                style="padding-right: 40px; border: 1px solid #333; padding: 8px; width: 100%; border-radius: 4px; font-size: 14px;">
-                            <span onclick="togglePasswordVisibility('password')"
-                                style="display: flex; align-items: center; position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
-                                <i id="toggleIcon_password" class="fas fa-eye"></i>
-                            </span>
-                            @error('password')
-                                <p style="color: red; font-size: 12px;">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
                         <div style="position: relative; margin-bottom: 16px;">
                             <label for="password" style="font-size: 14px;">Password</label>
                             <input id="password" name="password" type="password" required
@@ -154,11 +133,22 @@
 
                 <!-- Tombol Submit dan Back -->
                 <div class="row">
+<<<<<<< HEAD
                     <div class="col-md-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
                     </div>
                     <div class="col-md-6 text-end">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+=======
+                    {{-- <div class="col-md-6">
+                        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                    </div> --}}
+                    {{-- <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-danger">Submit</button>
+                    </div> --}}
+                    <div class="mb-6 mt-4">
+                        <button type="submit" class="btn btn-danger">Submit</button>
+>>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
                     </div>
                 </div>
             </div>

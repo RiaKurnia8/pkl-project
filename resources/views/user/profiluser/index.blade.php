@@ -66,8 +66,9 @@
 
         <!-- Tombol Kembali dan Simpan -->
         <div class="flex justify-between mt-4">
-            <a href="{{ url()->previous() }}" style="background-color: #dc2626; color: #fff; padding: 8px 16px; font-size: 14px; border-radius: 4px; text-decoration: none; ">BACK</a>
-            <button type="submit" style="background-color: #dc2626; color: #fff; padding: 8px 16px; font-size: 14px; border: none; border-radius: 4px;">SAVE</button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">BACK</a>
+            
+            <button type="submit" class="btn btn-danger">SAVE</button>
         </div>
 
     </form>

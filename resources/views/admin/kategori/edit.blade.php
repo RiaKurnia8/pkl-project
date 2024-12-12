@@ -3,8 +3,11 @@
 @section('title', 'Edit Kategori')
 
 @section('content')
-    <h1>Edit Kategori</h1>
-
+<div class="mb-3 mt-2">
+    <a href="{{ url()->previous() }}" class="text-danger">
+        <i class="fa-solid fa-arrow-left-long"></i></a>
+<h2 style="text-align: center;">Edit Kategori</h2>
+</div>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -20,7 +23,7 @@
     <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
         @csrf
         @method('PUT')
-        
+        <div class="container mt-3">
         <div class="form-group">
             <label for="nama_kategori">Nama Kategori</label>
             <input type="text" name="nama_kategori" id="nama_kategori" class="form-control @error('nama_kategori') is-invalid @enderror" value="{{ old('nama_kategori', $kategori->nama_kategori) }}">
@@ -44,7 +47,13 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
+<<<<<<< HEAD
+        <a href="{{ route('kategori.index') }}" class="btn btn-danger">Batal</a>
+        <button type="submit" class="btn btn-success">Simpan</button>
+=======
+        <button type="submit" class="btn btn-danger">Update</button>
         <a href="{{ route('kategori.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+>>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
     </form>
 @endsection

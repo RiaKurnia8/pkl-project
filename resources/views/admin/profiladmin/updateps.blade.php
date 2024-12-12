@@ -64,7 +64,7 @@
 
         <!-- Tombol Kembali dan Simpan -->
         <div class="flex justify-between mt-4">
-            <a href="{{ url()->previous() }}" class="btn btn-danger">BACK</a>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">BACK</a>
             <button type="submit" class="btn btn-danger" >SAVE</button>
         </div>
     </form>

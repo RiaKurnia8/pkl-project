@@ -3,8 +3,15 @@
 @section('title', 'Tambah Kategori')
 
 @section('content')
-    <div class="container mt-4">
-        <h1 class="mb-4">Tambah Kategori</h1>
+    <div class="mb-3 mt-2">
+        <a href="{{ url()->previous() }}" class="text-danger">
+            <i class="fa-solid fa-arrow-left-long"></i></a>
+    </div>
+
+    <div class="container ">
+        <h2 style="text-align: center;">Tambah Kategori</h2>
+
+
         <form action="{{ route('kategori.store') }}" method="POST">
             @csrf
             {{-- <div class="form-group mb-4">
@@ -19,29 +26,39 @@
             <div class="form-group mb-4">
                 <div class="mb-3">
                     <label for="nama_kategori" class="form-label">Kategori</label>
-                    <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori"
-                        id="nama_kategori" placeholder="Masukkan nama kategori">
+                    <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror"
+                        name="nama_kategori" id="nama_kategori" placeholder="Masukkan nama kategori">
                     @error('nama_kategori')
                         <p style="color: red">{{ $message }}</p>
                     @enderror
                 </div>
 
-            <!-- Kolom Status -->
-            <div class="form-group mb-4">
-                <label>Status</label><br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="status_on" value="on" checked>
-                    <label class="form-check-label" for="status_on">On</label>
+                <!-- Kolom Status -->
+                <div class="form-group mb-4">
+                    <label>Status</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="status_on" value="on" checked>
+                        <label class="form-check-label" for="status_on">On</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="status_off" value="off">
+                        <label class="form-check-label" for="status_off">Off</label>
+                    </div>
                 </div>
+<<<<<<< HEAD
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="status" id="status_off" value="off">
                     <label class="form-check-label" for="status_off">Off</label>
                 </div>
             </div>
-            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
+=======
+                {{-- <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a> --}}
+                <button type="submit" class="btn btn-danger">Submit</button>
+>>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
 
-    </div>
-    </form>
+            </div>
+        </form>
     </div>
 @endsection

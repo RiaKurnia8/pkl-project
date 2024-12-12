@@ -36,7 +36,7 @@
                     <th>Keperluan</th>
                     <th>Notes</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    {{-- <th>Aksi</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@
                             <td>{{ $data->notes }}</td>
                             <td>{{ $data->status }}</td>
 
-                            <td>
+                            {{-- <td>
                                 <a href="{{ route('admin.pengembalian.edit', $data->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -92,7 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endif
                 @endforeach

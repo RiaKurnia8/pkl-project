@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,15 +11,20 @@ class ProfilAdminController extends Controller
 {
     public function index()
     {
-        return view('admin.profiladmin.index');
+        $plants = Plant::all();
+        $user = Auth::user();
+        return view('admin.profiladmin.index', compact('plants',  'user'));
     }
 
 
 
     public function edit()
     {
+        $plants = Plant::all();
+
+        $user = Auth::user();
         // Menampilkan form edit profil admin
-        return view('admin.profiladmin.edit');
+        return view('admin.profiladmin.edit', compact('plants', 'user'));
     }
 
     public function update(Request $request)
@@ -27,6 +33,7 @@ class ProfilAdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'nomor_hp' => 'required|string|max:15',
+            'plant_id' => 'required|exists:plants,id',
             //'plant' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
         ]);
@@ -38,6 +45,7 @@ class ProfilAdminController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->nomor_hp = $request->nomor_hp;
+        $user->plant_id = $request->plant_id;
         //$user->plant = $request->plant;
         $user->jenis_kelamin = $request->jenis_kelamin;
 

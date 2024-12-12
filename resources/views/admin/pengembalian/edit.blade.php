@@ -98,8 +98,8 @@
         @csrf
         @method('PUT')
         <!-- Input fields here -->
-        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         <a href="{{ route('admin.pengembalian.index') }}" class="btn btn-danger">Batal</a>
+        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
     </form>
 </form>
 @endif

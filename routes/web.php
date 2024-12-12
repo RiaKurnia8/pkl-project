@@ -82,6 +82,11 @@ Route::get('admin/riwayat-sampah', [HomeController::class, 'showTrash'])->middle
 Route::post('admin/peminjaman/{id}/delete', [HomeController::class, 'delete'])->middleware(['auth', 'admin'])->name('admin.peminjaman.delete');
 Route::post('/admin/riwayat-sampah/restore/{id}', [HomeController::class, 'restore'])->name('admin.riwayat_sampah.restore');
 Route::post('/admin/riwayat-sampah/delete/{id}', [HomeController::class, 'forceDelete'])->name('admin.riwayat_sampah.delete');
+
+// Route::get('admin/riwayat-sampah', [HomeController::class, 'showTrash'])->middleware(['auth', 'admin'])->name('admin.riwayat_sampah');
+// Route::post('admin/peminjaman/{id}/delete', [HomeController::class, 'delete'])->middleware(['auth', 'admin'])->name('admin.peminjaman.delete');
+// Route::post('/admin/riwayat-sampah/restore/{id}', [HomeController::class, 'restore'])->name('admin.riwayat_sampah.restore');
+// Route::post('/admin/riwayat-sampah/delete/{id}', [HomeController::class, 'forceDelete'])->name('admin.riwayat_sampah.delete');
 Route::get('admin/export-peminjaman', [HomeController::class, 'exportPeminjaman'])->name('admin.export.peminjaman');
 Route::get('/admin/dashboard/exportpdf', [HomeController::class, 'exportPdf'])->name('admin.dashboard.exportPdf');
 
@@ -198,6 +203,7 @@ Route::put('/admin/pengembalian/{id}', [PengembalianController::class, 'update']
 
 Route::get('/user/upengembalian', [UpengembalianController::class, 'index'])->name('pengembalian.index'); // Menampilkan form
 Route::post('/user/upengembalian', [UpengembalianController::class, 'store'])->name('pengembalian.store');
+Route::get('/hpeminjaman', [HpeminjamanController::class, 'index'])->name('user.hpeminjaman.index');
 
 Route::get('/admin/hpengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
 
