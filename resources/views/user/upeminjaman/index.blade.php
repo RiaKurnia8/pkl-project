@@ -66,11 +66,7 @@
 
         <!-- Tombol Back dan Save -->
         <div class="d-flex justify-content-end mt-4">
-<<<<<<< HEAD
             <button type="submit" class="btn btn-success">Simpan</button>
-=======
-            <button type="submit" class="btn btn-danger">Submit</button>
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
         </div>
     </form>
 </div>

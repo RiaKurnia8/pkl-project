@@ -155,13 +155,8 @@
 
                         
                         <!-- Tombol Submit -->
-<<<<<<< HEAD
                         <div class="mb-3">
                             <button type="submit" class="btn btn-success">Simpan</button>
-=======
-                        <div class="mb-3 mt-5">
-                            <button type="submit" class="btn btn-danger">Update</button>
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
                         </div>
                     </div>
                 </div>

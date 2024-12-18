@@ -50,14 +50,8 @@
                 <label class="form-check-label" for="status_off">Off</label>
             </div>
         </div>
-<<<<<<< HEAD
             <a href="{{ url()->previous() }}" class="btn btn-danger">Batal</a>
         <button type="submit" class="btn btn-success">Simpan</button>
-=======
-           
-        <button type="submit" class="btn btn-danger">Update</button>
-         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
     </form>
 
 @endsection

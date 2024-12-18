@@ -10,13 +10,18 @@
     {{ session('success') }}
 </div>
 @endif
+<div class="mb-3 mt-2">
+    <a href="{{ url()->previous() }}" class="text-danger">
+        <i class="fa-solid fa-arrow-left-long"></i></a>
+        <h2 style="text-align: center;">Pengembalian Barang</h2>
 
-<div class="container">
-    <h1 class="text-danger">Pengembalian Barang</h1>
+{{-- <div class="container">
+    <h1 class="text-danger">Pengembalian Barang</h1> --}}
 
     <!-- Form pengembalian -->
     <form action="upengembalian" method="POST">
         @csrf
+        <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
 
         {{-- <div class="form-group">
             <label for="id">ID Barang :</label>
@@ -51,11 +56,6 @@
             <input type="text" class="form-control" id="barang" name="barang" value="{{ $barang }}" readonly>
         </div>
 
-        <!-- Tanggal Pinjam Input -->
-        {{-- <div class="form-group">
-            <label for="tanggal_pengembalian">Tanggal Pengembalian :</label>
-            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required>
-        </div> --}}
         <div class="form-group">
             <label for="tanggal_pengembalian">Tanggal Pengembalian :</label>
             <input 
@@ -82,22 +82,14 @@
             tanggalInput.value = `${yyyy}-${mm}-${dd}`;
         </script>
 
-        <!-- Notes Input -->
-        {{-- <div class="form-group">
-            <label for="notes">Notes :</label>
-            <textarea class="form-control" id="notes" name="notes" rows="5" required></textarea>
-        </div> --}}
-
-         {{-- keperluan --}}
          <div class="form-group">
-            <label for="keperluan">Keperluan :</label>
+            <label for="keperluan">Catatan :</label>
             <textarea class="form-control" id="keperluan" name="keperluan" rows="5" required></textarea>
         </div>
 
         <!-- Tombol Back dan Save -->
         <div class="d-flex justify-content-end mt-4">
-            <a href="{{ route('user.hpeminjaman.index') }}" class="btn btn-danger">Batal</a>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn btn-success">SAVE</button>
         </div>
     </form>
 </div>

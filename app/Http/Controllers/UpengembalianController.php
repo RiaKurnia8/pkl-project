@@ -52,6 +52,7 @@ class UpengembalianController extends Controller
         }
 
         // Kirim notifikasi melalui session
-        return redirect()->back()->with('success', 'Data berhasil disimpan');
+        // return redirect()->back()->with('success', 'Data berhasil disimpan');
+        return redirect($request->redirect_url)->with('success', 'Data pengembalian berhasil disimpan!');
     }
 }

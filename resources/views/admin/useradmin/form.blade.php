@@ -133,22 +133,11 @@
 
                 <!-- Tombol Submit dan Back -->
                 <div class="row">
-<<<<<<< HEAD
                     <div class="col-md-6">
                         <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
                     </div>
                     <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-success">Simpan</button>
-=======
-                    {{-- <div class="col-md-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                    </div> --}}
-                    {{-- <div class="col-md-6 text-end">
-                        <button type="submit" class="btn btn-danger">Submit</button>
-                    </div> --}}
-                    <div class="mb-6 mt-4">
-                        <button type="submit" class="btn btn-danger">Submit</button>
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
                     </div>
                 </div>
             </div>

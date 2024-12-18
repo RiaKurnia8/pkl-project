@@ -36,15 +36,9 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <div class="flex justify-between mt-4">
                     <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
                     <button type="submit" class="btn btn-success">Simpan</button>
-=======
-                <div class="mb-3">
-                    {{-- <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a> --}}
-                    <button type="submit" class="btn btn-danger">Submit</button>
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
                 </div>
         </form>
     </div>
