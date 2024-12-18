@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 08:45 AM
+-- Generation Time: Dec 18, 2024 at 07:19 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -82,12 +82,7 @@ CREATE TABLE `databarangs` (
 --
 
 INSERT INTO `databarangs` (`id`, `lokasi`, `barang`, `no_asset`, `no_equipment`, `kategori_id`, `merk`, `tipe`, `sn`, `kelayakan`, `foto`, `status`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(8, 'server 90', 'laptop', '1260j9910', '0091728', 8, 'panasonic', '1234', '1029378493', 'layak', '1729663997_1.jpg', 'kembali', '2024-10-22 23:13:17', '2024-11-25 19:03:01', 0),
-(12, 'c', 'c', 'c', 'c', 8, 'c', 'c', 'c', 'layak', '1729735761_68eddcea02ceb29abde1b1c752fa29eb.jpg', 'kembali', '2024-10-02 02:07:43', '2024-11-25 19:03:30', 1),
-(18, 'user', 'user', '123', '123', 10, '123', '123', '123', 'tidaklayak', '1730027907_IMG-20240903-WA0008.jpg', 'dipinjam', '2024-10-24 20:15:48', '2024-10-27 04:18:27', 0),
-(19, 'user', 'Mouse', '123', '123', NULL, '123', '123', '123000', 'layak', '1730027917_IMG-20240903-WA0007.jpg', 'kembali', '2024-10-24 20:16:32', '2024-11-27 17:31:08', 0),
-(24, 'TLI', 'ahgs', 'skhku', 'akakaka', 9, 'saaa', 'sasds', 'dfzxc', 'tidaklayak', '1733028112_Screenshot 2024-11-30 151816.jpg', NULL, '2024-11-30 21:41:52', '2024-11-30 21:41:52', 0),
-(25, 'Gudang', 'Router', '1200ITC-0098', '300000084/24', 8, 'D-Link', '1200', '8qu18819891', 'layak', '1733790127_GZ0o-E7aoAAQwiO.jpeg', NULL, '2024-12-09 17:22:07', '2024-12-09 17:22:07', 0);
+(1, 'IT', 'Laptop', 'ITC 1200-jjwiu218', '300002020/0', 8, 'Lenovo', 'T480', '12345', 'tidaklayak', '1734501284_user sem 3.jpg', NULL, '2024-12-17 22:54:44', '2024-12-17 22:54:44', 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +158,7 @@ INSERT INTO `kategoris` (`id`, `nama_kategori`, `created_at`, `updated_at`, `sta
 (8, 'networkpart', '2024-10-22 19:15:33', '2024-10-22 19:15:33', 'on', 0),
 (9, 'surveilance', '2024-10-22 19:52:07', '2024-10-22 19:52:07', 'on', 0),
 (10, 'sparepart', '2024-10-22 21:34:53', '2024-12-09 17:23:19', 'on', 0),
-(24, 'peripheral1', '2024-12-09 17:53:38', '2024-12-09 17:56:07', 'on', 0);
+(24, 'peripheral', '2024-12-09 17:53:38', '2024-12-10 17:24:53', 'on', 0);
 
 -- --------------------------------------------------------
 
@@ -250,6 +245,15 @@ CREATE TABLE `peminjamans` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `peminjamans`
+--
+
+INSERT INTO `peminjamans` (`id`, `nik`, `username`, `name`, `plant`, `barang_dipinjam`, `tanggal_pinjam`, `status`, `keterangan`, `tanggal_pengembalian`, `notes`, `keperluan`, `created_at`, `updated_at`, `is_deleted`) VALUES
+(1, '08049', NULL, 'user', 'PMR 1', 'Hdd', '2024-12-01', 'diterima', 'Sudah Kembali', '2024-12-18', 'ok', 'untuk', '2024-12-10 18:22:01', '2024-12-17 22:16:35', 0),
+(2, '08049', NULL, 'user', 'PMR 1', 'laptop', '2024-12-02', 'diterima', 'Sudah Kembali', '2024-12-18', 'sip', 'oke', '2024-12-10 18:22:18', '2024-12-17 22:30:24', 0),
+(3, '08049', NULL, 'user', 'PMR 1', 'pc', '2024-12-03', 'diterima', 'Sudah Kembali', '2024-12-18', 'sip', 'polije', '2024-12-10 18:22:41', '2024-12-17 22:33:21', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -272,6 +276,15 @@ CREATE TABLE `pengembalians` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pengembalians`
+--
+
+INSERT INTO `pengembalians` (`id`, `peminjaman_id`, `nik`, `username`, `name`, `plant`, `barang_dipinjam`, `tanggal_pengembalian`, `status`, `keperluan`, `notes`, `created_at`, `updated_at`) VALUES
+(1, NULL, '08049', NULL, 'user', 'PMR 1', 'Hdd', '2024-12-18', '', 'sudah kembali', NULL, '2024-12-17 22:16:35', '2024-12-17 22:16:35'),
+(2, NULL, '08049', NULL, 'user', 'PMR 1', 'laptop', '2024-12-18', '', 'ok', NULL, '2024-12-17 22:30:24', '2024-12-17 22:30:24'),
+(3, NULL, '08049', NULL, 'user', 'PMR 1', 'pc', '2024-12-18', '', 'sip', NULL, '2024-12-17 22:33:21', '2024-12-17 22:33:21');
+
 -- --------------------------------------------------------
 
 --
@@ -292,11 +305,25 @@ CREATE TABLE `plants` (
 --
 
 INSERT INTO `plants` (`id`, `plant`, `status`, `created_at`, `updated_at`, `is_deleted`) VALUES
-(1, 'IT', 'on', '2024-11-22 23:03:23', '2024-11-22 23:03:23', 0),
-(2, 'TLI', 'on', '2024-11-29 20:30:21', '2024-11-29 20:30:21', 0),
-(3, 'Packing', 'on', '2024-12-09 18:15:22', '2024-12-09 18:15:22', 0),
-(4, 'PMR 1', 'on', '2024-12-09 18:15:31', '2024-12-09 18:15:31', 0),
-(5, 'PMR 2', 'on', '2024-12-09 18:15:41', '2024-12-09 18:15:41', 0);
+(1, 'Quality Control & Quality Assurance', 'on', '2024-11-22 23:03:23', '2024-12-17 22:40:44', 0),
+(2, 'General Affair', 'on', '2024-11-29 20:30:21', '2024-12-17 22:40:59', 0),
+(3, 'Safety, Health & Environment', 'on', '2024-12-09 18:15:22', '2024-12-17 22:41:25', 0),
+(4, 'Human Resource', 'on', '2024-12-09 18:15:31', '2024-12-17 22:41:38', 0),
+(5, 'Liquid Fertilizer - Sales', 'on', '2024-12-09 18:15:41', '2024-12-17 22:42:01', 0),
+(6, 'Fermentation', 'on', '2024-12-17 22:42:14', '2024-12-17 22:42:14', 0),
+(7, 'Engineering', 'on', '2024-12-17 22:42:27', '2024-12-17 22:42:27', 0),
+(8, 'Planning & Production Control - Supplay Chain Management', 'on', '2024-12-17 22:47:24', '2024-12-17 22:47:24', 0),
+(9, 'Finance', 'on', '2024-12-17 22:48:01', '2024-12-17 22:48:01', 0),
+(10, 'Technical Development', 'on', '2024-12-17 22:48:16', '2024-12-17 22:48:16', 0),
+(11, 'Isolation & Purification', 'on', '2024-12-17 22:48:31', '2024-12-17 22:48:31', 0),
+(12, 'Mechanical Maintenance Tech', 'on', '2024-12-17 22:49:44', '2024-12-17 22:49:44', 0),
+(13, 'Utility', 'on', '2024-12-17 22:49:50', '2024-12-17 22:49:50', 0),
+(14, 'Logistic', 'on', '2024-12-17 22:49:58', '2024-12-17 22:49:58', 0),
+(15, 'Electrical Instruments', 'on', '2024-12-17 22:50:19', '2024-12-17 22:50:19', 0),
+(16, 'Packing', 'on', '2024-12-17 22:50:26', '2024-12-17 22:50:26', 0),
+(17, 'Maintenance Tech. & Pollycello', 'on', '2024-12-17 22:51:18', '2024-12-17 22:51:18', 0),
+(18, 'Advicer', 'on', '2024-12-17 22:51:33', '2024-12-17 22:51:33', 0),
+(19, 'Management', 'on', '2024-12-17 22:51:41', '2024-12-17 22:51:41', 0);
 
 -- --------------------------------------------------------
 
@@ -318,8 +345,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('GXJvGnOJEG8CoUwaiuyUp1o1c0FNxxe5bqmwapEq', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNUVnTW1WS3pwMW9LV0thTGRQN25ucXVTOTd4MHpzWVExREpMc2luYSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1733807296),
-('Y3uVNh948uB1OEDQHw0P7Wd8Xeu3sJ9Sd4bVxoaf', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoienE0bzZjWGNEbTBQYVByWXkycTJnWVZobTJ2b3ZKSGxIYk43UW9kSiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1733807279);
+('6WeBzIojeRlCG8ZXB1QLwlxudH0PmipQp1XwzfzE', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVTBMOW9wcGptZFZENTlPb041Tmw5djJCSXRWa1k5N2hxcG90dnhiYyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2hwZW1pbmphbWFuIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1734500026),
+('Hq4BXo3sI4T7Df2MYgMIvp5fTQIcjhERgHv7G58u', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSWZib3ptV3NPazh4aTh5Z1dRTzNFaHU0TDFPR2J5WmxRcVJadGlXWSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9iYXJhbmctc2FtcGFoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1734501722),
+('mvPyqUpqColLPGNzjP9Y4jMndX1lnwN3rVOT7rUX', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTEVVR1ppWXdvT2hOTFJJRXZCWlMwZEEzbTNPZmZoMnUzc3lHWkJwZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXRhYmFyYW5nIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1734491716);
 
 -- --------------------------------------------------------
 
@@ -349,12 +377,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `nik`, `usertype`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `username`, `nomor_hp`, `jenis_kelamin`, `plant_id`, `is_deleted`) VALUES
-(1, 'admin', '08048', 'admin', NULL, '$2y$12$yL5w.Hhhl..YaRJbBW0ZTOVOfGribzYLOfhwLTLHgpdRix6TPqU22', NULL, '2024-10-14 18:11:27', '2024-12-09 18:32:07', NULL, '087234567098', 'Laki-laki', 2, 0),
-(2, 'user', '08049', 'user', NULL, '$2y$12$rBJXYIuRtDAyAffuZPKxpeAHX.Q5FZy.IySMZlyrShoFFV385do2S', NULL, '2024-10-14 18:12:08', '2024-12-09 18:32:18', NULL, '098627127890', 'Laki-laki', 4, 0),
-(18, 'Mey Nur Afni', '11111', 'user', NULL, '$2y$12$gZOzrRtIAY7r1cVRSxtHXunU4SXJG9cSSNcy.iljF6ft02ckhwqxG', NULL, '2024-12-02 17:14:03', '2024-12-02 17:14:03', NULL, '098388929102', 'Perempuan', 1, 0),
-(19, 'Syeba Wardahani', '1234', 'user', NULL, '$2y$12$jAAbiFTR/4knSLHt7CnpXesSO8U2VBk5Yjd7Ca8bT7leKg7K0bzCu', NULL, '2024-12-04 21:46:53', '2024-12-04 21:46:53', NULL, '087234567098', 'Perempuan', 1, 0),
-(20, 'Syeba Wardahani', '12345', 'user', NULL, '$2y$12$1MFcDS/NBTkjoseHToYwCu5E2pisqToX5f1q6bfaA4F.pdg2PP6GO', NULL, '2024-12-04 21:48:08', '2024-12-04 21:48:08', NULL, '087234567098', 'Perempuan', 1, 0),
-(21, 'Alya', '1221', 'user', NULL, '$2y$12$vDv1EaOw2boO0Xwi.qLF1.SXVX2HvVYXGZrjijBSlyIZtwoeNAI5W', NULL, '2024-12-09 17:41:44', '2024-12-09 18:37:53', NULL, '098627127890', 'Perempuan', 1, 0);
+(1, 'admin', '08048', 'admin', NULL, '$2y$12$yL5w.Hhhl..YaRJbBW0ZTOVOfGribzYLOfhwLTLHgpdRix6TPqU22', NULL, '2024-10-14 18:11:27', '2024-12-17 22:52:15', NULL, '087234567098', 'Laki-laki', 10, 0),
+(2, 'user', '08049', 'user', NULL, '$2y$12$IMgz74JDeIt3Ld8Njm1XTeUcjRn.BwCIFlC0AMH5XRPJIGVBYgnj.', NULL, '2024-10-14 18:12:08', '2024-12-17 22:53:09', NULL, '098627127890', 'Laki-laki', 10, 0);
 
 --
 -- Indexes for dumped tables
@@ -460,7 +484,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `databarangs`
 --
 ALTER TABLE `databarangs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -490,19 +514,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `peminjamans`
 --
 ALTER TABLE `peminjamans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pengembalians`
 --
 ALTER TABLE `pengembalians`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `plants`
 --
 ALTER TABLE `plants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
