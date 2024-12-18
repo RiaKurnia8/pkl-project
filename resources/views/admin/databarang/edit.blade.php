@@ -100,15 +100,9 @@
 
 
                         <!-- Tombol Back -->
-<<<<<<< HEAD
                         <div class="mb-3">
                             <a href="{{ url()->previous() }}" class="btn btn-danger">Batal</a>
                         </div>
-=======
-                        {{-- <div class="mb-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                        </div> --}}
->>>>>>> 72542b368a5eec9c79c1746c48f934aec671fc55
                     </div>
 
                     <!-- Kolom Kedua -->
